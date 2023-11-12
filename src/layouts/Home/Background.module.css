@@ -1,0 +1,40 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  filter: blur(60px);
+  opacity: 0.3;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.out_top {
+  animation: rotate 19s linear infinite;
+  transform-origin: 13px 25px;
+  fill: rgb(var(--rgbAccent));
+}
+
+.in_top {
+  animation: rotate 15s linear infinite;
+  transform-origin: 13px 25px;
+  fill: rgb(var(--rgbText));
+}
+
+.out_bottom {
+  animation: rotate 21s linear infinite;
+  transform-origin: 84px 93px;
+  fill: rgb(var(--rgbAccent));
+}
+
+.in_bottom {
+  animation: rotate 17s linear infinite;
+  transform-origin: 84px 93px;
+  fill: rgb(var(--rgbText));
+}
