@@ -62,7 +62,7 @@ export const Timeline = () => {
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
         >
           <h3>Web developer internship at Radar Technologies</h3>
-          <p>Cournon d'Auvergne, France</p>
+          <p>Cournon d&apos;Auvergne, France</p>
           <p>April 2023 - June 2023</p>
         </VerticalTimelineElement>
         <VerticalTimelineElement
