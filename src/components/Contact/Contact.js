@@ -1,19 +1,17 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'components/Link';
-import { Text } from 'components/Text';
 import { classes } from 'utils/style';
 import styles from './Contact.module.css';
+import { Input } from 'components/Input';
+import { Button } from 'components/Button';
+import { Divider } from 'components/Divider';
+import { Heading } from 'components/Heading';
+import { DecoderText } from 'components/DecoderText';
+import { useFormInput } from 'hooks';
 
 export function Contact({ id, sectionRef, className }) {
-  /*const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(errors);*/
-
+  const name = useFormInput('');
+  const email = useFormInput('');
+  const message = useFormInput('');
   return (
     <section
       className={classes(styles.contact, className)}
@@ -21,32 +19,55 @@ export function Contact({ id, sectionRef, className }) {
       ref={sectionRef}
       id={id}
     >
-      <Text>
-        You can contact me <Link href="mailto:alexisferon081@gmail.com">here.</Link>
-      </Text>
+      <form
+        name="contact-form"
+        accept-charset="utf-8"
+        action="https://formspree.io/f/moqoegjz"
+        method="post"
+      >
+        <Heading level={3} as="h1">
+          <DecoderText text="Get in Contact!" />
+        </Heading>
+        <br />
+        <Divider className={styles.divider} />
+        <br />
+        <Input
+          type="text"
+          name="name"
+          id="full-name"
+          label="Your Name"
+          required
+          className={styles.input}
+          autoComplete="name"
+          maxLength={512}
+          {...name}
+        />
+        <br />
+        <Input
+          type="email"
+          name="_replyto"
+          id="email-address"
+          label="Your Email"
+          required
+          className={styles.input}
+          autoComplete="email"
+          maxLength={512}
+          {...email}
+        />
+        <br />
+        <Input
+          name="message"
+          id="message"
+          label="Message"
+          required
+          multiline
+          className={styles.input}
+          autoComplete="off"
+          maxLength={4096}
+          {...message}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
     </section>
   );
 }
-
-/*
-<form onSubmit={handleSubmit(onSubmit)}>
-  <input
-    type="text"
-    placeholder="Name"
-    {...register('Name', { required: true, maxLength: 100 })}
-  />
-  <input
-    type="email"
-    placeholder="Email"
-    {...register('Email', { maxLength: 100 })}
-  />
-  <input type="text" placeholder="Title" {...register('Title', { maxLength: 150 })} />
-  <input
-    type="text"
-    placeholder="Message"
-    {...register('Message', { maxLength: 500 })}
-  />
-
-  <input type="submit" />
-</form>
-*/

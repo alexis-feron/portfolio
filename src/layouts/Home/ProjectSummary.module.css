@@ -83,7 +83,21 @@
   justify-content: center;
   height: 90%;
   width: 90%;
-  left: -50px;
+}
+
+.content .preview:first-child canvas {
+  @media (--mediaUseMotion) {
+    left: -100px;
+  }
+  @media (--mediaLaptop) {
+    left: -100px;
+  }
+  @media (--mediaTablet) {
+    left: 0;
+  }
+  @media (--mediaMobile) {
+    left: 0;
+  }
 }
 
 .model {
@@ -237,6 +251,7 @@
   transition-duration: var(--durationXL);
   transition-delay: var(--durationL);
   opacity: 0;
+  text-align: justify;
 
   @media (--mediaUseMotion) {
     transition-property: transform, opacity;
@@ -265,5 +280,11 @@
   &[data-visible='true'] {
     transform: none;
     opacity: 1;
+  }
+}
+
+#project-2 {
+  .details {
+    padding-right: 500px;
   }
 }

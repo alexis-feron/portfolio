@@ -8,6 +8,7 @@ import { TextArea } from './TextArea';
 
 export const Input = ({
   id,
+  name,
   label,
   value,
   multiline,
@@ -68,6 +69,7 @@ export const Input = ({
           required={required}
           maxLength={maxLength}
           type={type}
+          name={name}
         />
         <div className={styles.underline} data-focused={focused} />
       </div>

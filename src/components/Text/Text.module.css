@@ -19,7 +19,7 @@
   }
 
   &[data-align='auto'] {
-    text-align: inherit;
+    /*text-align: inherit;*/
   }
 
   &[data-align='start'] {

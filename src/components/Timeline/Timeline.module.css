@@ -25,3 +25,36 @@
 .vertical_timeline::before {
   background: var(--colorTextBody);
 }
+
+.languages {
+  display: flex;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow-x: overlay;
+  padding-bottom: 10px;
+}
+
+.languages div {
+  display: inline-block;
+  border: 1.5px solid var(--colorTextBody);
+  border-radius: 15px;
+  padding: 3px 7px;
+  margin-right: 10px;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+}
+
+.languages::-webkit-scrollbar {
+  height: 5px;
+  margin-top: 5px;
+}
+
+.languages::-webkit-scrollbar-track {
+  background: var(--rgbBackgroundLight);
+  border-radius: 5px;
+}
+
+.languages::-webkit-scrollbar-thumb {
+  background: var(--colorTextLight);
+  border-radius: 5px;
+}

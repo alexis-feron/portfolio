@@ -9,3 +9,12 @@
   z-index: var(--zIndex2);
   position: relative;
 }
+
+.contact form {
+  width: 80vh;
+  margin: 0 auto;
+}
+
+.contact Button {
+  margin-top: 18px;
+}
