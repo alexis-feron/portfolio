@@ -21,7 +21,7 @@ export function Contact({ id, sectionRef, className }) {
     >
       <form
         name="contact-form"
-        accept-charset="utf-8"
+        acceptCharset="utf-8"
         action="https://formspree.io/f/moqoegjz"
         method="post"
       >

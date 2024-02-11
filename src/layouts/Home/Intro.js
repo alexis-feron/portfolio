@@ -6,11 +6,10 @@ import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { AnimatePresence } from 'framer-motion';
-import { useInterval, usePrevious, useScrollToHash } from 'hooks';
+import { useScrollToHash } from 'hooks';
 import dynamic from 'next/dynamic';
 import RouterLink from 'next/link';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { cssProps } from 'utils/style';
 import styles from './Intro.module.css';
 
@@ -20,7 +19,6 @@ const Background = dynamic(() =>
 
 export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
-  const prevTheme = usePrevious(theme);
   const titleId = `${id}-title`;
   const scrollToHash = useScrollToHash();
 

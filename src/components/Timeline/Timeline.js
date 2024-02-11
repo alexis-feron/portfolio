@@ -54,6 +54,7 @@ export const Timeline = () => {
             <img
               src="https://iconape.com/wp-content/png_logo_vector/design-230.png"
               style={{ width: '25px', height: '25px' }}
+              alt=""
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
@@ -95,6 +96,7 @@ export const Timeline = () => {
             <img
               src="https://iconape.com/wp-content/png_logo_vector/design-230.png"
               style={{ width: '25px', height: '25px' }}
+              alt=""
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
@@ -134,6 +136,7 @@ export const Timeline = () => {
             <img
               src="https://icons.veryicon.com/png/o/object/material-design-icons/school-9.png"
               style={{ width: '25px', height: '25px' }}
+              alt=""
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
