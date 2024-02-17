@@ -158,7 +158,6 @@ export const Navbar = () => {
             <RouterLink href={pathname} scroll={false} key={label}>
               <a
                 data-navbar-item
-                target="_blank"
                 className={styles.navLink}
                 aria-current={getCurrent(pathname)}
                 onClick={handleNavItemClick}
@@ -178,7 +177,6 @@ export const Navbar = () => {
                 <a
                   className={styles.mobileNavLink}
                   data-visible={visible}
-                  target="_blank"
                   aria-current={getCurrent(pathname)}
                   onClick={handleMobileNavClick}
                   style={cssProps({

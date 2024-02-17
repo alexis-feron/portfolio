@@ -13,7 +13,7 @@ export const navLinks = [
   },
   {
     label: 'Resume',
-    pathname: 'https://alexis-feron.github.io/cv/',
+    pathname: '/resume',
   },
 ];
 
