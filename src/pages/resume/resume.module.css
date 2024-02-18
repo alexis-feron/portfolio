@@ -3,7 +3,6 @@
   grid-template-columns: 3fr 2fr;
   height: 100%;
   padding-left: 140px;
-  overflow: hidden;
 
   @media (--mediaTablet) {
     padding-top: 80px;
@@ -35,7 +34,6 @@
   @media (--mediaMobile) {
     height: 49.49vh;
     width: 37vh;
-    margin-top: -30px;
   }
 }
 
@@ -169,7 +167,6 @@
   }
   @media (--mediaTablet) {
     width: auto;
-    z-index: 999;
     margin-top: 0;
     margin-bottom: 0;
     position: relative;
