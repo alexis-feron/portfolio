@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { classes } from 'utils/style';
 import styles from './Contact.module.css';
 import { Input } from 'components/Input';
@@ -12,6 +12,32 @@ export function Contact({ id, sectionRef, className }) {
   const name = useFormInput('');
   const email = useFormInput('');
   const message = useFormInput('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch(event.target.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      name.onChange({ target: { value: '' } });
+      email.onChange({ target: { value: '' } });
+      message.onChange({ target: { value: '' } });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      console.error('There was an error submitting the form:', error);
+    }
+  };
+
   return (
     <section
       className={classes(styles.contact, className)}
@@ -24,6 +50,7 @@ export function Contact({ id, sectionRef, className }) {
         acceptCharset="utf-8"
         action="https://formspree.io/f/moqoegjz"
         method="post"
+        onSubmit={handleSubmit}
       >
         <Heading level={3} as="h1">
           <DecoderText text="Get in Contact!" />
@@ -33,7 +60,7 @@ export function Contact({ id, sectionRef, className }) {
         <br />
         <Input
           type="text"
-          name="name"
+          name="Name"
           id="full-name"
           label="Your Name"
           required
@@ -45,7 +72,7 @@ export function Contact({ id, sectionRef, className }) {
         <br />
         <Input
           type="email"
-          name="_replyto"
+          name="Email"
           id="email-address"
           label="Your Email"
           required
@@ -56,7 +83,7 @@ export function Contact({ id, sectionRef, className }) {
         />
         <br />
         <Input
-          name="message"
+          name="Message"
           id="message"
           label="Message"
           required
@@ -66,7 +93,14 @@ export function Contact({ id, sectionRef, className }) {
           maxLength={4096}
           {...message}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className={submitted ? styles.success : ''}
+          secondary={submitted}
+          disabled={submitted}
+        >
+          {submitted ? 'Submitted' : 'Submit'}
+        </Button>
       </form>
     </section>
   );
