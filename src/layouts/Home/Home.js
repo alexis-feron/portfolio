@@ -82,7 +82,7 @@ export const Home = () => {
         title="Big Brain Games"
         description="AI mini-games website created with NextJS"
         buttonText="View website"
-        buttonLink="https://big-brain-games.vercel.app"
+        buttonLink="https://big-brain-games.alexis-feron.com"
         model={{
           type: 'laptop',
           alt: 'Big Brain Games preview',
