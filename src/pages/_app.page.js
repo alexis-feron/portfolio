@@ -1,5 +1,5 @@
-import 'layouts/App/reset.css';
 import 'layouts/App/global.css';
+import 'layouts/App/reset.css';
 
 import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
@@ -44,7 +44,9 @@ const App = ({ Component, pageProps }) => {
             <Head>
               <link
                 rel="canonical"
-                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}${canonicalRoute}`}
+                href={`${
+                  process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://alexis-feron.com'
+                }${canonicalRoute}`}
               />
             </Head>
             <VisuallyHidden

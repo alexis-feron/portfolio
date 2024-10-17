@@ -1,14 +1,14 @@
-import { Footer } from 'components/Footer';
+import bigbraingames from 'assets/bigbraingames.png';
+import gamecenter from 'assets/gamecenter.png';
 import { Contact } from 'components/Contact';
+import { Footer } from 'components/Footer';
 import { Meta } from 'components/Meta';
+import { Timeline } from 'components/Timeline';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
-import bigbraingames from 'assets/bigbraingames.png';
-import gamecenter from 'assets/gamecenter.png';
-import { Timeline } from 'components/Timeline';
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
@@ -57,7 +57,12 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
-      <Meta title="Web Developer" description="" />
+      <Meta
+        title="Alexis Feron, Web Developer Full-Stack"
+        description="Alexis Feron, développeur web fullstack. Découvrez mon portfolio."
+        keywords="Alexis Feron, portfolio, web developer, fullstack, react, vue, nextjs, nodejs"
+      />
+
       <Intro
         id="intro"
         sectionRef={intro}
