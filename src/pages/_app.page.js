@@ -1,6 +1,7 @@
 import 'layouts/App/global.css';
 import 'layouts/App/reset.css';
 
+import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
@@ -76,6 +77,7 @@ const App = ({ Component, pageProps }) => {
                 >
                   <ScrollRestore />
                   <Component {...pageProps} />
+                  <Analytics />
                 </m.div>
               </AnimatePresence>
             </main>
