@@ -1,5 +1,5 @@
-import { SpeedInsights } from '@components/SpeedInsights';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
