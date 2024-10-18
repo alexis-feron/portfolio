@@ -1,5 +1,4 @@
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
@@ -78,7 +77,6 @@ const App = ({ Component, pageProps }) => {
                   <ScrollRestore />
                   <Component {...pageProps} />
                   <Analytics />
-                  <SpeedInsights />
                 </m.div>
               </AnimatePresence>
             </main>
