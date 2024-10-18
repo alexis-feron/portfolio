@@ -55,6 +55,7 @@ export const Timeline = () => {
               src="https://iconape.com/wp-content/png_logo_vector/design-230.png"
               style={{ width: '25px', height: '25px' }}
               alt="Icon of a suitcase"
+              title="Icon of a suitcase"
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
@@ -97,6 +98,7 @@ export const Timeline = () => {
               src="https://iconape.com/wp-content/png_logo_vector/design-230.png"
               style={{ width: '25px', height: '25px' }}
               alt="icon of a suitcase"
+              title="icon of a suitcase"
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
@@ -137,6 +139,7 @@ export const Timeline = () => {
               src="https://icons.veryicon.com/png/o/object/material-design-icons/school-9.png"
               style={{ width: '25px', height: '25px' }}
               alt="icon of a school graduation cap"
+              title="icon of a school graduation cap"
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}

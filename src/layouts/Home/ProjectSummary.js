@@ -77,7 +77,12 @@ export const ProjectSummary = ({
         {description}
       </Text>
       <div className={styles.button} data-visible={visible}>
-        <Button iconHoverShift href={buttonLink} iconEnd="arrowRight">
+        <Button
+          iconHoverShift
+          href={buttonLink}
+          iconEnd="arrowRight"
+          title="project link"
+        >
           {buttonText}
         </Button>
       </div>

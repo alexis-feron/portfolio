@@ -54,6 +54,7 @@ const App = ({ Component, pageProps }) => {
               as="a"
               className={styles.skip}
               href="#MainContent"
+              title="Skip to main content"
             >
               Skip to main content
             </VisuallyHidden>

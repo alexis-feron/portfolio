@@ -75,6 +75,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   srcSet={[profileImg, profileImg]}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
                   alt="Alexis Feron"
+                  title="Alexis Feron"
                 />
                 <svg
                   aria-hidden="true"
