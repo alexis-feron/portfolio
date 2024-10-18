@@ -1,5 +1,6 @@
 import cv from 'assets/cv.png';
 import { Button } from 'components/Button';
+import { Meta } from 'components/Meta';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useEffect } from 'react';
@@ -39,6 +40,10 @@ export function Resume() {
 
   return (
     <section className={styles.page}>
+      <Meta
+        title="Alexis Feron resume"
+        description="Alexis Feron, Web Developer Full-Stack resume"
+      />
       <Background />
       <div className={styles.cv}>
         <div className={styles.tilt_box_wrap}>

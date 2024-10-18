@@ -7,6 +7,7 @@ import { Timeline } from 'components/Timeline';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
+import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
@@ -57,6 +58,12 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
+      <Head>
+        <meta
+          name="description"
+          content="Alexis Feron, développeur web fullstack. Découvrez mon portfolio. Alexis Feron, web developer fullstack. Discover my portfolio."
+        />
+      </Head>
       <Meta
         title="Alexis Feron, Web Developer Full-Stack"
         description="Alexis Feron, développeur web fullstack. Découvrez mon portfolio. Alexis Feron, web developer fullstack. Discover my portfolio."
