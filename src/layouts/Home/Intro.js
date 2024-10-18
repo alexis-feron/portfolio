@@ -7,15 +7,11 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useScrollToHash } from 'hooks';
-import dynamic from 'next/dynamic';
+import { Background } from 'layouts/Home/Background';
 import RouterLink from 'next/link';
 import { Fragment } from 'react';
 import { cssProps } from 'utils/style';
 import styles from './Intro.module.css';
-
-const Background = dynamic(() =>
-  import('layouts/Home/Background').then(mod => mod.Background)
-);
 
 export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
