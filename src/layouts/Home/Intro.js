@@ -1,4 +1,3 @@
-import ArrowDown from 'assets/arrow-down.svg';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
@@ -7,11 +6,21 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useScrollToHash } from 'hooks';
-import { Background } from 'layouts/Home/Background';
+import dynamic from 'next/dynamic';
 import RouterLink from 'next/link';
 import { Fragment } from 'react';
 import { cssProps } from 'utils/style';
 import styles from './Intro.module.css';
+
+const ArrowDown = dynamic(
+  () => import('assets/arrow-down.svg').then(mod => mod.ArrowDown),
+  { ssr: false }
+);
+
+const Background = dynamic(
+  () => import('layouts/Home/Background').then(mod => mod.Background),
+  { ssr: false }
+);
 
 export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
@@ -33,7 +42,7 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
       tabIndex={-1}
       {...rest}
     >
-      <Transition in key={theme.themeId} timeout={3000}>
+      <Transition in key={theme.themeId} timeout={1000}>
         {(visible, status) => (
           <Fragment>
             <Background />
