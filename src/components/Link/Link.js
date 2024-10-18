@@ -37,6 +37,7 @@ export const LinkContent = forwardRef(
         href={href}
         target={targetValue}
         ref={ref}
+        title={children}
         {...rest}
       >
         {children}

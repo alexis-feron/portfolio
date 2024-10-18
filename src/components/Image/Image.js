@@ -46,6 +46,7 @@ export const Image = ({
         inViewport={inViewport}
         reveal={reveal}
         src={src}
+        alt={rest.alt}
         srcSet={srcSet}
         placeholder={placeholder}
         {...rest}
@@ -197,7 +198,7 @@ const ImageElements = ({
           height={placeholder.height}
           onTransitionEnd={() => setShowPlaceholder(false)}
           decoding="async"
-          alt=""
+          alt={alt}
           role="presentation"
         />
       )}

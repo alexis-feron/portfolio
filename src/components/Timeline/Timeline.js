@@ -1,10 +1,10 @@
+import React, { useRef, useState } from 'react';
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import styles from './Timeline.module.css';
-import React, { useRef, useState } from 'react';
 
 export const Timeline = () => {
   const containerRef = useRef(null);
@@ -54,7 +54,7 @@ export const Timeline = () => {
             <img
               src="https://iconape.com/wp-content/png_logo_vector/design-230.png"
               style={{ width: '25px', height: '25px' }}
-              alt=""
+              alt="Icon of a suitcase"
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
@@ -96,7 +96,7 @@ export const Timeline = () => {
             <img
               src="https://iconape.com/wp-content/png_logo_vector/design-230.png"
               style={{ width: '25px', height: '25px' }}
-              alt=""
+              alt="icon of a suitcase"
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
@@ -136,7 +136,7 @@ export const Timeline = () => {
             <img
               src="https://icons.veryicon.com/png/o/object/material-design-icons/school-9.png"
               style={{ width: '25px', height: '25px' }}
-              alt=""
+              alt="icon of a school graduation cap"
             />
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}

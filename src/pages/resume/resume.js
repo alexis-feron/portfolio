@@ -1,9 +1,9 @@
-import styles from './resume.module.css';
 import cv from 'assets/cv.png';
-import Image from 'next/image';
 import { Button } from 'components/Button';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useEffect } from 'react';
+import styles from './resume.module.css';
 
 export function Resume() {
   const downloadCV = () => {

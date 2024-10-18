@@ -59,7 +59,7 @@ export const Home = () => {
     <div className={styles.home}>
       <Meta
         title="Alexis Feron, Web Developer Full-Stack"
-        description="Alexis Feron, développeur web fullstack. Découvrez mon portfolio."
+        description="Alexis Feron, développeur web fullstack. Découvrez mon portfolio. Alexis Feron, web developer fullstack. Discover my portfolio."
         keywords="Alexis Feron, portfolio, web developer, fullstack, react, vue, nextjs, nodejs"
       />
 

@@ -67,6 +67,7 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
                 data-status={status}
                 data-hidden={scrollIndicatorHidden}
                 onClick={handleScrollClick}
+                title="Scroll to projects"
               >
                 <VisuallyHidden>Scroll to projects</VisuallyHidden>
               </a>
@@ -77,6 +78,7 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
                 data-status={status}
                 data-hidden={scrollIndicatorHidden}
                 onClick={handleScrollClick}
+                title="Scroll to projects"
               >
                 <VisuallyHidden>Scroll to projects</VisuallyHidden>
                 <ArrowDown aria-hidden />

@@ -147,6 +147,7 @@ export const Navbar = () => {
           className={styles.logo}
           aria-label="Alexis Feron, Web Developer"
           onClick={handleMobileNavClick}
+          title="Home"
         >
           <Monogram highlight />
         </a>
@@ -161,6 +162,7 @@ export const Navbar = () => {
                 className={styles.navLink}
                 aria-current={getCurrent(pathname)}
                 onClick={handleNavItemClick}
+                title={label}
               >
                 {label}
               </a>
@@ -179,6 +181,7 @@ export const Navbar = () => {
                   data-visible={visible}
                   aria-current={getCurrent(pathname)}
                   onClick={handleMobileNavClick}
+                  title={label}
                   style={cssProps({
                     transitionDelay: numToMs(
                       Number(msToNum(tokens.base.durationS)) + index * 50
@@ -209,6 +212,7 @@ const NavbarIcons = ({ desktop }) => (
         aria-label={label}
         href={url}
         target="_blank"
+        title={label}
         rel="noopener noreferrer"
       >
         <Icon className={styles.navIcon} icon={icon} />

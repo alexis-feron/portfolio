@@ -375,7 +375,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
               data-loaded={loaded && !!textures}
               src={placeholder.src}
               ref={placeholderRef}
-              alt=""
+              alt={placeholder.alt || 'Placeholder image'}
               role="presentation"
             />
           )}
