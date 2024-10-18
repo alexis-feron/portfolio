@@ -20,7 +20,7 @@ const ProfileText = ({ visible, titleId }) => (
     <Text className={styles.description} data-visible={visible} size="l" as="p">
       I’m Alexis, currently I’m web developer at Ultrō and student in the University
       Bachelor of Technology in Computer Science of Clermont-Ferrand in France. You can
-      see my resume <Link href="/resume">here</Link>.
+      see <Link href="/resume"> my resume</Link>.
     </Text>
   </Fragment>
 );

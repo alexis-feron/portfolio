@@ -58,12 +58,6 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
-      <Head>
-        <meta
-          name="description"
-          content="Alexis Feron, développeur web fullstack. Découvrez mon portfolio. Alexis Feron, web developer fullstack. Discover my portfolio."
-        />
-      </Head>
       <Meta
         title="Alexis Feron, Web Developer Full-Stack"
         description="Alexis Feron, développeur web fullstack. Découvrez mon portfolio. Alexis Feron, web developer fullstack. Discover my portfolio."
