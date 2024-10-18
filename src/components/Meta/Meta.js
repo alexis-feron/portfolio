@@ -11,8 +11,13 @@ export const Meta = ({ title, description, prefix = name, ogImage = defaultOgIma
   return (
     <Head>
       <title key="title">{titleText}</title>
-      <meta key="description" name="description" content={description} />
+      <meta name="description" content={description} />
       <meta name="author" content={name} />
+      <meta name="publisher" content={name} />
+      <meta
+        name="keywords"
+        content="Alexis Feron, portfolio, web developer, fullstack, react, vue, nextjs, nodejs"
+      />
 
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:alt" content="Banner for the site" />
