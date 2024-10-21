@@ -18,6 +18,10 @@ export const Meta = ({ title, description, prefix = name, ogImage = defaultOgIma
         name="keywords"
         content="Alexis Feron, portfolio, web developer, fullstack, react, vue, nextjs, nodejs"
       />
+      <meta
+        name="google-site-verification"
+        content="id5BdwKoxPwKEcQ5LHteqFS6Vx0L4cQnkNCszpTTvSo"
+      />
 
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:alt" content="Banner for the site" />
