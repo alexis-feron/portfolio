@@ -47,23 +47,26 @@ export const Meta = ({
       <meta name="twitter:creator" content={twitterHandle} />
       <meta name="twitter:image" content={ogImage} />
 
-      <script type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          name: 'Alexis Feron',
-          url: siteUrl,
-          sameAs: [
-            'https://twitter.com/alexis_feron_',
-            'https://www.linkedin.com/in/alexis-feron/',
-            'https://www.instagram.com/alexis_feron_/',
-            'https://www.github.com/alexis-feron',
-          ],
-          jobTitle: 'Full-Stack Web Developer',
-          description: 'Développeur web full-stack expert en Next.js, React et Vue.',
-          image: ogImage,
-        })}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Alexis Feron',
+            url: siteUrl,
+            sameAs: [
+              'https://twitter.com/alexis_feron_',
+              'https://www.linkedin.com/in/alexis-feron/',
+              'https://www.instagram.com/alexis_feron_/',
+              'https://www.github.com/alexis-feron',
+            ],
+            jobTitle: 'Full-Stack Web Developer',
+            description: 'Développeur web full-stack expert en Next.js, React et Vue.',
+            image: ogImage,
+          }),
+        }}
+      />
     </Head>
   );
 };

@@ -8,7 +8,6 @@ import styles from './resume.module.css';
 
 export function Resume() {
   const downloadCV = () => {
-    console.log(cv);
     const cvUrl = cv.src;
     const link = document.createElement('a');
     link.href = cvUrl;

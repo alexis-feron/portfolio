@@ -19,7 +19,7 @@ import {
   MeshDepthMaterial,
   OrthographicCamera,
   PerspectiveCamera,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   Scene,
   ShaderMaterial,
   Vector3,
@@ -141,9 +141,7 @@ export const Model = ({
     renderTargetBlur.current.texture.generateMipmaps = false;
 
     // Make a plane and make it face up
-    const planeGeometry = new PlaneBufferGeometry(planeWidth, planeHeight).rotateX(
-      Math.PI / 2
-    );
+    const planeGeometry = new PlaneGeometry(planeWidth, planeHeight).rotateX(Math.PI / 2);
 
     const planeMaterial = new MeshBasicMaterial({
       map: renderTarget.current.texture,

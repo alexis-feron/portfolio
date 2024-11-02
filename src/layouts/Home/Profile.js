@@ -10,6 +10,7 @@ import { Text } from 'components/Text';
 import { Transition } from 'components/Transition';
 import { Fragment, useState } from 'react';
 import { media } from 'utils/style';
+import katana from './katakana.svg';
 import styles from './Profile.module.css';
 
 const ProfileText = ({ visible, titleId }) => (
@@ -85,7 +86,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   className={styles.svg}
                   data-visible={visible}
                 >
-                  <use href={`${profileImg}#katakana-profile`} />
+                  <use href={`${katana}#katakana-profile`} />
                 </svg>
               </div>
             </div>
