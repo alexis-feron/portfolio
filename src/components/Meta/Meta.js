@@ -1,11 +1,16 @@
 import Head from 'next/head';
 
-const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL;
+const siteUrl = 'https://alexis-feron.com';
 const name = 'Alexis Feron';
 const twitterHandle = '@alexis_feron_';
 const defaultOgImage = `${siteUrl}/social-image.png`;
 
-export const Meta = ({ title, description, prefix = name, ogImage = defaultOgImage }) => {
+export const Meta = ({
+  title = 'Alexis Feron, portfolio, fullstack web developer',
+  description = 'Alexis Feron, développeur web fullstack. Découvrez mon portfolio. Alexis Feron, web developer fullstack. Discover my portfolio.',
+  prefix = name,
+  ogImage = defaultOgImage,
+}) => {
   const titleText = [prefix, title].filter(Boolean).join(' | ');
 
   return (
@@ -41,6 +46,24 @@ export const Meta = ({ title, description, prefix = name, ogImage = defaultOgIma
       <meta name="twitter:site" content={twitterHandle} />
       <meta name="twitter:creator" content={twitterHandle} />
       <meta name="twitter:image" content={ogImage} />
+
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Alexis Feron',
+          url: siteUrl,
+          sameAs: [
+            'https://twitter.com/alexis_feron_',
+            'https://www.linkedin.com/in/alexis-feron/',
+            'https://www.instagram.com/alexis_feron_/',
+            'https://www.github.com/alexis-feron',
+          ],
+          jobTitle: 'Full-Stack Web Developer',
+          description: 'Développeur web full-stack expert en Next.js, React et Vue.',
+          image: ogImage,
+        })}
+      </script>
     </Head>
   );
 };
