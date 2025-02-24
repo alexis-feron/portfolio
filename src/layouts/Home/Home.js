@@ -1,5 +1,6 @@
 import bigbraingames from 'assets/bigbraingames.png';
 import gamecenter from 'assets/gamecenter.png';
+import splits from 'assets/splits.png';
 import { Contact } from 'components/Contact';
 import { Footer } from 'components/Footer';
 import { Meta } from 'components/Meta';
@@ -17,10 +18,11 @@ export const Home = () => {
   const details = useRef();
   const projectOne = useRef();
   const projectTwo = useRef();
+  const projectThree = useRef();
   const contact = useRef();
 
   useEffect(() => {
-    const sections = [intro, details, projectOne, projectTwo, contact];
+    const sections = [intro, details, projectOne, projectTwo, projectThree, contact];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -80,7 +82,7 @@ export const Home = () => {
         visible={visibleSections.includes(projectOne.current)}
         index={1}
         title="Big Brain Games"
-        description="AI mini-games website created with NextJS"
+        description="Play Blackjack and Nim against the AI and find out your ranking. Made with NextJS"
         buttonText="View website"
         buttonLink="https://big-brain-games.alexis-feron.com"
         model={{
@@ -101,7 +103,7 @@ export const Home = () => {
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
         title="Game center"
-        description="Esport website created with Vue"
+        description="An area dedicated to esports news and results. Made with VueJS"
         buttonText="View website"
         buttonLink="https://alexis-feron.github.io/game-center/"
         model={{
@@ -111,6 +113,26 @@ export const Home = () => {
             {
               srcSet: [gamecenter, gamecenter],
               placeholder: gamecenter,
+            },
+          ],
+        }}
+      />
+      <ProjectSummary
+        id="project-3"
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectThree.current)}
+        index={3}
+        title="Splits"
+        description="Your one-stop destination for F1 standings, game, and upcoming events. Made with NextJS"
+        buttonText="View website"
+        buttonLink="https://splits.alexis-feron.com"
+        model={{
+          type: 'laptop',
+          alt: 'Splits preview',
+          textures: [
+            {
+              srcSet: [splits, splits],
+              placeholder: splits,
             },
           ],
         }}

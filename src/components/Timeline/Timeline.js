@@ -71,7 +71,7 @@ export const Timeline = () => {
           >
             <div>NextJS</div>
             <div>React</div>
-            <div>Swell</div>
+            <div>Shopify</div>
             <div>Pipedream</div>
           </div>
           <p>Clermont-Ferrand, France</p>
@@ -157,8 +157,8 @@ export const Timeline = () => {
             <div>PostgreeSQL</div>
             <div>MongoDB</div>
             <div>Docker</div>
-            <div>Java</div>
-            <div>Kotlin</div>
+            <div>Angular</div>
+            <div>VueJS</div>
           </div>
           <p>Clermont-Ferrand, France</p>
         </VerticalTimelineElement>
