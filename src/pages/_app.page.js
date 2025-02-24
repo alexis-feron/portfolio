@@ -1,8 +1,8 @@
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
-import { VisuallyHidden } from 'components/VisuallyHidden';
 import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
 import { useFoucFix, useLocalStorage } from 'hooks';
 import styles from 'layouts/App/App.module.css';
@@ -22,22 +22,34 @@ const repoPrompt = `
 `;
 
 const App = ({ Component, pageProps }) => {
-  const [storedTheme] = useLocalStorage('theme', 'dark');
+  const isClient = typeof window !== 'undefined';
+  const [storedTheme] = useLocalStorage('theme', isClient ? 'dark' : null);
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const { route, asPath } = useRouter();
   const canonicalRoute = route === '/' ? '' : `${asPath}`;
+  const router = useRouter();
+  const isBot =
+    typeof navigator !== 'undefined' &&
+    /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+
   useFoucFix();
 
   useEffect(() => {
-    console.info(`${repoPrompt}\n\n`);
+    if (typeof window !== 'undefined') {
+      console.info(`${repoPrompt}\n\n`);
+    }
   }, []);
 
   useEffect(() => {
-    dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
+    if (typeof window !== 'undefined') {
+      dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
+    }
   }, [storedTheme]);
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
+      <SpeedInsights route={router.pathname} />
       <ThemeProvider themeId={state.theme}>
         <LazyMotion features={domAnimation}>
           <Fragment>
@@ -49,18 +61,9 @@ const App = ({ Component, pageProps }) => {
                 }${canonicalRoute}`}
               />
             </Head>
-            <VisuallyHidden
-              showOnFocus
-              as="a"
-              className={styles.skip}
-              href="#MainContent"
-              title="Skip to main content"
-            >
-              Skip to main content
-            </VisuallyHidden>
             <Navbar />
             <main className={styles.app} tabIndex={-1} id="MainContent">
-              <AnimatePresence exitBeforeEnter>
+              <AnimatePresence exitBeforeEnter={!isBot}>
                 <m.div
                   key={route}
                   className={styles.page}

@@ -7,7 +7,6 @@ import { Timeline } from 'components/Timeline';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
-import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
