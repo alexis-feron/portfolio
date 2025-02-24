@@ -67,31 +67,52 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     };
   }, [dragging]);
 
+  const [webglSupported, setWebglSupported] = useState(true);
+
   useEffect(() => {
-    const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
-    renderer.current = new WebGLRenderer({
-      canvas: canvas.current,
-      antialias: false,
-      alpha: true,
-      powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: true,
-    });
-    camera.current = new OrthographicCamera(...cameraOptions);
-    scene.current = new Scene();
-    renderer.current.setPixelRatio(2);
-    renderer.current.setClearColor(0x111111, 1.0);
-    renderer.current.setSize(width, height);
-    renderer.current.domElement.style.width = '100%';
-    renderer.current.domElement.style.height = 'auto';
-    scene.current.background = new Color(0x111111);
-    camera.current.position.z = 1;
+    try {
+      const testRenderer = new WebGLRenderer();
+      testRenderer.dispose();
+    } catch {
+      setWebglSupported(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!webglSupported) return;
+
+    try {
+      renderer.current = new WebGLRenderer({
+        canvas: canvas.current,
+        antialias: false,
+        alpha: true,
+        powerPreference: 'high-performance',
+      });
+      camera.current = new OrthographicCamera(
+        width / -2,
+        width / 2,
+        height / 2,
+        height / -2,
+        1,
+        1000
+      );
+      scene.current = new Scene();
+      renderer.current.setSize(width, height);
+      renderer.current.domElement.style.width = '100%';
+      renderer.current.domElement.style.height = 'auto';
+      scene.current.background = new Color(0x111111);
+      camera.current.position.z = 1;
+    } catch {
+      setWebglSupported(false);
+    }
 
     return () => {
-      animating.current = false;
-      cleanScene(scene.current);
-      cleanRenderer(renderer.current);
+      if (webglSupported) {
+        cleanScene(scene.current);
+        cleanRenderer(renderer.current);
+      }
     };
-  }, [height, width]);
+  }, [height, width, webglSupported]);
 
   useEffect(() => {
     let mounted = true;

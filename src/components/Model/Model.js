@@ -89,13 +89,17 @@ export const Model = ({
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
 
-    renderer.current = new WebGLRenderer({
-      canvas: canvas.current,
-      alpha: true,
-      antialias: false,
-      powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: true,
-    });
+    try {
+      renderer.current = new WebGLRenderer({
+        canvas: canvas.current,
+        alpha: true,
+        antialias: false,
+        powerPreference: 'high-performance',
+        failIfMajorPerformanceCaveat: true,
+      });
+    } catch (error) {
+      return;
+    }
 
     renderer.current.setPixelRatio(2);
     renderer.current.setSize(clientWidth, clientHeight);
@@ -230,7 +234,11 @@ export const Model = ({
     horizontalBlurMaterial.current.uniforms.h.value = amount * (1 / 256);
 
     renderer.current.setRenderTarget(renderTargetBlur.current);
-    renderer.current.render(blurPlane.current, shadowCamera.current);
+    try {
+      renderer.current.render(blurPlane.current, shadowCamera.current);
+    } catch (e) {
+      return;
+    }
 
     // Blur vertically and draw in the main renderTarget
     blurPlane.current.material = verticalBlurMaterial.current;
@@ -238,7 +246,11 @@ export const Model = ({
     verticalBlurMaterial.current.uniforms.v.value = amount * (1 / 256);
 
     renderer.current.setRenderTarget(renderTarget.current);
-    renderer.current.render(blurPlane.current, shadowCamera.current);
+    try {
+      renderer.current.render(blurPlane.current, shadowCamera.current);
+    } catch (e) {
+      return;
+    }
 
     blurPlane.current.visible = false;
   }, []);
@@ -257,7 +269,11 @@ export const Model = ({
 
     // Render to the render target to get the depths
     renderer.current.setRenderTarget(renderTarget.current);
-    renderer.current.render(scene.current, shadowCamera.current);
+    try {
+      renderer.current.render(scene.current, shadowCamera.current);
+    } catch (e) {
+      return;
+    }
 
     // And reset the override material
     scene.current.overrideMaterial = null;
@@ -275,7 +291,11 @@ export const Model = ({
     modelGroup.current.rotation.x = rotationX.get();
     modelGroup.current.rotation.y = rotationY.get();
 
-    renderer.current.render(scene.current, camera.current);
+    try {
+      renderer.current.render(scene.current, camera.current);
+    } catch (e) {
+      return;
+    }
   }, [blurShadow, rotationX, rotationY]);
 
   // Handle mouse move animation
