@@ -86,7 +86,24 @@ export const Model = ({
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
 
+  const [disableWebGL, setDisableWebGL] = useState(false);
+
   useEffect(() => {
+    const userAgent = navigator.userAgent || '';
+    if (
+      /Googlebot|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver/i.test(
+        userAgent
+      )
+    ) {
+      setDisableWebGL(true);
+    }
+  }, [setDisableWebGL]);
+
+  useEffect(() => {
+    if (disableWebGL) {
+      return;
+    }
+
     const { clientWidth, clientHeight } = container.current;
 
     try {
@@ -324,7 +341,7 @@ export const Model = ({
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      if (!container.current) return;
+      if (!container.current || !renderer.current || !camera.current) return;
 
       const { clientWidth, clientHeight } = container.current;
 
@@ -386,6 +403,8 @@ const Device = ({
   const placeholderScreen = createRef();
 
   useEffect(() => {
+    if (!renderer.current || !modelGroup.current) return;
+
     const applyScreenTexture = async (texture, node) => {
       texture.encoding = sRGBEncoding;
       texture.flipY = false;

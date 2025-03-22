@@ -29,9 +29,6 @@ const App = ({ Component, pageProps }) => {
   const { route, asPath } = useRouter();
   const canonicalRoute = route === '/' ? '' : `${asPath}`;
   const router = useRouter();
-  const isBot =
-    typeof navigator !== 'undefined' &&
-    /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
 
   useFoucFix();
 
@@ -63,7 +60,7 @@ const App = ({ Component, pageProps }) => {
             </Head>
             <Navbar />
             <main className={styles.app} tabIndex={-1} id="MainContent">
-              <AnimatePresence exitBeforeEnter={!isBot}>
+              <AnimatePresence>
                 <m.div
                   key={route}
                   className={styles.page}
