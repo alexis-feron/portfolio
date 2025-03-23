@@ -95,11 +95,7 @@ export const Model = ({
         userAgent
       );
 
-    const isWebGLDisabled =
-      !window.WebGLRenderingContext ||
-      !document.createElement('canvas').getContext('webgl');
-
-    if (isBot || isWebGLDisabled) {
+    if (isBot) {
       setDisableWebGL(true);
     }
   }, []);
