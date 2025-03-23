@@ -97,7 +97,6 @@ export const Model = ({
 
     if (isBot) {
       setDisableWebGL(true);
-      console.log('WebGL disabled for bots');
     }
   }, []);
 
@@ -113,8 +112,8 @@ export const Model = ({
         canvas: canvas.current,
         alpha: true,
         antialias: false,
-        powerPreference: 'high-performance',
-        failIfMajorPerformanceCaveat: true,
+        powerPreference: 'default',
+        failIfMajorPerformanceCaveat: false,
       });
     } catch (error) {
       return;
