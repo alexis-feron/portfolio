@@ -97,6 +97,7 @@ export const Model = ({
 
     if (isBot) {
       setDisableWebGL(true);
+      console.log('WebGL disabled for bots');
     }
   }, []);
 
