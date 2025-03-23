@@ -89,29 +89,17 @@ export const Model = ({
   const [disableWebGL, setDisableWebGL] = useState(false);
 
   useEffect(() => {
-    if (disableWebGL) {
-      const originalConsoleError = console.error;
-      console.error = (...args) => {
-        if (
-          args.some(
-            arg =>
-              typeof arg === 'string' && (arg.includes('WebGL') || arg.includes('THREE'))
-          )
-        ) {
-          return; // Ignore les erreurs WebGL/THREE
-        }
-        originalConsoleError(...args);
-      };
-    }
-  }, [disableWebGL]);
-
-  useEffect(() => {
     const userAgent = navigator.userAgent || '';
-    if (
+    const isBot =
       /Googlebot|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver/i.test(
         userAgent
-      )
-    ) {
+      );
+
+    const isWebGLDisabled =
+      !window.WebGLRenderingContext ||
+      !document.createElement('canvas').getContext('webgl');
+
+    if (isBot || isWebGLDisabled) {
       setDisableWebGL(true);
     }
   }, []);
