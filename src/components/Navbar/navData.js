@@ -24,9 +24,9 @@ export const socialLinks = [
     icon: 'github',
   },
   {
-    label: 'Twitter',
-    url: 'https://twitter.com/alexis_feron_',
-    icon: 'twitter',
+    label: 'X',
+    url: 'https://x.com/alexis_feron_',
+    icon: 'x',
   },
   {
     label: 'Instagram',
