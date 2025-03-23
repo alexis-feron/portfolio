@@ -542,6 +542,7 @@ const Device = ({
     let animation;
 
     const onLoad = async () => {
+      if (!loadDevice) return;
       const { loadFullResTexture, playAnimation } = await loadDevice.start();
 
       setLoaded(true);
