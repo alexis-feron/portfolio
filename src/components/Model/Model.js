@@ -90,14 +90,35 @@ export const Model = ({
 
   useEffect(() => {
     const userAgent = navigator.userAgent || '';
+    console.warn(navigator.userAgent);
     const isBot =
       /Googlebot|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver/i.test(
         userAgent
       );
 
     if (isBot) {
+      console.error('WebGL is not available.');
       setDisableWebGL(true);
     }
+  }, []);
+
+  useEffect(() => {
+    console.log('WebGL initialization started');
+
+    if (!container.current) {
+      console.error('Container not found');
+      return;
+    }
+
+    console.log('Creating WebGLRenderer...');
+    renderer.current = new WebGLRenderer({ canvas: canvas.current, alpha: true });
+
+    if (!renderer.current) {
+      console.error('WebGLRenderer failed to initialize');
+      return;
+    }
+
+    console.log('WebGL initialized successfully');
   }, []);
 
   useEffect(() => {
