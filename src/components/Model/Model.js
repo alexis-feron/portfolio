@@ -89,6 +89,23 @@ export const Model = ({
   const [disableWebGL, setDisableWebGL] = useState(false);
 
   useEffect(() => {
+    if (disableWebGL) {
+      const originalConsoleError = console.error;
+      console.error = (...args) => {
+        if (
+          args.some(
+            arg =>
+              typeof arg === 'string' && (arg.includes('WebGL') || arg.includes('THREE'))
+          )
+        ) {
+          return; // Ignore les erreurs WebGL/THREE
+        }
+        originalConsoleError(...args);
+      };
+    }
+  }, [disableWebGL]);
+
+  useEffect(() => {
     const userAgent = navigator.userAgent || '';
     if (
       /Googlebot|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver/i.test(
@@ -97,7 +114,7 @@ export const Model = ({
     ) {
       setDisableWebGL(true);
     }
-  }, [setDisableWebGL]);
+  }, []);
 
   useEffect(() => {
     if (disableWebGL) {
@@ -483,7 +500,7 @@ const Device = ({
 
           animate(startPosition.y, targetPosition.y, {
             type: 'spring',
-            delay: (300 * index + showDelay) / 1000,
+            delay: (100 * index + showDelay) / 1000,
             stiffness: 60,
             damping: 20,
             mass: 1,
@@ -511,7 +528,7 @@ const Device = ({
 
           return animate(startRotation.x, endRotation.x, {
             type: 'spring',
-            delay: (300 * index + showDelay + 300) / 1000,
+            delay: (100 * index + showDelay + 300) / 1000,
             stiffness: 80,
             damping: 20,
             restSpeed: 0.0001,
