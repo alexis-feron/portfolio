@@ -1,6 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
+  productionBrowserSourceMaps: true,
   pageExtensions: ['page.js', 'api.js'],
   webpack(config, { isServer }) {
     // Run custom scripts
