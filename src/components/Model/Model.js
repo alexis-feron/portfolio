@@ -96,12 +96,13 @@ export const Model = ({
       );
 
     if (isBot) {
-      setDisableWebGL(true);
+      setDisableWebGL(false);
     }
   }, []);
 
   useEffect(() => {
     if (disableWebGL) {
+      console.error('WebGL is disabled');
       return;
     }
 
@@ -116,6 +117,7 @@ export const Model = ({
         failIfMajorPerformanceCaveat: false,
       });
     } catch (error) {
+      console.error(error);
       return;
     }
 
@@ -255,6 +257,7 @@ export const Model = ({
     try {
       renderer.current.render(blurPlane.current, shadowCamera.current);
     } catch (e) {
+      console.error(e);
       return;
     }
 
@@ -267,6 +270,7 @@ export const Model = ({
     try {
       renderer.current.render(blurPlane.current, shadowCamera.current);
     } catch (e) {
+      console.error(e);
       return;
     }
 
@@ -290,6 +294,7 @@ export const Model = ({
     try {
       renderer.current.render(scene.current, shadowCamera.current);
     } catch (e) {
+      console.error(e);
       return;
     }
 
@@ -312,6 +317,7 @@ export const Model = ({
     try {
       renderer.current.render(scene.current, camera.current);
     } catch (e) {
+      console.error(e);
       return;
     }
   }, [blurShadow, rotationX, rotationY]);
@@ -342,7 +348,8 @@ export const Model = ({
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      if (!container.current || !renderer.current || !camera.current) return;
+      if (!container.current || !renderer.current || !camera.current)
+        return console.error('No container');
 
       const { clientWidth, clientHeight } = container.current;
 
@@ -404,8 +411,6 @@ const Device = ({
   const placeholderScreen = createRef();
 
   useEffect(() => {
-    if (!renderer.current || !modelGroup.current) return;
-
     const applyScreenTexture = async (texture, node) => {
       texture.encoding = sRGBEncoding;
       texture.flipY = false;
@@ -534,7 +539,6 @@ const Device = ({
   }, []);
 
   useEffect(() => {
-    if (!loadDevice || !show) return;
     let animation;
 
     const onLoad = async () => {
