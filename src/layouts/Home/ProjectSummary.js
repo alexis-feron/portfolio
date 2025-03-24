@@ -1,16 +1,19 @@
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
-import { Model } from 'components/Model';
 import { deviceModels } from 'components/Model/deviceModels';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { useTheme } from 'components/ThemeProvider';
 import { Transition } from 'components/Transition';
 import { useWindowSize } from 'hooks';
-import { useState } from 'react';
+import React, { startTransition, Suspense, useEffect, useState } from 'react';
 import { cssProps, media } from 'utils/style';
 import styles from './ProjectSummary.module.css';
+
+const Model = React.lazy(() =>
+  import('components/Model').then(module => ({ default: module.Model }))
+);
 
 export const ProjectSummary = ({
   id,
@@ -34,6 +37,20 @@ export const ProjectSummary = ({
   const indexText = index < 10 ? `0${index}` : index;
   const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
+
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  const [ModelComponent, setModelComponent] = useState(null);
+
+  useEffect(() => {
+    import('components/Model').then(module => {
+      setModelComponent(() => module.Model);
+    });
+  }, []);
 
   const renderKatakana = (device, visible) => (
     <svg
@@ -90,57 +107,61 @@ export const ProjectSummary = ({
   const renderPreview = visible => (
     <div className={styles.preview}>
       {model.type === 'laptop' && (
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
           {renderKatakana('laptop', visible)}
           <div className={styles.model} data-device="laptop">
-            <Model
-              alt={model.alt}
-              cameraPosition={{ x: 0, y: 0, z: 8 }}
-              showDelay={100}
-              show={visible}
-              models={[
-                {
-                  ...deviceModels.laptop,
-                  texture: {
-                    ...model.textures[0],
-                    sizes: laptopSizes,
+            {ModelComponent && (
+              <Model
+                alt={model.alt}
+                cameraPosition={{ x: 0, y: 0, z: 8 }}
+                showDelay={100}
+                show={visible}
+                models={[
+                  {
+                    ...deviceModels.laptop,
+                    texture: {
+                      ...model.textures[0],
+                      sizes: laptopSizes,
+                    },
                   },
-                },
-              ]}
-            />
+                ]}
+              />
+            )}
           </div>
-        </>
+        </Suspense>
       )}
       {model.type === 'phone' && (
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
           {renderKatakana('phone', visible)}
           <div className={styles.model} data-device="phone">
-            <Model
-              alt={model.alt}
-              cameraPosition={{ x: 0, y: 0, z: 11.5 }}
-              showDelay={100}
-              show={visible}
-              models={[
-                {
-                  ...deviceModels.phone,
-                  position: { x: -0.6, y: 1.1, z: 0 },
-                  texture: {
-                    ...model.textures[0],
-                    sizes: phoneSizes,
+            {ModelComponent && (
+              <Model
+                alt={model.alt}
+                cameraPosition={{ x: 0, y: 0, z: 11.5 }}
+                showDelay={100}
+                show={visible}
+                models={[
+                  {
+                    ...deviceModels.phone,
+                    position: { x: -0.6, y: 1.1, z: 0 },
+                    texture: {
+                      ...model.textures[0],
+                      sizes: phoneSizes,
+                    },
                   },
-                },
-                {
-                  ...deviceModels.phone,
-                  position: { x: 0.6, y: -0.5, z: 0.3 },
-                  texture: {
-                    ...model.textures[1],
-                    sizes: phoneSizes,
+                  {
+                    ...deviceModels.phone,
+                    position: { x: 0.6, y: -0.5, z: 0.3 },
+                    texture: {
+                      ...model.textures[1],
+                      sizes: phoneSizes,
+                    },
                   },
-                },
-              ]}
-            />
+                ]}
+              />
+            )}
           </div>
-        </>
+        </Suspense>
       )}
     </div>
   );
@@ -150,8 +171,8 @@ export const ProjectSummary = ({
       className={styles.summary}
       data-alternate={alternate}
       data-first={index === 1}
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
+      onFocus={() => isHydrated && startTransition(() => setFocused(true))}
+      onBlur={() => isHydrated && startTransition(() => setFocused(false))}
       as="section"
       aria-labelledby={titleId}
       ref={sectionRef}
