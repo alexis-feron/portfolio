@@ -105,7 +105,7 @@ export const Home = () => {
         title="Game center"
         description="An area dedicated to esports news and results. Made with VueJS"
         buttonText="View website"
-        buttonLink="https://alexis-feron.github.io/game-center/"
+        buttonLink="https://game-center.alexis-feron.com/"
         model={{
           type: 'laptop',
           alt: 'Game center preview',
