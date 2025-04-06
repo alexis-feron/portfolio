@@ -10,13 +10,13 @@
   position: relative;
 }
 
-@media (--mediaTablet), (--mediaLaptop) {
+@media (max-width: 1040px), (max-width: 1680px) {
   .timeline {
     padding: 150px;
   }
 }
 
-@media (--mediaMobile), (--mediaMobileLS), (--mediaMobileS) {
+@media (max-width: 696px), (max-height: 696px), (max-width: 400px) {
   .timeline {
     padding: 30px;
   }

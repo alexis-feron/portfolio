@@ -12,19 +12,19 @@
   position: relative;
   top: calc(var(--spaceL) * -1);
 
-  @media (--mediaDesktop) {
+  @media (max-width: 2080px) {
     max-width: 920px;
   }
 
-  @media (--mediaLaptop) {
+  @media (max-width: 1680px) {
     max-width: 780px;
   }
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     top: calc(var(--space3XL) * -1);
   }
 
-  @media (--mediaMobileS) {
+  @media (max-width: 400px) {
     top: calc(var(--spaceXL) * -1);
   }
 
@@ -45,16 +45,16 @@
   opacity: 0;
   transition: opacity var(--durationL) var(--bezierFastoutSlowin) 0.2s;
 
-  @media (--mediaLaptop) {
+  @media (max-width: 1680px) {
     font-size: calc((22 / 16) * 1rem);
     margin-bottom: var(--spaceXL);
   }
 
-  @media (--mediaTablet) {
+  @media (max-width: 1040px) {
     font-size: calc((18 / 16) * 1rem);
   }
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     margin-bottom: var(--spaceL);
     letter-spacing: 0.2em;
     white-space: nowrap;
@@ -77,11 +77,11 @@
   font-size: calc((140 / 16) * 1rem);
   letter-spacing: -0.005em;
 
-  @media (--mediaDesktop) {
+  @media (max-width: 2080px) {
     font-size: calc((120 / 16) * 1rem);
   }
 
-  @media (--mediaLaptop) {
+  @media (max-width: 1680px) {
     font-size: calc((100 / 16) * 1rem);
   }
 
@@ -89,11 +89,11 @@
     font-size: calc((80 / 16) * 1rem);
   }
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     font-size: calc((56 / 16) * 1rem);
   }
 
-  @media (--mediaMobileS) {
+  @media (max-width: 400px) {
     font-size: calc((42 / 16) * 1rem);
   }
 }
@@ -164,7 +164,7 @@
   &[data-status='entering'] {
     animation-name: introTextReveal;
 
-    @media (--mediaUseMotion) {
+    @media ((prefers-reduced-motion: no-preference)) {
       &::after:global {
         animation-name: reveal;
       }
@@ -223,7 +223,7 @@
       animation-name: fadeIn;
     }
 
-    @media (--mediaUseMotion) {
+    @media ((prefers-reduced-motion: no-preference)) {
       animation-name: introLine;
     }
   }
@@ -275,7 +275,7 @@
     transform: translateX(-1px);
   }
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: opacity, transform;
 
     &::before {
@@ -290,12 +290,12 @@
   &[data-hidden='true'] {
     opacity: 0;
 
-    @media (--mediaUseMotion) {
+    @media ((prefers-reduced-motion: no-preference)) {
       transform: translate3d(0, 20px, 0);
     }
   }
 
-  @media (--mediaTouch) {
+  @media (pointer: coarse) {
     display: none;
   }
 
@@ -329,7 +329,7 @@
   transition-duration: var(--durationM);
   padding: 20px;
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     animation-name: introMobileScrollIndicator;
     transition-property: opacity, transform;
     transform: translate3d(0, 20px, 0);
@@ -344,7 +344,7 @@
     transform: none;
   }
 
-  @media (--mediaNoTouch) {
+  @media (pointer: fine) {
     display: none;
   }
 

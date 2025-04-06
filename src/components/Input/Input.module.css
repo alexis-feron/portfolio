@@ -44,8 +44,8 @@
     background-color: rgb(var(--rgbPrimary));
   }
 
-  @media (--mediaReduceMotion) {
-    @nest #root & {
+  @media (prefers-reduced-motion: reduce) {
+    #root & {
       transition: background-color 5000s linear 0s;
     }
   }
@@ -60,7 +60,7 @@
   bottom: 0;
   transform-origin: left;
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition: transform var(--durationM) var(--bezierFastoutSlowin);
   }
 
@@ -79,8 +79,9 @@
   transform-origin: top left;
   transition: color var(--durationM) ease;
 
-  @media (--mediaUseMotion) {
-    transition: transform var(--durationM) var(--bezierFastoutSlowin),
+  @media ((prefers-reduced-motion: no-preference)) {
+    transition:
+      transform var(--durationM) var(--bezierFastoutSlowin),
       color var(--durationM) ease;
   }
 
@@ -98,7 +99,7 @@
   height: var(--height);
   opacity: 0;
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: height, opacity;
   }
 

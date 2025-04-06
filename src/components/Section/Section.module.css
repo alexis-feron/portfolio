@@ -10,16 +10,16 @@
     padding-left: var(--space5XL);
   }
 
-  @media (--mediaTablet) {
+  @media (max-width: 1040px) {
     padding-left: calc(var(--space4XL) + var(--space3XL));
   }
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     padding-right: var(--spaceL);
     padding-left: var(--spaceL);
   }
 
-  @media (--mediaMobile), (--mediaMobileLS) {
+  @media (max-width: 696px), (max-height: 696px) {
     padding-left: var(--spaceOuter);
     padding-right: var(--spaceOuter);
   }

@@ -6,7 +6,8 @@
   isolation: isolate;
 
   &[data-raised='true'] {
-    box-shadow: 0 50px 100px -20px rgb(var(--rgbBlack) / 0.25),
+    box-shadow:
+      0 50px 100px -20px rgb(var(--rgbBlack) / 0.25),
       0 30px 60px -30px rgb(var(--rgbBlack) / 0.3);
   }
 
@@ -30,7 +31,7 @@
       z-index: var(--zIndex2);
     }
 
-    @media (--mediaUseMotion) {
+    @media ((prefers-reduced-motion: no-preference)) {
       &[data-visible='true']::before:global {
         animation: reveal var(--revealDuration) var(--bezierFastoutSlowin) var(--delay);
       }
@@ -57,7 +58,7 @@
     opacity: 0;
     transition: opacity var(--durationM) ease var(--delay);
 
-    @media (--mediaReduceMotion) {
+    @media (prefers-reduced-motion: reduce) {
       transition-delay: calc(var(--delay) - 1s);
     }
   }
@@ -110,7 +111,8 @@
     background-color: rgb(var(--rgbBlack) / 0.8);
   }
 
-  @nest .elementWrapper:hover &, &:focus {
+  .elementWrapper:hover &,
+  &:focus {
     opacity: 1;
   }
 }

@@ -4,7 +4,7 @@
   height: 100vh;
   padding-left: 140px;
 
-  @media (--mediaTablet) {
+  @media (max-width: 1040px) {
     padding-top: 80px;
     padding-bottom: 80px;
     padding-left: 80px;
@@ -13,7 +13,7 @@
     height: auto;
   }
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     padding-left: 0;
   }
 }
@@ -37,22 +37,22 @@
     z-index: var(--zIndex2);
   }
 
-  @media (--mediaLaptop) {
+  @media (max-width: 1680px) {
     border-width: var(--spaceL);
   }
 
-  @media (--mediaTablet) {
+  @media (max-width: 1040px) {
     border-width: var(--space4XL);
   }
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     min-height: 240px;
     grid-row: 1;
     border-width: var(--spaceOuter);
     border-top: 0;
   }
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     &[data-visible='true']::after:global {
       animation-name: reveal;
     }
@@ -69,7 +69,7 @@
   transition-delay: 0.8s;
   transition-duration: var(--durationXL);
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     left: 0;
   }
 
@@ -88,7 +88,9 @@
   left: var(--spaceS);
   transform: none;
   text-decoration: none;
-  transition: opacity var(--durationM) ease var(--durationXL), color var(--durationM) ease;
+  transition:
+    opacity var(--durationM) ease var(--durationXL),
+    color var(--durationM) ease;
   opacity: 0;
 
   &:hover,
@@ -108,7 +110,7 @@
   padding: 0 var(--spaceXL);
   height: 100%;
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     grid-row: 2;
     padding: 0 var(--spaceOuter);
   }
@@ -129,7 +131,7 @@
   transition-delay: 0.1s;
   opacity: 0;
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: transform, opacity;
     transform: translate3d(0, var(--spaceL), 0);
   }
@@ -155,11 +157,11 @@
   overflow: hidden;
   flex: 0 0 auto;
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     font-size: calc((18 / 16) * 1rem);
   }
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: transform, opacity;
     transform: translate3d(0, var(--spaceL), 0);
   }
@@ -178,7 +180,7 @@
   transition-delay: 0.3s;
   opacity: 0;
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: transform, opacity;
     transform: translate3d(0, var(--spaceL), 0);
   }
@@ -198,7 +200,7 @@
   align-self: flex-start;
   padding-left: var(--spaceXXS);
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: transform, opacity;
     transform: translate3d(0, var(--spaceL), 0);
   }

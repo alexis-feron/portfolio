@@ -21,7 +21,7 @@
       var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
   }
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-duration: var(--durationM);
     transition-timing-function: var(--bezierFastoutSlowin);
     transition-property: background-size;

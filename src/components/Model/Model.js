@@ -230,8 +230,8 @@ export const Model = ({
     verticalBlurMaterial.current = new ShaderMaterial(VerticalBlurShader);
     verticalBlurMaterial.current.depthTest = false;
 
-    const unsubscribeX = rotationX.onChange(renderFrame);
-    const unsubscribeY = rotationY.onChange(renderFrame);
+    const unsubscribeX = rotationX.on('change', renderFrame);
+    const unsubscribeY = rotationY.on('change', renderFrame);
 
     return () => {
       renderTarget.current.dispose();

@@ -4,7 +4,7 @@
   height: 100%;
   padding-left: 140px;
 
-  @media (--mediaTablet) {
+  @media (max-width: 1040px) {
     padding-top: 80px;
     padding-bottom: 80px;
     padding-left: 80px;
@@ -13,7 +13,7 @@
     height: auto;
   }
 
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     padding-left: 0;
   }
 }
@@ -26,12 +26,12 @@
   width: 53vh;
   margin: auto;
 
-  @media (--mediaTablet) {
+  @media (max-width: 1040px) {
     height: 52.32vh;
     width: 45vh;
     margin-top: -30px;
   }
-  @media (--mediaMobile) {
+  @media (max-width: 696px) {
     height: 49.49vh;
     width: 37vh;
   }
@@ -143,7 +143,7 @@
   position: sticky;
   top: 80px;
 
-  @media (--mediaLaptop) {
+  @media (max-width: 1680px) {
     margin: auto;
     display: inline-block;
   }
@@ -162,10 +162,10 @@
   align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  @media not (--mediaTablet) {
+  @media not (max-width: 1040px) {
     margin-left: 15px;
   }
-  @media (--mediaTablet) {
+  @media (max-width: 1040px) {
     width: auto;
     margin-top: 0;
     margin-bottom: 0;

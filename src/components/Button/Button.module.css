@@ -35,7 +35,7 @@
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
   }
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: transform, opacity, color, background;
 
     &:hover {
@@ -83,7 +83,7 @@
       padding-left: calc(var(--buttonSpace) / 2);
     }
 
-    @media (--mediaUseMotion) {
+    @media ((prefers-reduced-motion: no-preference)) {
       &::after {
         transition: transform var(--durationM) var(--bezierFastoutSlowin);
       }
@@ -153,7 +153,7 @@
   transition-duration: var(--durationS);
   transition-timing-function: var(--bezierFastoutSlowin);
 
-  @media (--mediaUseMotion) {
+  @media ((prefers-reduced-motion: no-preference)) {
     transition-property: transform, opacity, fill;
   }
 
@@ -165,13 +165,13 @@
     margin-left: var(--spaceS);
   }
 
-  @media (--mediaUseMotion) {
-    @nest .button:hover &[data-shift='true'] {
+  @media ((prefers-reduced-motion: no-preference)) {
+    .button:hover &[data-shift='true'] {
       transform: translate3d(var(--spaceXS), 0, 0);
     }
   }
 
-  @nest .button[data-loading='true'] & {
+  .button[data-loading='true'] & {
     opacity: 0;
   }
 }

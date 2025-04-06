@@ -26,7 +26,7 @@ function shuffle(content, output, position) {
       return { type: CharType.Glyph, value: glyphs[rand] };
     }
 
-    return { type: CharType.Glyph, value: output[index].value };
+    return { type: CharType.Glyph, value: output[index]?.value };
   });
 }
 
@@ -50,7 +50,7 @@ export const DecoderText = memo(
         containerInstance.innerHTML = characterMap.join('');
       };
 
-      const unsubscribeSpring = decoderSpring.onChange(value => {
+      const unsubscribeSpring = decoderSpring.on('change', value => {
         output.current = shuffle(content, output.current, value);
         renderOutput();
       });
