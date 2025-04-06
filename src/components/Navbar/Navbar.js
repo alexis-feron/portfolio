@@ -141,55 +141,60 @@ export const Navbar = () => {
 
   return (
     <header className={styles.navbar} ref={headerRef}>
-      <RouterLink href={route === '/' ? '/#intro' : '/'} scroll={false}>
-        <a
-          data-navbar-item
-          className={styles.logo}
-          aria-label="Alexis Feron, Web Developer"
-          onClick={handleMobileNavClick}
-          title="Home"
-        >
-          <Monogram highlight />
-        </a>
+      <RouterLink
+        href={route === '/' ? '/#intro' : '/'}
+        scroll={false}
+        className={styles.logo}
+        aria-label="Alexis Feron, Web Developer"
+        onClick={handleMobileNavClick}
+        title="Home"
+        data-navbar-item
+      >
+        <Monogram highlight />
       </RouterLink>
+
       <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
+
       <nav className={styles.nav}>
         <div className={styles.navList}>
           {navLinks.map(({ label, pathname }) => (
-            <RouterLink href={pathname} scroll={false} key={label}>
-              <a
-                data-navbar-item
-                className={styles.navLink}
-                aria-current={getCurrent(pathname)}
-                onClick={handleNavItemClick}
-                title={label}
-              >
-                {label}
-              </a>
+            <RouterLink
+              href={pathname}
+              scroll={false}
+              key={label}
+              className={styles.navLink}
+              aria-current={getCurrent(pathname)}
+              onClick={handleNavItemClick}
+              title={label}
+              data-navbar-item
+            >
+              {label}
             </RouterLink>
           ))}
         </div>
         <NavbarIcons desktop />
       </nav>
+
       <Transition unmount in={menuOpen} timeout={msToNum(tokens.base.durationL)}>
         {visible => (
           <nav className={styles.mobileNav} data-visible={visible}>
             {navLinks.map(({ label, pathname }, index) => (
-              <RouterLink href={pathname} scroll={false} key={label}>
-                <a
-                  className={styles.mobileNavLink}
-                  data-visible={visible}
-                  aria-current={getCurrent(pathname)}
-                  onClick={handleMobileNavClick}
-                  title={label}
-                  style={cssProps({
-                    transitionDelay: numToMs(
-                      Number(msToNum(tokens.base.durationS)) + index * 50
-                    ),
-                  })}
-                >
-                  {label}
-                </a>
+              <RouterLink
+                href={pathname}
+                scroll={false}
+                key={label}
+                className={styles.mobileNavLink}
+                aria-current={getCurrent(pathname)}
+                onClick={handleMobileNavClick}
+                title={label}
+                style={cssProps({
+                  transitionDelay: numToMs(
+                    Number(msToNum(tokens.base.durationS)) + index * 50
+                  ),
+                })}
+                data-visible={visible}
+              >
+                {label}
               </RouterLink>
             ))}
             <NavbarIcons />
@@ -197,6 +202,7 @@ export const Navbar = () => {
           </nav>
         )}
       </Transition>
+
       {!isMobile && <ThemeToggle data-navbar-item />}
     </header>
   );

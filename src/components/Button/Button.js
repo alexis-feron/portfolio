@@ -16,8 +16,8 @@ export const Button = forwardRef(({ href, ...rest }, ref) => {
   }
 
   return (
-    <RouterLink passHref href={href} scroll={false}>
-      <ButtonContent href={href} ref={ref} {...rest} />
+    <RouterLink href={href} scroll={false} legacyBehavior>
+      <ButtonContent ref={ref} {...rest} />
     </RouterLink>
   );
 });
@@ -39,6 +39,7 @@ const ButtonContent = forwardRef(
       target,
       href,
       disabled,
+      onClick,
       ...rest
     },
     ref
@@ -58,6 +59,7 @@ const ButtonContent = forwardRef(
         rel={rel || isExternal ? 'noopener noreferrer' : undefined}
         target={target || isExternal ? '_blank' : undefined}
         disabled={disabled}
+        onClick={onClick}
         ref={ref}
         {...rest}
       >
@@ -92,3 +94,5 @@ const ButtonContent = forwardRef(
     );
   }
 );
+
+Button.displayName = 'Button';

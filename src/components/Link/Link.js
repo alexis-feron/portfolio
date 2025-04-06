@@ -1,47 +1,58 @@
-import RouterLink from 'next/link';
+import NextLink from 'next/link';
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';
 import styles from './Link.module.css';
 
-// File extensions that can be linked to
 const VALID_EXT = ['txt', 'png', 'jpg'];
 
 function isAnchor(href) {
-  const isValidExtension = VALID_EXT.includes(href?.split('.').pop());
-  return href?.includes('://') || href?.[0] === '#' || isValidExtension;
+  if (!href) return false;
+  const isValidExtension = VALID_EXT.includes(href.split('.').pop());
+  return href.includes('://') || href.startsWith('#') || isValidExtension;
 }
 
-export const Link = forwardRef(({ href, ...rest }, ref) => {
-  if (isAnchor(href)) {
-    return <LinkContent href={href} ref={ref} {...rest} />;
-  }
+export const Link = forwardRef(
+  ({ href, children, className, secondary, ...rest }, ref) => {
+    if (!href) {
+      console.warn('⛔️ <Link /> utilisé sans href. Composant ignoré.');
+      return null;
+    }
 
-  return (
-    <RouterLink passHref href={href} scroll={false}>
-      <LinkContent ref={ref} {...rest} />
-    </RouterLink>
-  );
-});
+    if (isAnchor(href)) {
+      const isExternal = href.includes('://');
+      const rel = isExternal ? 'noreferrer noopener' : undefined;
+      const target = isExternal ? '_blank' : undefined;
 
-export const LinkContent = forwardRef(
-  ({ rel, target, children, secondary, className, href, ...rest }, ref) => {
-    const isExternal = href?.includes('://');
-    const relValue = rel || (isExternal ? 'noreferrer noopener' : undefined);
-    const targetValue = target || (isExternal ? '_blank' : undefined);
+      return (
+        <a
+          href={href}
+          ref={ref}
+          className={classes(styles.link, className)}
+          data-secondary={secondary}
+          rel={rel}
+          target={target}
+          title={typeof children === 'string' ? children : undefined}
+          {...rest}
+        >
+          {children}
+        </a>
+      );
+    }
 
     return (
-      <a
+      <NextLink
+        href={href}
+        scroll={false}
         className={classes(styles.link, className)}
         data-secondary={secondary}
-        rel={relValue}
-        href={href}
-        target={targetValue}
         ref={ref}
-        title={children}
+        title={typeof children === 'string' ? children : undefined}
         {...rest}
       >
         {children}
-      </a>
+      </NextLink>
     );
   }
 );
+
+Link.displayName = 'Link';

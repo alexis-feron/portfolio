@@ -15,7 +15,7 @@ export default function Document() {
           href="https://avatars.githubusercontent.com/u/87498220"
           type="image/png"
         />
-        <link type="text/plain" rel="author" href="" />
+        <link type="text/plain" rel="author" />
 
         <link rel="preload" href={GothamMedium} as="font" crossOrigin="true" />
         <link rel="preload" href={GothamBook} as="font" crossOrigin="true" />
