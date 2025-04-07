@@ -58,7 +58,6 @@ typings/
 .env.local
 
 build/
-public/draco/
 public/og
 .serverless
 .next
