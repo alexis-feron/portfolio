@@ -134,13 +134,21 @@ export const Model = ({
     scene.current.add(modelGroup.current);
 
     // Lighting
-    const ambientLight = new AmbientLight(0xffffff, 1.2);
-    const keyLight = new DirectionalLight(0xffffff, 1.1);
-    const fillLight = new DirectionalLight(0xffffff, 0.8);
+    const ambientLight = new AmbientLight(0xffffeb, 0.5);
+    const keyLight = new DirectionalLight(0xffffff, 1.3);
+    const fillLight = new DirectionalLight(0xffd6aa, 0.7);
+    const backLight = new DirectionalLight(0xe6f0ff, 0.4);
+
+    const underLight = new DirectionalLight(0xffffff, 0.3);
+    underLight.position.set(0, -2, 0);
+    underLight.target.position.set(0, 0, 0);
+    scene.current.add(underLight);
+    scene.current.add(underLight.target);
 
     fillLight.position.set(-6, 2, 2);
     keyLight.position.set(0.5, 0, 0.866);
-    lights.current = [ambientLight, keyLight, fillLight];
+    backLight.position.set(-1, 2, -2);
+    lights.current = [ambientLight, keyLight, fillLight, backLight];
     lights.current.forEach(light => scene.current.add(light));
 
     // The shadow container, if you need to move the plane just move this
@@ -412,17 +420,28 @@ const Device = ({
 
   useEffect(() => {
     const applyScreenTexture = async (texture, node) => {
-      texture.encoding = sRGBEncoding;
+      texture.colorSpace = 'srgb';
       texture.flipY = false;
-      texture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
-      texture.generateMipmaps = false;
 
-      // Decode the texture to prevent jank on first render
-      await renderer.current.initTexture(texture);
+      if (renderer.current.capabilities?.getMaxAnisotropy) {
+        texture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+      }
+
+      texture.generateMipmaps = false;
+      texture.needsUpdate = true;
+
+      await new Promise(resolve => {
+        if (texture.image) {
+          resolve();
+        } else {
+          texture.onUpdate = resolve;
+        }
+      });
 
       node.material.color = new Color(0xffffff);
       node.material.transparent = true;
       node.material.map = texture;
+      node.material.needsUpdate = true;
     };
 
     // Generate promises to await when ready
@@ -436,7 +455,8 @@ const Device = ({
         await modelLoader.loadAsync(url),
       ]);
 
-      modelGroup.current.add(gltf.scene);
+      gltf.scene.visible = false;
+      const modelScene = gltf.scene;
 
       gltf.scene.traverse(async node => {
         if (node.material) {
@@ -479,6 +499,7 @@ const Device = ({
       // Simple slide up animation
       if (model.animation === ModelAnimationType.SpringUp) {
         playAnimation = () => {
+          if (!show) return;
           const startPosition = new Vector3(
             targetPosition.x,
             targetPosition.y - 1,
@@ -486,6 +507,10 @@ const Device = ({
           );
 
           gltf.scene.position.set(...startPosition.toArray());
+
+          modelGroup.current.clear();
+          modelGroup.current.add(modelScene);
+          modelScene.visible = show;
 
           animate(startPosition.y, targetPosition.y, {
             type: 'spring',
@@ -514,6 +539,10 @@ const Device = ({
 
           gltf.scene.position.set(...targetPosition.toArray());
           frameNode.rotation.set(...startRotation.toArray());
+
+          modelGroup.current.clear();
+          modelGroup.current.add(modelScene);
+          modelScene.visible = true;
 
           return animate(startRotation.x, endRotation.x, {
             type: 'spring',
