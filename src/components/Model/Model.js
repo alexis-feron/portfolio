@@ -20,12 +20,12 @@ import {
   OrthographicCamera,
   PerspectiveCamera,
   PlaneGeometry,
+  SRGBColorSpace,
   Scene,
   ShaderMaterial,
   Vector3,
   WebGLRenderTarget,
   WebGLRenderer,
-  sRGBEncoding,
 } from 'three';
 import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from 'utils/image';
@@ -123,7 +123,7 @@ export const Model = ({
 
     renderer.current.setPixelRatio(2);
     renderer.current.setSize(clientWidth, clientHeight);
-    renderer.current.outputEncoding = sRGBEncoding;
+    renderer.outputColorSpace = SRGBColorSpace;
     renderer.current.physicallyCorrectLights = true;
 
     camera.current = new PerspectiveCamera(36, clientWidth / clientHeight, 0.1, 100);
