@@ -8,7 +8,7 @@ import { Timeline } from 'components/Timeline';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
 export const Home = () => {
@@ -76,67 +76,74 @@ export const Home = () => {
         id="details"
       />
       <Timeline />
-      <ProjectSummary
-        id="project-1"
-        sectionRef={projectOne}
-        visible={visibleSections.includes(projectOne.current)}
-        index={1}
-        title="Big Brain Games"
-        description="Play Blackjack and Nim against the AI and find out your ranking. Made with NextJS"
-        buttonText="View website"
-        buttonLink="https://big-brain-games.alexis-feron.com"
-        model={{
-          type: 'laptop',
-          alt: 'Big Brain Games preview',
-          textures: [
-            {
-              srcSet: [bigbraingames, bigbraingames],
-              placeholder: bigbraingames,
-            },
-          ],
-        }}
-      />
-      <ProjectSummary
-        id="project-2"
-        alternate
-        sectionRef={projectTwo}
-        visible={visibleSections.includes(projectTwo.current)}
-        index={2}
-        title="Game center"
-        description="An area dedicated to esports news and results. Made with VueJS"
-        buttonText="View website"
-        buttonLink="https://game-center.alexis-feron.com/"
-        model={{
-          type: 'laptop',
-          alt: 'Game center preview',
-          textures: [
-            {
-              srcSet: [gamecenter, gamecenter],
-              placeholder: gamecenter,
-            },
-          ],
-        }}
-      />
-      <ProjectSummary
-        id="project-3"
-        sectionRef={projectThree}
-        visible={visibleSections.includes(projectThree.current)}
-        index={3}
-        title="Splits"
-        description="Your one-stop destination for F1 standings, game, and upcoming events. Made with NextJS"
-        buttonText="View website"
-        buttonLink="https://splits.alexis-feron.com"
-        model={{
-          type: 'laptop',
-          alt: 'Splits preview',
-          textures: [
-            {
-              srcSet: [splits, splits],
-              placeholder: splits,
-            },
-          ],
-        }}
-      />
+      <Suspense fallback={<div className={styles.loading}>Loading...</div>}>
+        <ProjectSummary
+          id="project-1"
+          sectionRef={projectOne}
+          visible={visibleSections.includes(projectOne.current)}
+          index={1}
+          title="Big Brain Games"
+          description="Play Blackjack and Nim against the AI and find out your ranking. Made with NextJS"
+          buttonText="View website"
+          buttonLink="https://big-brain-games.alexis-feron.com"
+          model={{
+            type: 'laptop',
+            alt: 'Big Brain Games preview',
+            textures: [
+              {
+                srcSet: [bigbraingames, bigbraingames],
+                placeholder: bigbraingames,
+              },
+            ],
+          }}
+        />
+      </Suspense>
+      <Suspense fallback={<div className={styles.loading}>Loading...</div>}>
+        <ProjectSummary
+          id="project-2"
+          alternate
+          sectionRef={projectTwo}
+          visible={visibleSections.includes(projectTwo.current)}
+          index={2}
+          title="Game center"
+          description="An area dedicated to esports news and results. Made with VueJS"
+          buttonText="View website"
+          buttonLink="https://game-center.alexis-feron.com/"
+          model={{
+            type: 'laptop',
+            alt: 'Game center preview',
+            textures: [
+              {
+                srcSet: [gamecenter, gamecenter],
+                placeholder: gamecenter,
+              },
+            ],
+          }}
+        />
+      </Suspense>
+      <Suspense fallback={<div className={styles.loading}>Loading...</div>}>
+        <ProjectSummary
+          id="project-3"
+          sectionRef={projectThree}
+          visible={visibleSections.includes(projectThree.current)}
+          index={3}
+          title="Splits"
+          description="Your one-stop destination for F1 standings, game, and upcoming events. Made with NextJS"
+          buttonText="View website"
+          buttonLink="https://splits.alexis-feron.com"
+          model={{
+            type: 'laptop',
+            alt: 'Splits preview',
+            textures: [
+              {
+                srcSet: [splits, splits],
+                placeholder: splits,
+              },
+            ],
+          }}
+        />
+      </Suspense>
+
       <Contact
         id="contact"
         sectionRef={contact}
