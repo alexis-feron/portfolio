@@ -20,7 +20,7 @@ const ArrowDown = dynamic(
 );
 
 const Background = dynamic(
-  () => import('@/features/Home/Background').then(mod => mod.Background),
+  () => import('@/features/Background/Background').then(mod => mod.Background),
   { ssr: false }
 );
 

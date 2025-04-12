@@ -10,12 +10,12 @@ import { useEffect, useRef, useState } from 'react';
 export const Transition = ({
   children,
   timeout = 0,
-  onEnter,
-  onEntered,
-  onExit,
-  onExited,
+  onEnter = () => {},
+  onEntered = () => {},
+  onExit = () => {},
+  onExited = () => {},
   in: show,
-  unmount,
+  unmount = true,
 }) => {
   const enterTimeout = useRef();
   const exitTimeout = useRef();

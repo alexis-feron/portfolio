@@ -1,8 +1,19 @@
+'use client';
+
 import { classes } from '@/lib/style';
+import type { ElementType, HTMLAttributes, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import styles from './VisuallyHidden.module.css';
 
-export const VisuallyHidden = forwardRef(
+type VisuallyHiddenProps = {
+  children?: ReactNode;
+  className?: string;
+  showOnFocus?: boolean;
+  visible?: boolean;
+  as?: ElementType;
+} & HTMLAttributes<HTMLElement>;
+
+export const VisuallyHidden = forwardRef<HTMLElement, VisuallyHiddenProps>(
   (
     { className, showOnFocus, as: Component = 'span', children, visible, ...rest },
     ref
@@ -20,3 +31,5 @@ export const VisuallyHidden = forwardRef(
     );
   }
 );
+
+VisuallyHidden.displayName = 'VisuallyHidden';

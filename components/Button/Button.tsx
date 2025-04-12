@@ -5,26 +5,61 @@ import { Loader } from '@/components/Loader';
 import { Transition } from '@/components/Transition';
 import { classes } from '@/lib/style';
 import RouterLink from 'next/link';
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ElementType,
+  ReactNode,
+} from 'react';
 import { forwardRef } from 'react';
 import styles from './Button.module.css';
 
-function isExternalLink(href) {
+function isExternalLink(href?: string) {
   return href?.includes('://');
 }
 
-export const Button = forwardRef(({ href, ...rest }, ref) => {
-  if (isExternalLink(href) || !href) {
-    return <ButtonContent href={href} ref={ref} {...rest} />;
+// Définition des props
+type ButtonProps = {
+  href?: string;
+  className?: string;
+  as?: ElementType;
+  secondary?: boolean;
+  loading?: boolean;
+  loadingText?: string;
+  icon?: string;
+  iconEnd?: string;
+  iconHoverShift?: boolean;
+  iconOnly?: boolean;
+  children?: ReactNode;
+  rel?: string;
+  target?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+  label?: string;
+} & Omit<
+  AnchorHTMLAttributes<HTMLAnchorElement> & ButtonHTMLAttributes<HTMLButtonElement>,
+  'type'
+>;
+
+// Composant principal
+export const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(
+  ({ href, ...rest }, ref) => {
+    if (isExternalLink(href) || !href) {
+      return <ButtonContent href={href} ref={ref} {...rest} />;
+    }
+
+    return (
+      <RouterLink href={href} scroll={false} legacyBehavior>
+        <ButtonContent ref={ref} {...rest} />
+      </RouterLink>
+    );
   }
+);
 
-  return (
-    <RouterLink href={href} scroll={false} legacyBehavior>
-      <ButtonContent ref={ref} {...rest} />
-    </RouterLink>
-  );
-});
+Button.displayName = 'Button';
 
-const ButtonContent = forwardRef(
+// Contenu interne du bouton
+const ButtonContent = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(
   (
     {
       className,
@@ -58,11 +93,11 @@ const ButtonContent = forwardRef(
         data-secondary={secondary}
         data-icon={icon}
         href={href}
-        rel={rel || isExternal ? 'noopener noreferrer' : undefined}
-        target={target || isExternal ? '_blank' : undefined}
+        rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
+        target={target ?? (isExternal ? '_blank' : undefined)}
         disabled={disabled}
         onClick={onClick}
-        ref={ref}
+        ref={ref as any}
         {...rest}
       >
         {!!icon && (
@@ -89,6 +124,7 @@ const ButtonContent = forwardRef(
               size={32}
               text={loadingText}
               data-visible={visible}
+              style=""
             />
           )}
         </Transition>
@@ -97,4 +133,4 @@ const ButtonContent = forwardRef(
   }
 );
 
-Button.displayName = 'Button';
+ButtonContent.displayName = 'ButtonContent';

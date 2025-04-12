@@ -37,4 +37,6 @@ export const ScrollRestore = () => {
       document.body.focus({ preventScroll: true });
     }
   }, [asPath, isPresent]);
+
+  return null;
 };

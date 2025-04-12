@@ -17,9 +17,9 @@ export const ThemeContext = createContext({});
 
 export const ThemeProvider = ({
   themeId = 'dark',
-  theme: themeOverrides,
+  theme: themeOverrides = {},
   children,
-  className,
+  className = '',
   as: Component = 'div',
   ...rest
 }) => {

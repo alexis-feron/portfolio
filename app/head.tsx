@@ -20,7 +20,6 @@ export default function Head() {
         type="image/png"
       />
       <link type="text/plain" rel="author" />
-      <link href="/dist/styles.css" rel="stylesheet"></link>
 
       <link rel="preload" href={GothamMedium} as="font" crossOrigin="anonymous" />
       <link rel="preload" href={GothamBook} as="font" crossOrigin="anonymous" />

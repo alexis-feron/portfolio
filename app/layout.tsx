@@ -1,19 +1,18 @@
 'use client';
 
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
-import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
-import { usePathname } from 'next/navigation';
-import { Fragment, createContext, useEffect, useReducer } from 'react';
-
 import styles from '@/app/App.module.css';
 import { initialState, reducer } from '@/app/reducer';
 import { ScrollRestore } from '@/app/ScrollRestore';
 import { Navbar } from '@/features/Navbar';
 import { msToNum } from '@/lib/style';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
+import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
 import { useFoucFix, useLocalStorage } from 'hooks';
+import { usePathname } from 'next/navigation';
+import React, { Fragment, createContext, useEffect, useReducer } from 'react';
 
 import '@/styles/global.css';
 import '@/styles/reset.css';
