@@ -21,6 +21,11 @@ export default function Document() {
         <link rel="preload" href={GothamBook} as="font" crossOrigin="true" />
         <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
         <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
+        <script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          async
+          defer
+        />
       </Head>
       <body data-theme="dark" tabIndex={-1}>
         <script

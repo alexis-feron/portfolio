@@ -15,8 +15,37 @@
   margin: 0 auto;
 }
 
+.turnstile {
+  margin-top: 32px;
+  display: flex;
+  justify-content: left;
+  animation: fadeIn 0.3s ease-in;
+  border-radius: 8px;
+  background: rgba(var(--rgbPrimary), 0.05);
+  border: 1px solid rgba(var(--rgbAccent), 0.2);
+  transition: all 0.3s ease;
+}
+
+.turnstile:hover {
+  background: rgba(var(--rgbPrimary), 0.08);
+  border-color: rgba(var(--rgbAccent), 0.3);
+  box-shadow: 0 4px 12px rgba(var(--rgbAccent), 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .contact Button {
-  margin-top: 18px;
+  margin-top: 32px;
+  animation: fadeIn 0.3s ease-in;
 }
 
 .contact Button.success {
