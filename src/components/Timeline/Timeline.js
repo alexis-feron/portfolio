@@ -77,6 +77,48 @@ export const Timeline = () => {
           <p>Clermont-Ferrand, France</p>
           <p>September 2023 - Currently</p>
         </VerticalTimelineElement>
+        <VerticalTimelineElement
+          contentStyle={{
+            background: 'transparent',
+            color: 'var(--colorTextBody)',
+            boxShadow: 'none',
+            border: '3px solid var(--colorTextTitle)',
+          }}
+          iconStyle={{
+            background: 'rgb(var(--rgbAccent) / 1)',
+            color: 'var(--colorTextBody)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: 'none',
+          }}
+          icon={
+            <img
+              src="https://icons.veryicon.com/png/o/object/material-design-icons/school-9.png"
+              style={{ width: '25px', height: '25px' }}
+              alt="icon of a school graduation cap"
+              title="icon of a school graduation cap"
+            />
+          }
+          contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
+        >
+          <h3>Master's degree in Fullstack Development</h3>
+          <div
+            className={styles.languages}
+            ref={containerRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div>Typescript</div>
+            <div>Supabase</div>
+            <div>Prisma</div>
+            <div>Hono</div>
+          </div>
+          <p>Lyon, France</p>
+          <p>September 2025 - Currently</p>
+        </VerticalTimelineElement>
 
         <VerticalTimelineElement
           contentStyle={{

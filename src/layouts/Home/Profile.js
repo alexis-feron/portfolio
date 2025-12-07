@@ -18,9 +18,8 @@ const ProfileText = ({ visible, titleId }) => (
       <DecoderText text="Hi," start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Alexis, currently I’m web developer at Ultrō and student in the University
-      Bachelor of Technology in Computer Science of Clermont-Ferrand in France. You can
-      see <Link href="/resume"> my resume</Link>.
+      I’m Alexis, currently I’m web developer at Ultrō and a master's student in fullstack
+      development at Ynov Lyon. You can see <Link href="/resume"> my resume</Link>.
     </Text>
   </Fragment>
 );
