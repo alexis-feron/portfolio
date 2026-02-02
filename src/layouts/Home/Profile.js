@@ -1,4 +1,4 @@
-import profileImg from 'assets/profile.jpg';
+import profileImg from 'assets/profile.png';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Divider } from 'components/Divider';
@@ -18,7 +18,7 @@ const ProfileText = ({ visible, titleId }) => (
       <DecoderText text="Hi," start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Alexis, currently I’m web developer at Ultrō and a master's student in fullstack
+      I'm Alexis, currently I'm web developer at Ultrō and a master's student in fullstack
       development at Ynov Lyon. You can see <Link href="/resume"> my resume</Link>.
     </Text>
   </Fragment>
@@ -43,6 +43,17 @@ export const Profile = ({ id, visible, sectionRef }) => {
         {visible => (
           <div className={styles.content}>
             <div className={styles.column}>
+              <div className={styles.tag} aria-hidden>
+                <Divider
+                  notchWidth="64px"
+                  notchHeight="8px"
+                  collapsed={!visible}
+                  collapseDelay={1000}
+                />
+                <div className={styles.tagText} data-visible={visible}>
+                  About Me
+                </div>
+              </div>
               <ProfileText visible={visible} titleId={titleId} />
               <Button
                 secondary
@@ -55,17 +66,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
               </Button>
             </div>
             <div className={styles.column}>
-              <div className={styles.tag} aria-hidden>
-                <Divider
-                  notchWidth="64px"
-                  notchHeight="8px"
-                  collapsed={!visible}
-                  collapseDelay={1000}
-                />
-                <div className={styles.tagText} data-visible={visible}>
-                  About Me
-                </div>
-              </div>
+              <div className={styles.tag} aria-hidden></div>
               <div className={styles.image}>
                 <Image
                   reveal

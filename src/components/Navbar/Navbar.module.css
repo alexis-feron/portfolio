@@ -40,6 +40,35 @@
   }
 }
 
+.logoImage {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logoImage:hover {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--rgbAccent) / 0.4);
+  }
+  5% {
+    transform: scale(1.01);
+  }
+  15% {
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgb(var(--rgbAccent) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 30px rgb(var(--rgbAccent) / 0);
+  }
+}
+
 .nav {
   display: flex;
   flex-direction: column;
