@@ -6,21 +6,19 @@
   "author": "Alexis Feron",
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@types/node": "^25.2.1",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.182.0",
     "eslint": "^9.24.0",
     "eslint-config-next": "^15.2.4",
     "fs-extra": "^11.3.0",
     "postcss": "^8.5.3",
-    "postcss-custom-media": "^11.0.5",
-    "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-nesting": "^11.0.0",
-    "postcss-preset-env": "^10.1.5",
     "prettier": "^3.5.3",
-    "stylelint": "^16.18.0",
-    "stylelint-config-css-modules": "^4.4.0",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-standard": "^38.0.0"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "framer-motion": "^12.6.3",
@@ -28,6 +26,7 @@
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-vertical-timeline-component": "^3.6.0",
+    "tailwindcss": "^4.1.18",
     "three": "^0.175.0",
     "three-stdlib": "^2.35.15"
   },
@@ -35,7 +34,6 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start --webpack",
-    "export": "next build --webpack && next export -o build",
     "test": "echo 'write some tests'"
   },
   "browserslist": {

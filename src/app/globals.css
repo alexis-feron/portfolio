@@ -1,0 +1,510 @@
+@import "tailwindcss";
+
+/* Timeline Overrides */
+.vertical-timeline::before {
+  background: var(--color-text-body) !important;
+  width: 2px !important; /* Restore line width if overridden */
+}
+
+/* === CSS VARIABLES & TOKENS === */
+@theme {
+  --breakpoint-mobile-s: 400px;
+  --breakpoint-mobile: 696px;
+  --breakpoint-tablet: 1040px;
+  --breakpoint-laptop: 1680px;
+  --breakpoint-desktop: 2080px;
+
+  --color-background: var(--color-background);
+  --color-background-light: var(--color-background-light);
+  --color-primary: var(--color-primary);
+  --color-accent: var(--color-accent);
+  --color-orange: var(--color-orange);
+  --color-blue: var(--color-blue);
+  --color-light-blue: var(--color-light-blue);
+  --color-black: var(--color-black);
+  --color-white: var(--color-white);
+  --color-text: var(--color-text);
+  --color-error: var(--color-error);
+  --color-text-title: var(--color-text-title);
+  --color-text-body: var(--color-text-body);
+  --color-text-light: var(--color-text-light);
+
+  --font-sans: Gotham, system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+
+  /* Font sizes are mapped to variables that change with media queries */
+  --text-h0: var(--font-size-h0);
+  --text-h1: var(--font-size-h1);
+  --text-h2: var(--font-size-h2);
+  --text-h3: var(--font-size-h3);
+  --text-h4: var(--font-size-h4);
+  --text-h5: var(--font-size-h5);
+  --text-body-xl: var(--font-size-body-xl);
+  --text-body-l: var(--font-size-body-l);
+  --text-body-m: var(--font-size-body-m);
+  --text-body-s: var(--font-size-body-s);
+  --text-body-xs: var(--font-size-body-xs);
+
+  --spacing-outer: var(--space-outer);
+  --spacing-xs: var(--space-xs);
+  --spacing-s: var(--space-s);
+  --spacing-m: var(--space-m);
+  --spacing-l: var(--space-l);
+  --spacing-xl: var(--space-xl);
+  --spacing-2xl: var(--space-2xl);
+  --spacing-3xl: var(--space-3xl);
+  --spacing-4xl: var(--space-4xl);
+  --spacing-5xl: var(--space-5xl);
+
+  --ease-fast-out-slow-in: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --animate-duration-xs: 100ms;
+  --animate-duration-s: 150ms;
+  --animate-duration-m: 200ms;
+  --animate-duration-l: 300ms;
+  --animate-duration-xl: 400ms;
+
+  --z-index-0: 0;
+  --z-index-1: 4;
+  --z-index-2: 8;
+  --z-index-3: 16;
+  --z-index-4: 32;
+  --z-index-5: 64;
+}
+
+:root {
+  /* Colors - Light Theme Default */
+  --rgbBackground: 253 251 237;
+  --rgbBackgroundLight: 253 251 237;
+  --rgbPrimary: 144 165 207;
+  --rgbAccent: 144 165 207;
+  --rgbOrange: 234 157 67;
+  --rgbBlue: 26 50 99;
+  --rgbLightBlue: 144 165 207;
+  --rgbBlack: 25 25 25;
+  --rgbWhite: 253 251 237;
+  --rgbText: 25 25 25;
+  --rgbError: 255 0 60;
+
+  --color-background: rgb(253, 251, 237);
+  --color-background-light: rgb(253, 251, 237);
+  --color-primary: rgb(144, 165, 207);
+  --color-accent: rgb(144, 165, 207);
+  --color-orange: rgb(234, 157, 67);
+  --color-blue: rgb(26, 50, 99);
+  --color-light-blue: rgb(144, 165, 207);
+  --color-black: rgb(25, 25, 25);
+  --color-white: rgb(253, 251, 237);
+  --color-text: rgb(25, 25, 25);
+  --color-error: rgb(255, 0, 60);
+  
+  --color-text-title: rgb(25, 25, 25);
+  --color-text-body: rgb(25 25 25 / 0.8);
+  --color-text-light: rgb(25 25 25 / 0.6);
+
+  /* Font Sizes */
+  --font-size-h0: 8.75rem;     /* 140px */
+  --font-size-h1: 6.25rem;     /* 100px */
+  --font-size-h2: 3.625rem;    /* 58px */
+  --font-size-h3: 2.375rem;    /* 38px */
+  --font-size-h4: 1.75rem;     /* 28px */
+  --font-size-h5: 1.5rem;      /* 24px */
+  --font-size-body-xl: 1.375rem; /* 22px */
+  --font-size-body-l: 1.25rem;   /* 20px */
+  --font-size-body-m: 1.125rem;  /* 18px */
+  --font-size-body-s: 1rem;      /* 16px */
+  --font-size-body-xs: 0.875rem; /* 14px */
+
+  /* Spacing */
+  --space-outer: 64px;
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  /* Legacy Compatibility Aliases (CamelCase -> Kebab-Case) */
+  --spaceOuter: var(--space-outer);
+  --spaceXS: var(--space-xs);
+  --spaceS: var(--space-s);
+  --spaceM: var(--space-m);
+  --spaceL: var(--space-l);
+  --spaceXL: var(--space-xl);
+  --space2XL: var(--space-2xl);
+  --space3XL: var(--space-3xl);
+  --space4XL: var(--space-4xl);
+  --space5XL: var(--space-5xl);
+
+  /* Spacing Aliases (Legacy naming often used 'spacing' prefix instead of 'space') */
+  --spacing-outer: var(--space-outer);
+  --spacing-xs: var(--space-xs);
+  --spacing-s: var(--space-s);
+  --spacing-m: var(--space-m);
+  --spacing-l: var(--space-l);
+  --spacing-xl: var(--space-xl);
+  --spacing-2xl: var(--space-2xl);
+  --spacing-3xl: var(--space-3xl);
+  --spacing-4xl: var(--space-4xl);
+  --spacing-5xl: var(--space-5xl);
+
+  --colorTextTitle: var(--color-text-title);
+  --colorTextBody: var(--color-text-body);
+  --colorTextLight: var(--color-text-light);
+
+  /* Ensure text colors use RGB values for legacy components using rgb(var(--...)) */
+  --colorTextBodyRGB: var(--rgbText); 
+}
+
+/* Dark Theme Overrides */
+[data-theme='dark'] {
+  --rgbBackground: 25 25 25;
+  --rgbBackgroundLight: 25 25 25;
+  --rgbPrimary: 144 165 207;
+  --rgbAccent: 144 165 207;
+  --rgbOrange: 234 157 67;
+  --rgbBlue: 26 50 99;
+  --rgbLightBlue: 144 165 207;
+  --rgbBlack: 25 25 25;
+  --rgbWhite: 253 251 237;
+  --rgbText: 253 251 237;
+  --rgbError: 255 55 102;
+
+  --color-background: rgb(25, 25, 25);
+  --color-background-light: rgb(25, 25, 25);
+  --color-primary: rgb(144, 165, 207);
+  --color-accent: rgb(144, 165, 207);
+  --color-orange: rgb(234, 157, 67);
+  --color-blue: rgb(26, 50, 99);
+  --color-light-blue: rgb(144, 165, 207);
+  --color-black: rgb(25, 25, 25);
+  --color-white: rgb(253, 251, 237);
+  --color-text: rgb(253, 251, 237);
+  --color-error: rgb(255, 55, 102);
+
+  --color-text-title: rgb(253, 251, 237);
+  --color-text-body: rgb(253 251 237 / 0.8);
+  --color-text-light: rgb(253 251 237 / 0.6);
+
+  /* Legacy Compatibility Aliases */
+  --colorTextTitle: var(--color-text-title);
+  --colorTextBody: var(--color-text-body);
+  --colorTextLight: var(--color-text-light);
+}
+
+/* Responsive Overrides */
+@media (max-width: 2080px) {
+  :root {
+    --font-size-h0: 7.5rem; /* 120px */
+    --font-size-h1: 5rem;   /* 80px */
+  }
+}
+
+@media (max-width: 1680px) {
+  :root {
+    --space-outer: 48px;
+    --font-size-h0: 6.25rem;   /* 100px */
+    --font-size-h1: 4.375rem;  /* 70px */
+    --font-size-h2: 3.125rem;  /* 50px */
+    --font-size-h3: 2.25rem;   /* 36px */
+    --font-size-h4: 1.625rem;  /* 26px */
+    --font-size-h5: 1.375rem;  /* 22px */
+  }
+}
+
+@media (max-width: 1040px) {
+  :root {
+    --font-size-h0: 5rem;      /* 80px */
+    --font-size-h1: 3.75rem;   /* 60px */
+    --font-size-h2: 3rem;      /* 48px */
+    --font-size-h3: 2rem;      /* 32px */
+    --font-size-h4: 1.5rem;    /* 24px */
+    --font-size-h5: 1.25rem;   /* 20px */
+  }
+}
+
+@media (max-width: 696px) {
+  :root {
+    --space-outer: 24px;
+    --font-size-h0: 3.5rem;    /* 56px */
+    --font-size-h1: 2.5rem;    /* 40px */
+    --font-size-h2: 2.125rem;  /* 34px */
+    --font-size-h3: 1.75rem;   /* 28px */
+    --font-size-h4: 1.375rem;  /* 22px */
+    --font-size-h5: 1.125rem;  /* 18px */
+    --font-size-body-l: 1.0625rem; /* 17px */
+    --font-size-body-m: 1rem;      /* 16px */
+    --font-size-body-s: 0.875rem;  /* 14px */
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --space-outer: 16px;
+    --font-size-h0: 2.625rem;  /* 42px */
+    --font-size-h1: 2.375rem;  /* 38px */
+    --font-size-h2: 1.75rem;   /* 28px */
+    --font-size-h3: 1.5rem;    /* 24px */
+    --font-size-h4: 1.25rem;   /* 20px */
+  }
+}
+
+
+/* === RESET === */
+@layer base {
+  :root {
+    color-scheme: dark light;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :where(html, body) {
+    min-height: 100%;
+    width: 100%;
+  }
+
+  *,
+  :before,
+  :after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  :where(input, textarea, select, button) {
+    font: inherit;
+    color: inherit;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    appearance: none;
+  }
+
+  :where(svg, img, picture, video, iframe, canvas) {
+    display: block;
+  }
+
+  :any-link {
+    text-decoration: none;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  :root {
+    --mobileNavOffset: calc(var(--spaceOuter) * 2 + var(--space2XL));
+  }
+
+  body {
+    font-family: var(--fontStack);
+    font-weight: var(--fontWeightRegular);
+    background-color: rgb(var(--rgbBackground));
+    transition: background var(--durationM) ease;
+    color: var(--colorTextBody);
+    width: 100vw;
+    overflow-x: hidden;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  :where(code, pre) {
+    font-family: var(--monoFontStack);
+  }
+
+  ::selection {
+    background: rgb(var(--rgbAccent));
+    color: rgb(var(--rgbBlack));
+  }
+
+  :focus {
+    outline: 4px solid rgb(var(--rgbText));
+    outline-offset: 4px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* === KEYFRAMES === */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: left;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left;
+  }
+  51% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: right;
+  }
+}
+
+@keyframes loaderSpan {
+  0% {
+    transform: scaleY(0);
+    opacity: 0.5;
+    transform-origin: top;
+  }
+  40% {
+    transform: scaleY(1);
+    opacity: 1;
+    transform-origin: top;
+  }
+  60% {
+    transform: scaleY(1);
+    opacity: 1;
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0.5;
+    transform-origin: bottom;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes introTextReveal {
+  0% {
+    color: rgb(var(--rgbText) / 0);
+  }
+  50% {
+    color: rgb(var(--rgbText) / 0);
+  }
+  60% {
+    color: var(--colorTextTitle);
+  }
+  100% {
+    color: var(--colorTextTitle);
+  }
+}
+
+@keyframes introLine {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes introScrollIndicator {
+  0% {
+    transform: translate3d(-1px, 0, 0);
+    opacity: 0;
+  }
+  20% {
+    transform: translate3d(-1px, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-1px, 8px, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes introMobileScrollIndicator {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--rgbAccent) / 0.4);
+  }
+  5% {
+    transform: scale(1.01);
+  }
+  15% {
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgb(var(--rgbAccent) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(var(--rgbAccent) / 0);
+  }
+}
+
+/* === SKIP LINK === */
+@layer components {
+  .skip {
+    isolation: isolate;
+    color: rgb(var(--rgbBackground));
+    z-index: var(--zIndex4);
+  }
+
+  .skip:focus {
+    padding: var(--spaceS) var(--spaceM);
+    position: fixed;
+    top: var(--spaceM);
+    left: var(--spaceM);
+    text-decoration: none;
+    font-weight: var(--fontWeightMedium);
+    line-height: 1;
+    box-shadow:
+      0 0 0 4px rgb(var(--rgbBackground)),
+      0 0 0 8px rgb(var(--rgbText));
+  }
+
+  .skip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgb(var(--rgbPrimary));
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+    z-index: -1;
+  }
+}
+
+@layer utilities {
+  .decoder-text-glyph {
+    opacity: 0.8;
+    font-weight: 400;
+    line-height: 0;
+  }
+  .decoder-text-value {
+    opacity: 1;
+  }
+}
