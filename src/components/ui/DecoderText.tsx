@@ -44,7 +44,13 @@ interface DecoderTextProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export const DecoderText = memo(
-  ({ text, start = true, delay: startDelay = 0, className, ...rest }: DecoderTextProps) => {
+  ({
+    text,
+    start = true,
+    delay: startDelay = 0,
+    className,
+    ...rest
+  }: DecoderTextProps) => {
     const output = useRef<Char[]>([{ type: CharType.Glyph, value: '' }]);
     const container = useRef<HTMLSpanElement>(null);
     const reduceMotion = useReducedMotion();
@@ -53,7 +59,6 @@ export const DecoderText = memo(
     useEffect(() => {
       const containerInstance = container.current;
       const content = text.split('');
-      let animation: any;
 
       const renderOutput = () => {
         const characterMap = output.current.map(item => {
@@ -75,7 +80,7 @@ export const DecoderText = memo(
         decoderSpring.set(content.length);
       };
 
-      if (start && !animation && !reduceMotion) {
+      if (start && !reduceMotion) {
         startSpring();
       }
 
@@ -95,7 +100,11 @@ export const DecoderText = memo(
     return (
       <span className={classes('block', className)} {...rest}>
         <VisuallyHidden className="sr-only">{text}</VisuallyHidden>
-        <span aria-hidden className="relative after:content-['_'] after:invisible" ref={container} />
+        <span
+          aria-hidden
+          className="relative after:content-['_'] after:invisible"
+          ref={container}
+        />
       </span>
     );
   }

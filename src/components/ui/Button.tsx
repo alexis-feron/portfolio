@@ -4,11 +4,11 @@ import { Icon, IconType } from 'components/ui/Icon/Icon';
 import { Loader } from 'components/ui/Loader';
 import { Transition } from 'components/ui/Transition';
 import {
-    AnchorHTMLAttributes,
-    ButtonHTMLAttributes,
-    CSSProperties,
-    forwardRef,
-    ReactNode
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  CSSProperties,
+  forwardRef,
+  ReactNode,
 } from 'react';
 import { classes } from 'utils/style';
 
@@ -23,32 +23,49 @@ interface BaseProps {
   iconEnd?: IconType;
   iconHoverShift?: boolean;
   iconOnly?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
-type AnchorProps = BaseProps & AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; as?: 'a' };
-type ButtonNativeProps = BaseProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined; as?: 'button' };
+type AnchorProps = BaseProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; as?: 'a' };
+type ButtonNativeProps = BaseProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined; as?: 'button' };
 
 type ButtonProps = AnchorProps | ButtonNativeProps;
 
 export const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(
-  ({ className, style, loading, loadingText = 'loading', secondary, icon, iconEnd, iconHoverShift, iconOnly, children, ...rest }, ref) => {
-    
+  (
+    {
+      className,
+      style,
+      loading,
+      loadingText = 'loading',
+      secondary,
+      icon,
+      iconEnd,
+      iconHoverShift,
+      iconOnly,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
     const isAnchor = 'href' in rest && rest.href !== undefined;
     const isSecondary = secondary;
     const isIconOnly = iconOnly;
 
     // Common classes
     const baseClasses = `
-        h-[var(--buttonSize)] 
-        px-[var(--buttonPadding)] 
+        h-(--buttonSize) 
+        px-(--buttonPadding) 
         cursor-pointer 
         transition-[opacity,color,background] 
         duration-s 
         ease-fast-out-slow-in 
         inline-flex 
         items-center 
-        text-[var(--buttonTextColor)] 
+        text-(--buttonTextColor) 
         relative 
         isolate
         [--buttonSize:calc((56/16)*1rem)]
@@ -103,18 +120,18 @@ export const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonPr
        motion-reduce:after:duration-m
        motion-reduce:after:ease-fast-out-slow-in
     `;
-    
+
     const iconOnlyClasses = `
         [--buttonPadding:0]
         [--buttonTextColor:var(--color-text-body)]
-        w-[var(--buttonSize)]
+        w-(--buttonSize)
         items-center
         justify-center
         p-0
         
         hover:transform-none
 
-        after:!bg-transparent
+        after:bg-transparent!
         hover:after:bg-[rgb(var(--rgbText)/0.1)]
     `;
 
@@ -122,55 +139,57 @@ export const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonPr
     const disabledClasses = `pointer-events-none opacity-40`;
 
     const computedClasses = classes(
-        baseClasses,
-        isSecondary && secondaryClasses,
-        isIconOnly && iconOnlyClasses,
-        loading && loadingClasses,
-        rest.disabled && disabledClasses,
-        className
+      baseClasses,
+      isSecondary && secondaryClasses,
+      isIconOnly && iconOnlyClasses,
+      loading && loadingClasses,
+      rest.disabled && disabledClasses,
+      className
     );
 
     const content = (
-         <ButtonContent
-            loading={loading}
-            loadingText={loadingText}
-            icon={icon}
-            iconEnd={iconEnd}
-            iconHoverShift={iconHoverShift}
-            iconOnly={iconOnly}
-        >
-            {children}
-        </ButtonContent>
+      <ButtonContent
+        loading={loading}
+        loadingText={loadingText}
+        icon={icon}
+        iconEnd={iconEnd}
+        iconHoverShift={iconHoverShift}
+        iconOnly={iconOnly}
+      >
+        {children}
+      </ButtonContent>
     );
 
     if (isAnchor) {
-        const { href, ...anchorRest } = rest as AnchorProps;
-        const isExternal = href.includes('://');
-        
-        return (
-            <a
-                className={computedClasses}
-                href={href}
-                rel={isExternal ? 'noopener noreferrer' : undefined}
-                target={isExternal ? '_blank' : undefined}
-                ref={ref as any}
-                style={style}
-                {...anchorRest}
-            >
-                {content}
-            </a>
-        );
+      const { href, ...anchorRest } = rest as AnchorProps;
+      const isExternal = href.includes('://');
+
+      return (
+        <a
+          className={computedClasses}
+          href={href}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+          target={isExternal ? '_blank' : undefined}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ref={ref as any}
+          style={style}
+          {...anchorRest}
+        >
+          {content}
+        </a>
+      );
     }
 
     return (
-        <button
-            className={computedClasses}
-            ref={ref as any}
-            style={style}
-            {...(rest as ButtonNativeProps)}
-        >
-             {content}
-        </button>
+      <button
+        className={computedClasses}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ref={ref as any}
+        style={style}
+        {...(rest as ButtonNativeProps)}
+      >
+        {content}
+      </button>
     );
   }
 );
@@ -178,62 +197,70 @@ export const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonPr
 Button.displayName = 'Button';
 
 interface ButtonContentProps {
-    loading?: boolean;
-    loadingText?: string;
-    icon?: IconType;
-    iconEnd?: IconType;
-    iconHoverShift?: boolean;
-    iconOnly?: boolean;
-    children?: ReactNode;
+  loading?: boolean;
+  loadingText?: string;
+  icon?: IconType;
+  iconEnd?: IconType;
+  iconHoverShift?: boolean;
+  iconOnly?: boolean;
+  children?: ReactNode;
 }
 
-const ButtonContent = ({ loading, loadingText, icon, iconEnd, iconHoverShift, iconOnly, children }: ButtonContentProps) => {
-    return (
-        <>
-            {!!icon && (
-                 <Icon
-                    className={classes(
-                        "transition-[opacity,fill] duration-s ease-fast-out-slow-in motion-reduce:transition-[transform,opacity,fill]",
-                        !iconOnly && "mr-s",
-                        iconHoverShift && "group-hover:translate-x-xs", // Assessing how to handle group hover from parent in simple way or just custom classes
-                         loading && "opacity-0"
-                    )}
-                    data-start={!iconOnly}
-                    data-shift={iconHoverShift}
-                    icon={icon}
-                />
+const ButtonContent = ({
+  loading,
+  loadingText,
+  icon,
+  iconEnd,
+  iconHoverShift,
+  iconOnly,
+  children,
+}: ButtonContentProps) => {
+  return (
+    <>
+      {!!icon && (
+        <Icon
+          className={classes(
+            'transition-[opacity,fill] duration-s ease-fast-out-slow-in motion-reduce:transition-[transform,opacity,fill]',
+            !iconOnly && 'mr-s',
+            iconHoverShift && 'group-hover:translate-x-xs', // Assessing how to handle group hover from parent in simple way or just custom classes
+            loading && 'opacity-0'
+          )}
+          data-start={!iconOnly}
+          data-shift={iconHoverShift}
+          icon={icon}
+        />
+      )}
+      {!!children && (
+        <div className="text-(length:--buttonFontSize) font-medium opacity-(--buttonTextOpacity) relative leading-none flex-auto flex items-center justify-center transition-opacity duration-m ease-fast-out-slow-in">
+          {children}
+        </div>
+      )}
+      {!!iconEnd && (
+        <Icon
+          className={classes(
+            'transition-[opacity,fill] duration-s ease-fast-out-slow-in motion-reduce:transition-[transform,opacity,fill]',
+            !iconOnly && 'ml-s',
+            iconHoverShift && 'group-hover:translate-x-xs',
+            loading && 'opacity-0'
+          )}
+          data-end={!iconOnly}
+          data-shift={iconHoverShift}
+          icon={iconEnd}
+        />
+      )}
+      <Transition unmount in={loading}>
+        {visible => (
+          <Loader
+            className={classes(
+              'absolute left-1/2 -translate-x-1/2 text-background opacity-0 transition-opacity duration-m ease-linear delay-[0s]',
+              visible && 'opacity-100'
             )}
-            {!!children && (
-                 <div className="text-[length:var(--buttonFontSize)] font-medium opacity-[var(--buttonTextOpacity)] relative leading-none flex-auto flex items-center justify-center transition-opacity duration-m ease-fast-out-slow-in">
-                    {children}
-                </div>
-            )}
-             {!!iconEnd && (
-                <Icon
-                   className={classes(
-                        "transition-[opacity,fill] duration-s ease-fast-out-slow-in motion-reduce:transition-[transform,opacity,fill]",
-                        !iconOnly && "ml-s",
-                         iconHoverShift && "group-hover:translate-x-xs",
-                         loading && "opacity-0"
-                    )}
-                    data-end={!iconOnly}
-                    data-shift={iconHoverShift}
-                    icon={iconEnd}
-                />
-            )}
-            <Transition unmount in={loading}>
-                {(visible) => (
-                    <Loader
-                        className={classes(
-                             "absolute left-1/2 -translate-x-1/2 text-background opacity-0 transition-opacity duration-m ease-linear delay-[0s]",
-                             visible && "opacity-100"
-                        )}
-                        size={32}
-                        text={loadingText}
-                        data-visible={visible}
-                    />
-                )}
-            </Transition>
-        </>
-    );
+            size={32}
+            text={loadingText}
+            data-visible={visible}
+          />
+        )}
+      </Transition>
+    </>
+  );
 };

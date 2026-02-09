@@ -1,13 +1,11 @@
 'use client';
 
-import { classes } from 'utils/style';
-
 export const Background = () => {
   return (
     <svg
       preserveAspectRatio="xMidYMid slice"
       viewBox="10 10 80 80"
-      className="fixed top-0 left-0 w-full h-[100vh] blur-[60px] opacity-70"
+      className="fixed top-0 left-0 w-full h-screen blur-[60px] opacity-70"
     >
       <path
         className="animate-[rotate_19s_linear_infinite] origin-[13px_25px] fill-blue"

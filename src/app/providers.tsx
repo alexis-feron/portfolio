@@ -7,7 +7,13 @@ import { Navbar } from 'components/layout/Navbar/Navbar';
 import { ThemeProvider } from 'components/layout/ThemeProvider/ThemeProvider';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { useLocalStorage } from 'hooks';
-import { createContext, useEffect, useReducer, type Dispatch, type ReactNode } from 'react';
+import {
+  createContext,
+  useEffect,
+  useReducer,
+  type Dispatch,
+  type ReactNode,
+} from 'react';
 
 interface AppState {
   theme?: string;

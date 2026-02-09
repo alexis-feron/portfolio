@@ -2,18 +2,16 @@
 
 import { Button } from 'components/ui/Button';
 import { useAppContext } from 'hooks';
-import { ButtonHTMLAttributes, useId } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import { classes } from 'utils/style';
 
 interface ThemeToggleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  isMobile?: boolean; // We likely don't need isMobile prop anymore if CSS handles it? 
+  isMobile?: boolean; // We likely don't need isMobile prop anymore if CSS handles it?
   // But keeping it compatible.
 }
 
 export const ThemeToggle = ({ isMobile, ...rest }: ThemeToggleProps) => {
   const { dispatch } = useAppContext();
-  const id = useId();
-  const maskId = `${id}theme-toggle-mask`;
 
   const handleClick = () => {
     dispatch({ type: 'toggleTheme' });
@@ -23,13 +21,23 @@ export const ThemeToggle = ({ isMobile, ...rest }: ThemeToggleProps) => {
     <Button
       iconOnly
       className={classes(
-        '!inline-flex fixed z-50 top-[24px] right-[24px] translate-x-0 translate-y-0 transform-none',
+        'inline-flex! fixed z-50 top-6 right-6 translate-x-0 translate-y-0 transform-none',
         // Use module class for hiding logic
         // Use module class for hiding logic matches desktop behavior
-        !isMobile && "nav-mobile-hidden",
+        !isMobile && 'nav-mobile-hidden',
         rest.className
       )}
-      style={!isMobile ? { position: 'fixed', top: '24px', right: '24px', zIndex: 60, display: 'inline-flex' } : {}}
+      style={
+        !isMobile
+          ? {
+              position: 'fixed',
+              top: '24px',
+              right: '24px',
+              zIndex: 60,
+              display: 'inline-flex',
+            }
+          : {}
+      }
       data-mobile={isMobile}
       aria-label="Toggle theme"
       onClick={handleClick}
@@ -37,13 +45,13 @@ export const ThemeToggle = ({ isMobile, ...rest }: ThemeToggleProps) => {
     >
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Sun Icon (Visible in Light Mode) */}
-        <svg 
-          className="w-[24px] h-[24px] text-[var(--colorTextBody)] dark:opacity-0 transition-opacity duration-300 absolute" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
+        <svg
+          className="w-6 h-6 text-(--colorTextBody) dark:opacity-0 transition-opacity duration-300 absolute"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
           strokeLinejoin="round"
         >
           <circle cx="12" cy="12" r="5"></circle>
@@ -58,13 +66,13 @@ export const ThemeToggle = ({ isMobile, ...rest }: ThemeToggleProps) => {
         </svg>
 
         {/* Moon Icon (Visible in Dark Mode) */}
-        <svg 
-          className="w-[24px] h-[24px] text-[var(--colorTextBody)] opacity-0 dark:opacity-100 transition-opacity duration-300 absolute" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
+        <svg
+          className="w-6 h-6 text-(--colorTextBody) opacity-0 dark:opacity-100 transition-opacity duration-300 absolute"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
           strokeLinejoin="round"
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>

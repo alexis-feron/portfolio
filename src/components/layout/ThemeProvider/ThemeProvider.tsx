@@ -2,8 +2,8 @@
 
 import { useHasMounted } from 'hooks';
 import { createContext, useEffect, type ReactNode } from 'react';
-import { classes, media } from 'utils/style';
-import { theme, tokens, type ThemeColors } from './theme';
+import { classes } from 'utils/style';
+import { theme, type ThemeColors } from './theme';
 import { useTheme } from './useTheme';
 
 export const ThemeContext = createContext<ThemeColors>({} as ThemeColors);
@@ -64,6 +64,5 @@ export const ThemeProvider = ({
     </ThemeContext.Provider>
   );
 };
-
 
 // Logic extracted to themeStyles.ts

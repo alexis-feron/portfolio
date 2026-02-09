@@ -1,4 +1,3 @@
-
 import GothamBoldItalic from 'assets/fonts/gotham-bold-italic.woff2';
 import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import GothamBookItalic from 'assets/fonts/gotham-book-italic.woff2';

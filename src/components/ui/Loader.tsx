@@ -15,7 +15,13 @@ interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {
   text?: string;
 }
 
-export const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }: LoaderProps) => {
+export const Loader = ({
+  className,
+  style,
+  size = 32,
+  text = 'Loading...',
+  ...rest
+}: LoaderProps) => {
   const reduceMotion = useReducedMotion();
   const hasMounted = useHasMounted();
 
@@ -51,8 +57,8 @@ export const Loader = ({ className, style, size = 32, text = 'Loading...', ...re
       style={cssProps({ width: size, height: size }, style)}
       {...rest}
     >
-      <div 
-        className="grid grid-cols-[repeat(3,var(--spanSize))] gap-[var(--gapSize)] items-center justify-center -skew-x-[22deg]"
+      <div
+        className="grid grid-cols-[repeat(3,var(--spanSize))] gap-(--gapSize) items-center justify-center -skew-x-22"
         style={cssProps({ '--spanSize': `${spanSize}px`, '--gapSize': `${gapSize}px` })}
       >
         <div className="h-[60%] bg-current animate-[loaderSpan_1s_var(--ease-fast-out-slow-in)_infinite] scale-y-0 origin-top-left" />

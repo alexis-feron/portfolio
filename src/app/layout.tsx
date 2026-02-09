@@ -30,8 +30,7 @@ export const metadata: Metadata = {
     siteName: name,
     type: 'website',
     url: siteUrl,
-    description:
-      'Alexis Feron, développeur web fullstack. Découvrez mon portfolio.',
+    description: 'Alexis Feron, développeur web fullstack. Découvrez mon portfolio.',
     images: [
       {
         url: defaultOgImage,
@@ -45,8 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${name} | Portfolio`,
-    description:
-      'Alexis Feron, développeur web fullstack. Découvrez mon portfolio.',
+    description: 'Alexis Feron, développeur web fullstack. Découvrez mon portfolio.',
     site: '@alexis_feron_',
     creator: '@alexis_feron_',
     images: [defaultOgImage],
@@ -59,11 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="theme-color" content="rgb(25 25 25)" />
         <link rel="author" type="text/plain" />
-        <script
-          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-          async
-          defer
-        />
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
       </head>
       <body data-theme="dark" tabIndex={-1} suppressHydrationWarning>
         <script
@@ -93,8 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'https://www.github.com/alexis-feron',
               ],
               jobTitle: 'Full-Stack Web Developer',
-              description:
-                'Développeur web full-stack expert en Next.js, React et Vue.',
+              description: 'Développeur web full-stack expert en Next.js, React et Vue.',
               image: defaultOgImage,
             }),
           }}

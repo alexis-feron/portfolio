@@ -7,7 +7,7 @@ interface TextAreaProps {
   className?: string;
   resize?: 'none' | 'both' | 'horizontal' | 'vertical';
   value: string;
-  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (_event: ChangeEvent<HTMLTextAreaElement>) => void;
   minRows?: number;
   maxRows?: number;
   id?: string;
@@ -18,8 +18,9 @@ interface TextAreaProps {
   maxLength?: number;
   style?: CSSProperties;
   autoFocus?: boolean;
-  onBlur?: (event: any) => void;
-  onFocus?: (event: any) => void;
+  onBlur?: (_event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onFocus?: (_event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
@@ -33,7 +34,10 @@ export const TextArea = ({
   ...rest
 }: TextAreaProps) => {
   const [rows, setRows] = useState(minRows);
-  const [textareaDimensions, setTextareaDimensions] = useState<{ lineHeight: number; paddingHeight: number }>();
+  const [textareaDimensions, setTextareaDimensions] = useState<{
+    lineHeight: number;
+    paddingHeight: number;
+  }>();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -71,7 +75,7 @@ export const TextArea = ({
 
   return (
     <textarea
-      className={classes('resize-[var(--resize)]', className)}
+      className={classes('resize-(--resize)', className)}
       ref={textareaRef}
       onChange={handleChange}
       style={cssProps({ resize }, rest.style)}

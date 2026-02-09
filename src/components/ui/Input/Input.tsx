@@ -16,14 +16,15 @@ interface InputProps {
   className?: string;
   style?: CSSProperties;
   error?: string;
-  onBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onBlur?: (_event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   autoComplete?: string;
   required?: boolean;
   maxLength?: number;
   type?: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: (_event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   minRows?: number;
   maxRows?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
@@ -80,7 +81,8 @@ export const Input = ({
             'absolute top-l left-0 block cursor-text origin-top-left transition-[color] duration-m ease-linear',
             'text-[rgb(var(--rgbText)/0.8)]',
             'motion-reduce:transition-[transform,color] motion-reduce:duration-m',
-            (focused || !!value) && 'text-[rgb(var(--rgbText)/0.54)] scale-75 -translate-y-l'
+            (focused || !!value) &&
+              'text-[rgb(var(--rgbText)/0.54)] scale-75 -translate-y-l'
           )}
           data-focused={focused}
           data-filled={!!value}
@@ -91,8 +93,8 @@ export const Input = ({
         </label>
         <InputElement
           className={classes(
-            'block w-full text-[length:var(--inputFontSize)] leading-[var(--lineHeightBody)] text-[var(--colorTextBody)]',
-            'p-0 py-l pb-m bg-transparent border-b-[2px] border-[var(--inputUnderlineColor)] rounded-none appearance-none outline-none',
+            'block w-full text-(length:--inputFontSize) leading-(--lineHeightBody) text-(--colorTextBody)',
+            'p-0 py-l pb-m bg-transparent border-b-[2px] border-(--inputUnderlineColor) rounded-none appearance-none outline-none',
             // 'shadow-[inset_0_-2px_0_0_var(--inputUnderlineColor)]', // Removed shadow in favor of border
             'transition-[background-color] duration-[5000s] ease-linear delay-[0s]', // Autofill fix hack
             'overflow-x-hidden',
@@ -115,22 +117,22 @@ export const Input = ({
           name={name}
         />
         <div
-            className={classes(
-                'absolute bottom-0 w-full h-[2px] bg-primary origin-left scale-x-0 z-10',
-                'transition-transform duration-m ease-fast-out-slow-in',
-                'motion-safe:transition-transform motion-safe:duration-m motion-safe:ease-fast-out-slow-in',
-                focused && '!scale-x-100'
-            )}
-            data-focused={focused} 
+          className={classes(
+            'absolute bottom-0 w-full h-[2px] bg-primary origin-left scale-x-0 z-10',
+            'transition-transform duration-m ease-fast-out-slow-in',
+            'motion-safe:transition-transform motion-safe:duration-m motion-safe:ease-fast-out-slow-in',
+            focused && 'scale-x-100!'
+          )}
+          data-focused={focused}
         />
       </div>
       <Transition unmount in={!!error} timeout={msToNum(tokens.base.durationM)}>
         {(visible: boolean) => (
           <div
             className={classes(
-                'opacity-0 transition-opacity duration-m ease-fast-out-slow-in h-[var(--height)]',
-                'motion-reduce:transition-[height,opacity]',
-                visible && 'opacity-100'
+              'opacity-0 transition-opacity duration-m ease-fast-out-slow-in h-(--height)',
+              'motion-reduce:transition-[height,opacity]',
+              visible && 'opacity-100'
             )}
             data-visible={visible}
             id={errorId}
@@ -139,7 +141,10 @@ export const Input = ({
               height: visible ? errorRef.current?.getBoundingClientRect().height : 0,
             })}
           >
-            <div className="grid grid-cols-[auto_1fr] items-center gap-xs pt-s text-error" ref={errorRef}>
+            <div
+              className="grid grid-cols-[auto_1fr] items-center gap-xs pt-s text-error"
+              ref={errorRef}
+            >
               <Icon icon="error" />
               {error}
             </div>

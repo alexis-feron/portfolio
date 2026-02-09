@@ -15,7 +15,11 @@ interface LoadImageParams {
  * Use the browser's image loading to load an image and
  * grab the `src` it chooses from a `srcSet`
  */
-export async function loadImageFromSrcSet({ src, srcSet, sizes }: LoadImageParams): Promise<string> {
+export async function loadImageFromSrcSet({
+  src,
+  srcSet,
+  sizes,
+}: LoadImageParams): Promise<string> {
   return new Promise((resolve, reject) => {
     const srcSetString = srcSetToString(srcSet);
 
@@ -66,7 +70,10 @@ export function srcSetToString(srcSet: SrcSet = []): string {
 /**
  * Generates a transparent png of a given width and height
  */
-export async function generateImage(width: number = 1, height: number = 1): Promise<string> {
+export async function generateImage(
+  width: number = 1,
+  height: number = 1
+): Promise<string> {
   return new Promise(resolve => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d')!;
@@ -89,7 +96,13 @@ export async function generateImage(width: number = 1, height: number = 1): Prom
 /**
  * Use native html image `srcSet` resolution for non-html images
  */
-export async function resolveSrcFromSrcSet({ srcSet, sizes }: { srcSet: SrcSet; sizes: string }): Promise<string> {
+export async function resolveSrcFromSrcSet({
+  srcSet,
+  sizes,
+}: {
+  srcSet: SrcSet;
+  sizes: string;
+}): Promise<string> {
   const stringSrcSet = srcSetToString(srcSet);
 
   const sources = await Promise.all(

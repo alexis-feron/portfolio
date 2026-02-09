@@ -4,16 +4,16 @@ declare global {
   interface Window {
     turnstile?: {
       render: (
-        container: HTMLElement | string,
-        params: {
+        _container: HTMLElement | string,
+        _params: {
           sitekey: string;
           theme?: 'light' | 'dark' | 'auto';
           size?: 'normal' | 'compact';
-          callback?: (token: string) => void;
+          callback?: (_token: string) => void;
           'error-callback'?: () => void;
         }
       ) => string;
-      remove: (widgetId: string) => void;
+      remove: (_widgetId: string) => void;
     };
   }
 }

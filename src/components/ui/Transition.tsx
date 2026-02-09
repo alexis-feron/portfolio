@@ -9,7 +9,7 @@ interface Timeout {
 }
 
 interface TransitionProps {
-  children: (visible: boolean, status: string) => ReactNode;
+  children: (_visible: boolean, _status: string) => ReactNode;
   timeout?: number | Timeout;
   onEnter?: () => void;
   onEntered?: () => void;
@@ -100,13 +100,13 @@ const TransitionContent = ({
 
     // Force strict 0 timeout to be instant
     if (actualTimeout === 0) {
+      setStatus('entered');
+      if (onEntered) onEntered();
+    } else {
+      enterTimeout.current = setTimeout(() => {
         setStatus('entered');
         if (onEntered) onEntered();
-    } else {
-        enterTimeout.current = setTimeout(() => {
-            setStatus('entered');
-            if (onEntered) onEntered();
-        }, actualTimeout);
+      }, actualTimeout);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onEnter, onEntered, timeout, status, show]);

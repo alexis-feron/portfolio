@@ -9,4 +9,3 @@ export { useParallax } from './useParallax';
 export { usePrevious } from './usePrevious';
 export { useScrollToHash } from './useScrollToHash';
 export { useWindowSize } from './useWindowSize';
-

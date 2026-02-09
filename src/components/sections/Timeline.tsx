@@ -38,16 +38,16 @@ export const Timeline = () => {
   };
 
   return (
-    <section 
-        className={classes(
-            'flex flex-wrap items-baseline justify-center py-3xl px-l z-20 relative',
-            '[--lineHeightBody:1.1]',
-            'max-[1680px]:px-[var(--space-3xl)]',
-            'max-[696px]:p-[var(--space-l)] max-[400px]:p-[var(--space-l)] max-[820px]:max-h-[420px]:p-[var(--space-l)]'
-        )}
+    <section
+      className={classes(
+        'flex flex-wrap items-baseline justify-center py-3xl px-l z-20 relative',
+        '[--lineHeightBody:1.1]',
+        'max-[1680px]:px-(--space-3xl)',
+        'max-[696px]:p-(--space-l) max-[400px]:p-(--space-l) max-[820px]:max-h-[420px]:p-(--space-l)'
+      )}
     >
-      <VerticalTimeline 
-        className="before:!bg-text-body before:!w-[2px]" // Using !important to override library styles if needed, specifically the line color
+      <VerticalTimeline
+        className="before:bg-text-body! before:w-0.5!" // Using !important to override library styles if needed, specifically the line color
       >
         <VerticalTimelineElement
           visible={true}
@@ -75,15 +75,17 @@ export const Timeline = () => {
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
         >
-          <h3 className="text-[length:var(--text-body-m)] font-bold leading-[var(--lineHeightTitle)] text-[var(--colorTextTitle)]">Web developer in apprenticeship at Ultrō</h3>
+          <h3 className="text-body-m font-bold leading-(--lineHeightTitle) text-(--colorTextTitle)">
+            Web developer in apprenticeship at Ultrō
+          </h3>
           <div
             className={classes(
-                'flex mt-[10px] whitespace-nowrap overflow-x-auto pb-[10px]',
-                '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-[7px] [&>div]:py-[3px] [&>div]:mr-[10px] [&>div]:select-none',
-                // Scrollbar styling using arbitrary variants
-                '[&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar]:mt-[5px]',
-                '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
-                '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
+              'flex mt-2.5 whitespace-nowrap overflow-x-auto pb-2.5',
+              '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-1.75 [&>div]:py-0.75 [&>div]:mr-2.5 [&>div]:select-none',
+              // Scrollbar styling using arbitrary variants
+              '[&::-webkit-scrollbar]:h-1.25 [&::-webkit-scrollbar]:mt-1.25',
+              '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
+              '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
             )}
             ref={containerRef}
             onMouseDown={handleMouseDown}
@@ -96,8 +98,8 @@ export const Timeline = () => {
             <div>Shopify</div>
             <div>Pipedream</div>
           </div>
-          <p className="text-[length:var(--text-body-m)]">Clermont-Ferrand, France</p>
-          <p className="text-[length:var(--text-body-m)]">September 2023 - Currently</p>
+          <p className="text-body-m">Clermont-Ferrand, France</p>
+          <p className="text-body-m">September 2023 - Currently</p>
         </VerticalTimelineElement>
         <VerticalTimelineElement
           visible={true}
@@ -125,14 +127,16 @@ export const Timeline = () => {
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
         >
-          <h3 className="text-[length:var(--text-body-m)] font-bold leading-[var(--lineHeightTitle)] text-[var(--colorTextTitle)]">Master's degree in Fullstack Development</h3>
+          <h3 className="text-body-m font-bold leading-(--lineHeightTitle) text-(--colorTextTitle)">
+            Master&apos;s degree in Fullstack Development
+          </h3>
           <div
             className={classes(
-                'flex mt-[10px] whitespace-nowrap overflow-x-auto pb-[10px]',
-                '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-[7px] [&>div]:py-[3px] [&>div]:mr-[10px] [&>div]:select-none',
-                '[&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar]:mt-[5px]',
-                '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
-                '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
+              'flex mt-2.5 whitespace-nowrap overflow-x-auto pb-2.5',
+              '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-1.75 [&>div]:py-0.75 [&>div]:mr-2.5 [&>div]:select-none',
+              '[&::-webkit-scrollbar]:h-1.25 [&::-webkit-scrollbar]:mt-1.25',
+              '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
+              '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
             )}
             ref={containerRef}
             onMouseDown={handleMouseDown}
@@ -145,8 +149,8 @@ export const Timeline = () => {
             <div>Prisma</div>
             <div>Hono</div>
           </div>
-          <p className="text-[length:var(--text-body-m)]">Lyon, France</p>
-          <p className="text-[length:var(--text-body-m)]">September 2025 - Currently</p>
+          <p className="text-body-m">Lyon, France</p>
+          <p className="text-body-m">September 2025 - Currently</p>
         </VerticalTimelineElement>
 
         <VerticalTimelineElement
@@ -175,14 +179,16 @@ export const Timeline = () => {
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
         >
-          <h3 className="text-[length:var(--text-body-m)] font-bold leading-[var(--lineHeightTitle)] text-[var(--colorTextTitle)]">Web developer internship at Radar Technologies</h3>
+          <h3 className="text-body-m font-bold leading-(--lineHeightTitle) text-(--colorTextTitle)">
+            Web developer internship at Radar Technologies
+          </h3>
           <div
             className={classes(
-                'flex mt-[10px] whitespace-nowrap overflow-x-auto pb-[10px]',
-                '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-[7px] [&>div]:py-[3px] [&>div]:mr-[10px] [&>div]:select-none',
-                '[&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar]:mt-[5px]',
-                '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
-                '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
+              'flex mt-2.5 whitespace-nowrap overflow-x-auto pb-2.5',
+              '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-1.75 [&>div]:py-0.75 [&>div]:mr-2.5 [&>div]:select-none',
+              '[&::-webkit-scrollbar]:h-1.25 [&::-webkit-scrollbar]:mt-1.25',
+              '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
+              '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
             )}
             ref={containerRef}
             onMouseDown={handleMouseDown}
@@ -194,8 +200,8 @@ export const Timeline = () => {
             <div>MVC</div>
             <div>Unit tests</div>
           </div>
-          <p className="text-[length:var(--text-body-m)]">Cournon d&apos;Auvergne, France</p>
-          <p className="text-[length:var(--text-body-m)]">April 2023 - June 2023</p>
+          <p className="text-body-m">Cournon d&apos;Auvergne, France</p>
+          <p className="text-body-m">April 2023 - June 2023</p>
         </VerticalTimelineElement>
         <VerticalTimelineElement
           visible={true}
@@ -223,14 +229,16 @@ export const Timeline = () => {
           }
           contentArrowStyle={{ borderRight: '15px solid var(--colorTextTitle)' }}
         >
-          <h3 className="text-[length:var(--text-body-m)] font-bold leading-[var(--lineHeightTitle)] text-[var(--colorTextTitle)]">University Bachelor of Technology in Computer Science</h3>
+          <h3 className="text-body-m font-bold leading-(--lineHeightTitle) text-(--colorTextTitle)">
+            University Bachelor of Technology in Computer Science
+          </h3>
           <div
             className={classes(
-                'flex mt-[10px] whitespace-nowrap overflow-x-auto pb-[10px]',
-                '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-[7px] [&>div]:py-[3px] [&>div]:mr-[10px] [&>div]:select-none',
-                '[&::-webkit-scrollbar]:h-[5px] [&::-webkit-scrollbar]:mt-[5px]',
-                '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
-                '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
+              'flex mt-2.5 whitespace-nowrap overflow-x-auto pb-2.5',
+              '[&>div]:inline-block [&>div]:border-[1.5px] [&>div]:border-text-body [&>div]:rounded-[15px] [&>div]:px-1.75 [&>div]:py-0.75 [&>div]:mr-2.5 [&>div]:select-none',
+              '[&::-webkit-scrollbar]:h-1.25 [&::-webkit-scrollbar]:mt-1.25',
+              '[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-[5px]',
+              '[&::-webkit-scrollbar-thumb]:bg-text-light [&::-webkit-scrollbar-thumb]:rounded-[5px]'
             )}
             ref={containerRef}
             onMouseDown={handleMouseDown}
@@ -245,7 +253,7 @@ export const Timeline = () => {
             <div>Angular</div>
             <div>VueJS</div>
           </div>
-          <p className="text-[length:var(--text-body-m)]">Clermont-Ferrand, France</p>
+          <p className="text-body-m">Clermont-Ferrand, France</p>
         </VerticalTimelineElement>
       </VerticalTimeline>
     </section>

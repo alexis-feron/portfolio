@@ -32,7 +32,7 @@ import {
   Texture,
   Vector3,
   WebGLRenderTarget,
-  WebGLRenderer
+  WebGLRenderer,
 } from 'three';
 import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from 'utils/image';
@@ -84,6 +84,7 @@ interface ModelProps {
   style?: CSSProperties;
   className?: string;
   alt?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
@@ -164,7 +165,7 @@ export const Model = ({
     _renderer.setPixelRatio(2);
     _renderer.setSize(clientWidth, clientHeight);
     _renderer.outputColorSpace = SRGBColorSpace;
-    
+
     const _camera = new PerspectiveCamera(36, clientWidth / clientHeight, 0.1, 100);
     _camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     (camera as MutableRefObject<PerspectiveCamera>).current = _camera;
@@ -191,7 +192,7 @@ export const Model = ({
     fillLight.position.set(-6, 2, 2);
     keyLight.position.set(0.5, 0, 0.866);
     backLight.position.set(-1, 2, -2);
-    
+
     const _lights = [ambientLight, keyLight, fillLight, backLight];
     (lights as MutableRefObject<Light[]>).current = _lights;
     _lights.forEach(light => _scene.add(light));
@@ -286,22 +287,30 @@ export const Model = ({
     _depthMaterial.depthWrite = false;
 
     const _horizontalBlurMaterial = new ShaderMaterial(HorizontalBlurShader);
-    (horizontalBlurMaterial as MutableRefObject<ShaderMaterial>).current = _horizontalBlurMaterial;
+    (horizontalBlurMaterial as MutableRefObject<ShaderMaterial>).current =
+      _horizontalBlurMaterial;
     _horizontalBlurMaterial.depthTest = false;
 
     const _verticalBlurMaterial = new ShaderMaterial(VerticalBlurShader);
-    (verticalBlurMaterial as MutableRefObject<ShaderMaterial>).current = _verticalBlurMaterial;
+    (verticalBlurMaterial as MutableRefObject<ShaderMaterial>).current =
+      _verticalBlurMaterial;
     _verticalBlurMaterial.depthTest = false;
 
     const unsubscribeX = rotationX.on('change', renderFrame);
     const unsubscribeY = rotationY.on('change', renderFrame);
 
+    const currentRenderTarget = renderTarget.current;
+    const currentRenderTargetBlur = renderTargetBlur.current;
+    const currentLights = lights.current;
+    const currentScene = scene.current;
+    const currentRenderer = renderer.current;
+
     return () => {
-      renderTarget.current?.dispose();
-      renderTargetBlur.current?.dispose();
-      if (lights.current) removeLights(lights.current);
-      if (scene.current) cleanScene(scene.current);
-      if (renderer.current) cleanRenderer(renderer.current);
+      currentRenderTarget?.dispose();
+      currentRenderTargetBlur?.dispose();
+      if (currentLights) removeLights(currentLights);
+      if (currentScene) cleanScene(currentScene);
+      if (currentRenderer) cleanRenderer(currentRenderer);
       unsubscribeX();
       unsubscribeY();
     };
@@ -309,7 +318,16 @@ export const Model = ({
   }, []);
 
   const blurShadow = useCallback((amount: number) => {
-    if (!blurPlane.current || !horizontalBlurMaterial.current || !renderTarget.current || !renderer.current || !renderTargetBlur.current || !shadowCamera.current || !verticalBlurMaterial.current) return;
+    if (
+      !blurPlane.current ||
+      !horizontalBlurMaterial.current ||
+      !renderTarget.current ||
+      !renderer.current ||
+      !renderTargetBlur.current ||
+      !shadowCamera.current ||
+      !verticalBlurMaterial.current
+    )
+      return;
 
     blurPlane.current.visible = true;
 
@@ -328,7 +346,8 @@ export const Model = ({
 
     // Blur vertically and draw in the main renderTarget
     blurPlane.current.material = verticalBlurMaterial.current;
-    verticalBlurMaterial.current.uniforms.tDiffuse.value = renderTargetBlur.current.texture;
+    verticalBlurMaterial.current.uniforms.tDiffuse.value =
+      renderTargetBlur.current.texture;
     verticalBlurMaterial.current.uniforms.v.value = amount * (1 / 256);
 
     renderer.current.setRenderTarget(renderTarget.current);
@@ -344,7 +363,16 @@ export const Model = ({
 
   // Handle render passes for a single frame
   const renderFrame = useCallback(() => {
-    if (!scene.current || !renderer.current || !shadowCamera.current || !depthMaterial.current || !renderTarget.current || !modelGroup.current || !camera.current) return;
+    if (
+      !scene.current ||
+      !renderer.current ||
+      !shadowCamera.current ||
+      !depthMaterial.current ||
+      !renderTarget.current ||
+      !modelGroup.current ||
+      !camera.current
+    )
+      return;
 
     const blurAmount = 5;
 
@@ -413,8 +441,7 @@ export const Model = ({
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      if (!container.current || !renderer.current || !camera.current)
-        return;
+      if (!container.current || !renderer.current || !camera.current) return;
 
       const { clientWidth, clientHeight } = container.current;
 
@@ -435,7 +462,11 @@ export const Model = ({
 
   return (
     <div
-      className={classes('relative opacity-0', loaded && 'animate-[fadeIn_1s_ease_forwards_var(--delay)]', className)}
+      className={classes(
+        'relative opacity-0',
+        loaded && 'animate-[fadeIn_1s_ease_forwards_var(--delay)]',
+        className
+      )}
       data-loaded={loaded}
       style={cssProps({ delay: numToMs(showDelay) }, style)}
       ref={container}
@@ -468,7 +499,7 @@ interface DeviceProps {
   renderFrame: () => void;
   index: number;
   showDelay: number;
-  setLoaded: (loaded: boolean) => void;
+  setLoaded: (_loaded: boolean) => void;
   show: boolean;
 }
 
@@ -482,7 +513,12 @@ const Device = ({
   setLoaded,
   show,
 }: DeviceProps) => {
-  const [loadDevice, setLoadDevice] = useState<{ start: () => Promise<{ loadFullResTexture: () => Promise<void>; playAnimation: () => { stop: () => void } | undefined }> }>();
+  const [loadDevice, setLoadDevice] = useState<{
+    start: () => Promise<{
+      loadFullResTexture: () => Promise<void>;
+      playAnimation: () => { stop: () => void } | undefined;
+    }>;
+  }>();
   const reduceMotion = useReducedMotion();
   const placeholderScreen = useRef<Object3D | null>(null);
 
@@ -513,17 +549,19 @@ const Device = ({
 
       if (node.material) {
         if (Array.isArray(node.material)) {
-             node.material.forEach(m => {
-                 (m as MeshBasicMaterial).color = new Color(0xffffff) as any;
-                 m.transparent = true;
-                 (m as MeshBasicMaterial).map = texture;
-                 m.needsUpdate = true;
-             });
+          node.material.forEach(m => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (m as MeshBasicMaterial).color = new Color(0xffffff) as any;
+            m.transparent = true;
+            (m as MeshBasicMaterial).map = texture;
+            m.needsUpdate = true;
+          });
         } else {
-            (node.material as MeshBasicMaterial).color = new Color(0xffffff) as any;
-            node.material.transparent = true;
-            (node.material as MeshBasicMaterial).map = texture;
-            node.material.needsUpdate = true;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (node.material as MeshBasicMaterial).color = new Color(0xffffff) as any;
+          node.material.transparent = true;
+          (node.material as MeshBasicMaterial).map = texture;
+          node.material.needsUpdate = true;
         }
       }
     };
@@ -545,13 +583,15 @@ const Device = ({
         const mesh = node as Mesh;
         if (mesh.material) {
           if (Array.isArray(mesh.material)) {
-              mesh.material.forEach((m: Material) => {
-                  (m as MeshBasicMaterial).color = new Color(0x1f2025) as any;
-                  (m as MeshBasicMaterial).color.convertSRGBToLinear();
-              });
+            mesh.material.forEach((m: Material) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (m as MeshBasicMaterial).color = new Color(0x1f2025) as any;
+              (m as MeshBasicMaterial).color.convertSRGBToLinear();
+            });
           } else {
-             (mesh.material as MeshBasicMaterial).color = new Color(0x1f2025) as any;
-             (mesh.material as MeshBasicMaterial).color.convertSRGBToLinear();
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (mesh.material as MeshBasicMaterial).color = new Color(0x1f2025) as any;
+            (mesh.material as MeshBasicMaterial).color.convertSRGBToLinear();
           }
         }
 
@@ -560,22 +600,22 @@ const Device = ({
           if (placeholderScreen.current) {
             const screenMesh = placeholderScreen.current as Mesh;
             const originalMesh = node as Mesh;
-             
-             if (originalMesh.material) {
-                if (Array.isArray(originalMesh.material)) {
-                    screenMesh.material = originalMesh.material.map(m => m.clone());
-                } else {
-                    screenMesh.material = originalMesh.material.clone();
-                }
+
+            if (originalMesh.material) {
+              if (Array.isArray(originalMesh.material)) {
+                screenMesh.material = originalMesh.material.map(m => m.clone());
+              } else {
+                screenMesh.material = originalMesh.material.clone();
+              }
             }
 
             node.parent?.add(placeholderScreen.current);
             if (screenMesh.material) {
-                 if (Array.isArray(screenMesh.material)) {
-                     screenMesh.material.forEach(m => m.opacity = 1);
-                 } else {
-                    screenMesh.material.opacity = 1;
-                 }
+              if (Array.isArray(screenMesh.material)) {
+                screenMesh.material.forEach(m => (m.opacity = 1));
+              } else {
+                screenMesh.material.opacity = 1;
+              }
             }
 
             placeholderScreen.current.position.z += 0.001;
@@ -593,9 +633,9 @@ const Device = ({
                 const pScreen = placeholderScreen.current as Mesh;
                 if (pScreen && pScreen.material) {
                   if (Array.isArray(pScreen.material)) {
-                      pScreen.material.forEach(m => m.opacity = value);
+                    pScreen.material.forEach(m => (m.opacity = value));
                   } else {
-                      pScreen.material.opacity = value;
+                    pScreen.material.opacity = value;
                   }
                   renderFrame();
                 }

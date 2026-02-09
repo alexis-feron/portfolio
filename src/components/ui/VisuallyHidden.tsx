@@ -26,8 +26,9 @@ export const VisuallyHidden = ({
         visible && 'static transform-none clip-auto h-auto w-auto m-0 overflow-visible', // Undo hidden styles if visible (though logic seems to rely on not rendering or conditional classes)
         // Original CSS logic: &[data-hidden='true'] or &[data-show-on-focus='true']:not(:focus)
         // Implementing logic in JS:
-        (!visible && !showOnFocus) && '', // Always hidden
-        (showOnFocus) && 'focus:static focus:[clip:auto] focus:h-auto focus:w-auto focus:m-0 focus:overflow-visible',
+        !visible && !showOnFocus && '', // Always hidden
+        showOnFocus &&
+          'focus:static focus:[clip:auto] focus:h-auto focus:w-auto focus:m-0 focus:overflow-visible',
         className
       )}
       {...rest}

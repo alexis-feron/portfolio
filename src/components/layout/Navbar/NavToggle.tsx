@@ -13,31 +13,32 @@ export const NavToggle = ({ menuOpen, ...rest }: NavToggleProps) => {
   return (
     <Button
       iconOnly
-      className={classes(
-        'fixed top-[20px] right-[20px] left-auto z-50',
-        "nav-mobile-visible"
-      )}
+      className={classes('fixed top-5 right-5 left-auto z-50', 'nav-mobile-visible')}
       style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 120 }}
       aria-label="Menu"
       aria-expanded={menuOpen}
       {...rest}
     >
       <div className="flex items-center justify-center w-full h-full">
-        <Icon 
-            className={classes(
-                'absolute transition-[opacity,fill] duration-m ease-fast-out-slow-in rotate-0 fill-[var(--colorTextBody)] w-xl h-xl text-[var(--colorTextBody)]',
-                'motion-safe:delay-100 motion-safe:transition-[opacity,transform,fill]',
-                menuOpen ? 'opacity-0 motion-safe:delay-[0s] motion-safe:rotate-45' : 'opacity-100'
-            )} 
-            data-menu={true} 
-            data-open={menuOpen} 
-            icon="menu" 
+        <Icon
+          className={classes(
+            'absolute transition-[opacity,fill] duration-m ease-fast-out-slow-in rotate-0 fill-(--colorTextBody) w-xl h-xl text-(--colorTextBody)',
+            'motion-safe:delay-100 motion-safe:transition-[opacity,transform,fill]',
+            menuOpen
+              ? 'opacity-0 motion-safe:delay-[0s] motion-safe:rotate-45'
+              : 'opacity-100'
+          )}
+          data-menu={true}
+          data-open={menuOpen}
+          icon="menu"
         />
         <Icon
           className={classes(
-            'absolute transition-[opacity,fill] duration-m ease-fast-out-slow-in rotate-0 fill-[var(--colorTextBody)] w-xl h-xl',
+            'absolute transition-[opacity,fill] duration-m ease-fast-out-slow-in rotate-0 fill-(--colorTextBody) w-xl h-xl',
             'motion-safe:delay-100 motion-safe:transition-[opacity,transform,fill]',
-             !menuOpen ? 'opacity-0 motion-safe:delay-[0s] motion-safe:-rotate-45' : 'opacity-100 motion-safe:delay-[0.1s] motion-safe:rotate-0'
+            !menuOpen
+              ? 'opacity-0 motion-safe:delay-[0s] motion-safe:-rotate-45'
+              : 'opacity-100 motion-safe:delay-100 motion-safe:rotate-0'
           )}
           data-close={true}
           data-open={menuOpen}

@@ -5,13 +5,11 @@ import gamecenter from 'assets/gamecenter.png';
 import splits from 'assets/splits.png';
 import { Footer } from 'components/layout/Footer';
 import { Contact } from 'components/sections/Contact';
-
 import { Intro } from 'components/sections/Intro';
 import { Profile } from 'components/sections/Profile';
 import { ProjectSummary } from 'components/sections/ProjectSummary';
 import { Timeline } from 'components/sections/Timeline';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { classes } from 'utils/style';
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState<Element[]>([]);
@@ -71,7 +69,13 @@ export const Home = () => {
         id="details"
       />
       <Timeline />
-      <Suspense fallback={<div className="flex items-center justify-center p-xl font-medium">Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center p-xl font-medium">
+            Loading...
+          </div>
+        }
+      >
         <ProjectSummary
           id="project-1"
           sectionRef={projectOne}
@@ -93,7 +97,13 @@ export const Home = () => {
           }}
         />
       </Suspense>
-      <Suspense fallback={<div className="flex items-center justify-center p-xl font-medium">Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center p-xl font-medium">
+            Loading...
+          </div>
+        }
+      >
         <ProjectSummary
           id="project-2"
           alternate
@@ -116,7 +126,13 @@ export const Home = () => {
           }}
         />
       </Suspense>
-      <Suspense fallback={<div className="flex items-center justify-center p-xl font-medium">Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center p-xl font-medium">
+            Loading...
+          </div>
+        }
+      >
         <ProjectSummary
           id="project-3"
           sectionRef={projectThree}

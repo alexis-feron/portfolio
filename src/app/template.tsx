@@ -8,7 +8,7 @@ import { ScrollRestore } from './scroll-restore';
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <m.div
-      className="col-start-1 row-start-1 min-h-[100lvh]"
+      className="col-start-1 row-start-1 min-h-lvh"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

@@ -36,7 +36,7 @@ export function Contact({ id, sectionRef, className }: ContactProps) {
           }
 
           widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
-            sitekey: '0x4AAAAAACFRs-sb0x1qu5N9', 
+            sitekey: '0x4AAAAAACFRs-sb0x1qu5N9',
             theme: 'dark',
             size: 'normal',
             callback: function (token: string) {
@@ -79,12 +79,12 @@ export function Contact({ id, sectionRef, className }: ContactProps) {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      
+
       const resetEvent = { target: { value: '' } } as ChangeEvent<HTMLInputElement>;
       name.onChange(resetEvent);
       email.onChange(resetEvent);
       message.onChange({ target: { value: '' } } as ChangeEvent<HTMLTextAreaElement>);
-      
+
       setSubmitted(true);
       setTurnstileToken('');
 
@@ -100,9 +100,9 @@ export function Contact({ id, sectionRef, className }: ContactProps) {
   return (
     <section
       className={classes(
-          'flex flex-wrap items-baseline justify-center py-3xl px-l z-20 relative',
-          '[--lineHeightBody:1.1]',
-          className
+        'flex flex-wrap items-baseline justify-center py-3xl px-l z-20 relative',
+        '[--lineHeightBody:1.1]',
+        className
       )}
       ref={sectionRef}
       id={id}
@@ -154,20 +154,17 @@ export function Contact({ id, sectionRef, className }: ContactProps) {
           {...message}
         />
         {!isVerified && !submitted ? (
-          <div 
-            ref={turnstileRef} 
+          <div
+            ref={turnstileRef}
             className={classes(
-                'mt-[32px] flex justify-start animate-fadeIn rounded-lg bg-[rgba(var(--rgbPrimary),0.05)] border border-[rgba(var(--rgbAccent),0.2)] transition-all duration-300 ease-linear',
-                'hover:bg-[rgba(var(--rgbPrimary),0.08)] hover:border-[rgba(var(--rgbAccent),0.3)] hover:shadow-[0_4px_12px_rgba(var(--rgbAccent),0.1)]'
-            )} 
+              'mt-8 flex justify-start animate-fadeIn rounded-lg bg-[rgba(var(--rgbPrimary),0.05)] border border-[rgba(var(--rgbAccent),0.2)] transition-all duration-300 ease-linear',
+              'hover:bg-[rgba(var(--rgbPrimary),0.08)] hover:border-[rgba(var(--rgbAccent),0.3)] hover:shadow-[0_4px_12px_rgba(var(--rgbAccent),0.1)]'
+            )}
           />
         ) : (
           <Button
             type="submit"
-            className={classes(
-                'mt-[32px] animate-fadeIn',
-                submitted && 'mb-[12px] ml-[5px]'
-            )}
+            className={classes('mt-8 animate-fadeIn', submitted && 'mb-3 ml-1')}
             disabled={submitted}
           >
             {submitted ? 'Submitted' : 'Submit'}

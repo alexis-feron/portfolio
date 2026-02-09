@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 export function useParallax(
   multiplier: number,
-  onChange: (value: number) => void
+  onChange: (_value: number) => void
 ): void {
   const reduceMotion = useReducedMotion();
 

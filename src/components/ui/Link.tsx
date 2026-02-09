@@ -33,19 +33,19 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       // The secondary background image is complex to layer with tailwind utilities purely without custom CSS or arbitrary values mimicking the original multiple backgrounds.
       // Re-implementing existing behavior with arbitrary values for gradients.
       // Original had 2 background layers.
-      
+
       'bg-[image:var(--filledLineGradient),var(--unfilledLineGradient)]',
       'bg-[position:100%_100%,0_100%]',
       'bg-[size:0_2px,100%_2px]',
       'bg-no-repeat',
-      
+
       'hover:bg-[size:100%_2px,100%_2px] hover:bg-[position:0_100%,0_100%]',
       'focus:bg-[size:100%_2px,100%_2px] focus:bg-[position:0_100%,0_100%]',
-      
+
       'motion-reduce:transition-[background-size] motion-reduce:duration-m motion-reduce:ease-fast-out-slow-in',
 
-      secondary && 'text-[var(--colorTextBody)] [--linkColor:var(--rgbText)]', // Override variable if secondary
-      
+      secondary && 'text-(--colorTextBody) [--linkColor:var(--rgbText)]', // Override variable if secondary
+
       // Define local variables for the gradients to simplify the bg-image arbitrary value
       '[--lineStrokeWidth:2px]',
       !secondary && '[--linkColor:var(--rgbPrimary)]',
@@ -53,7 +53,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       '[--lineOpacity:0.3]',
       '[--filledLineGradient:linear-gradient(rgb(var(--linkColor)),rgb(var(--linkColor)))]',
       '[--unfilledLineGradient:linear-gradient(rgb(var(--linkColor)/var(--lineOpacity)),rgb(var(--linkColor)/var(--lineOpacity)))]',
-      
+
       'text-[rgb(var(--linkColor))]',
 
       className
@@ -88,6 +88,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         className={baseClasses}
         ref={ref}
         title={typeof children === 'string' ? children : undefined}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...(rest as any)}
       >
         {content}

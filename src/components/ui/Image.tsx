@@ -5,7 +5,16 @@ import { Button } from 'components/ui/Button';
 import { Icon } from 'components/ui/Icon/Icon';
 import { useReducedMotion } from 'framer-motion';
 import { useHasMounted, useInViewport } from 'hooks';
-import { CSSProperties, Fragment, ReactEventHandler, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  CSSProperties,
+  Fragment,
+  ReactEventHandler,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { resolveSrcFromSrcSet, srcSetToString } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 
@@ -35,6 +44,7 @@ interface ImageProps {
   play?: boolean;
   restartOnPause?: boolean;
   noPauseButton?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
@@ -63,18 +73,23 @@ export const Image = ({
     <div
       className={classes(
         'relative transform-none grid grid-cols-[100%] isolate',
-        raised && 'shadow-[0_50px_100px_-20px_rgb(var(--rgbBlack)/0.25),0_30px_60px_-30px_rgb(var(--rgbBlack)/0.3)]',
-        reveal && 'transition-shadow duration-l ease-linear delay-[var(--revealDuration)/2] [--revealDuration:1.8s]',
+        raised &&
+          'shadow-[0_50px_100px_-20px_rgb(var(--rgbBlack)/0.25),0_30px_60px_-30px_rgb(var(--rgbBlack)/0.3)]',
+        reveal &&
+          'transition-shadow duration-l ease-linear delay-[var(--revealDuration)/2] [--revealDuration:1.8s]',
         reveal && !loaded && !inViewport && 'shadow-none', // logic check: !visible -> inViewport || loaded
         // Logic check: original was &:not([data-visible='true']) { box-shadow: none; }
         // data-visible = inViewport || loaded
         reveal && !(inViewport || loaded) && 'shadow-none',
-        
+
         // Before pseudo-element for reveal
-        reveal && 'before:content-[""] before:bg-accent before:absolute before:inset-0 before:scale-x-0 before:origin-left before:will-change-transform before:z-20',
-        
+        reveal &&
+          'before:content-[""] before:bg-accent before:absolute before:inset-0 before:scale-x-0 before:origin-left before:will-change-transform before:z-20',
+
         // Reveal animation
-        reveal && (inViewport || loaded) && 'motion-safe:before:animate-[reveal_var(--revealDuration)_var(--ease-fast-out-slow-in)_var(--delay)]',
+        reveal &&
+          (inViewport || loaded) &&
+          'motion-safe:before:animate-[reveal_var(--revealDuration)_var(--ease-fast-out-slow-in)_var(--delay)]',
 
         className
       )}
@@ -133,6 +148,7 @@ const ImageElements = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const isVideo = getIsVideo(src);
   const showFullRes = inViewport;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const srcSetString = srcSetToString(srcSet as any);
   const hasMounted = useHasMounted();
 
@@ -147,7 +163,7 @@ const ImageElements = ({
     } else if (isVideo && typeof src === 'string') {
       setVideoSrc(src);
     } else if (isVideo && typeof src === 'object') {
-        setVideoSrc(src.src);
+      setVideoSrc(src.src);
     }
   }, [isVideo, sizes, src, srcSet]);
 
@@ -185,7 +201,7 @@ const ImageElements = ({
     event.preventDefault();
 
     setVideoInteracted(true);
-    
+
     if (!videoRef.current) return;
 
     if (videoRef.current.paused) {
@@ -201,7 +217,7 @@ const ImageElements = ({
     <div
       className={classes(
         'relative transform-none grid grid-cols-[100%] opacity-0 transition-none',
-        reveal && 'opacity-0 transition-opacity duration-m ease-linear delay-[var(--delay)]',
+        reveal && 'opacity-0 transition-opacity duration-m ease-linear delay-(--delay)',
         reveal && 'motion-reduce:delay-[calc(var(--delay)-1s)]',
         (inViewport || loaded) && 'opacity-100' // data-visible
       )}
@@ -216,8 +232,8 @@ const ImageElements = ({
             loop
             playsInline
             className={classes(
-                'w-full h-auto opacity-0 col-start-1 row-start-1 [image-rendering:-webkit-optimize-contrast]',
-                loaded && 'opacity-100'
+              'w-full h-auto opacity-0 col-start-1 row-start-1 [image-rendering:-webkit-optimize-contrast]',
+              loaded && 'opacity-100'
             )}
             data-loaded={loaded}
             autoPlay={!reduceMotion}
@@ -229,14 +245,14 @@ const ImageElements = ({
             {...rest}
           />
           {!noPauseButton && (
-            <Button 
-                className={classes(
-                    'opacity-0 absolute top-m left-m h-[32px] text-white p-[0_8px_0_2px]',
-                    'after:bg-[rgb(var(--rgbBlack)/0.8)]',
-                    'group-hover:opacity-100 focus:opacity-100' // Assuming group on wrapper? Wrapper doesn't have group.
-                    // The CSS was .elementWrapper:hover & -> so we need group on wrapper
-                )} 
-                onClick={togglePlaying}
+            <Button
+              className={classes(
+                'opacity-0 absolute top-m left-m h-8 text-white p-[0_8px_0_2px]',
+                'after:bg-[rgb(var(--rgbBlack)/0.8)]',
+                'group-hover:opacity-100 focus:opacity-100' // Assuming group on wrapper? Wrapper doesn't have group.
+                // The CSS was .elementWrapper:hover & -> so we need group on wrapper
+              )}
+              onClick={togglePlaying}
             >
               <Icon icon={playing ? 'pause' : 'play'} />
               {playing ? 'Pause' : 'Play'}
@@ -253,10 +269,28 @@ const ImageElements = ({
           data-loaded={loaded}
           onLoad={onLoad}
           decoding="async"
-          src={showFullRes && typeof src === 'object' ? src.src : (showFullRes && typeof src === 'string' ? src : undefined)} 
+          src={
+            showFullRes && typeof src === 'object'
+              ? src.src
+              : showFullRes && typeof src === 'string'
+                ? src
+                : undefined
+          }
           srcSet={showFullRes ? srcSetString : undefined}
-          width={Array.isArray(src) ? undefined : (typeof src === 'object' ? src.width : undefined)}
-          height={Array.isArray(src) ? undefined : (typeof src === 'object' ? src.height : undefined)}
+          width={
+            Array.isArray(src)
+              ? undefined
+              : typeof src === 'object'
+                ? src.width
+                : undefined
+          }
+          height={
+            Array.isArray(src)
+              ? undefined
+              : typeof src === 'object'
+                ? src.height
+                : undefined
+          }
           alt={alt}
           sizes={sizes}
           {...rest}
@@ -266,7 +300,7 @@ const ImageElements = ({
         <img
           aria-hidden
           className={classes(
-            'w-full h-auto transition-opacity duration-m ease-linear delay-[var(--delay)] pointer-events-none relative z-10 opacity-100 col-start-1 row-start-1',
+            'w-full h-auto transition-opacity duration-m ease-linear delay-(--delay) pointer-events-none relative z-10 opacity-100 col-start-1 row-start-1',
             loaded && 'opacity-0'
           )}
           data-loaded={loaded}
@@ -285,6 +319,9 @@ const ImageElements = ({
   );
 };
 
-function getIsVideo(src: any) {
-  return (typeof src === 'string' && src.endsWith('.mp4')) || (typeof src === 'object' && src?.src?.endsWith('.mp4'));
+function getIsVideo(src: ImageSrc | string | undefined) {
+  return (
+    (typeof src === 'string' && src.endsWith('.mp4')) ||
+    (typeof src === 'object' && src?.src?.endsWith('.mp4'))
+  );
 }
