@@ -24,7 +24,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "framer-motion": "^12.6.3",
-    "next": "^16.0.7",
+    "next": "^16.2.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-vertical-timeline-component": "^3.6.0",
