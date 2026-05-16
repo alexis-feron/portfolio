@@ -24,12 +24,17 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^12.38.0",
-    "next": "^16.2.4",
+    "next": "^16.2.6",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-vertical-timeline-component": "^4.0.0",
     "three": "^0.184.0",
     "three-stdlib": "^2.36.1"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.14"
+    }
   },
   "scripts": {
     "dev": "next dev --webpack",
