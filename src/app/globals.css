@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+/* Dark mode is driven by a `.dark` class on <html> (set before paint by ThemeScript). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Design tokens - brand palette
+   --------------------------------------------------------------------------- */
+@theme {
+  /* Brand */
+  --color-ink: #191919;
+  --color-cream: #fdfbed;
+  --color-navy: #1a3263;
+  --color-sky: #90a5cf;
+  --color-amber: #ea9c43;
+
+  /* Semantic (resolved from the runtime CSS vars set in :root / .dark) */
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-highlight: var(--highlight);
+
+  /* Typography */
+  --font-display:
+    var(--font-dirtyline), "Josefin Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-josefin), ui-sans-serif, system-ui, sans-serif;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+
+  /* Layout */
+  --spacing-gutter: clamp(1.25rem, 4vw, 5rem);
+  --breakpoint-3xl: 120rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Themes
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --bg: #fdfbed;
+  --fg: #191919;
+  --surface: #f4f1e0;
+  --muted: #191919b3;
+  --line: #1919191f;
+  --accent: #1a3263;
+  --accent-soft: #90a5cf;
+  --highlight: #ea9c43;
+
+  --gradient-brand: linear-gradient(
+    223deg,
+    #1a3263 11.23%,
+    #90a5cf 43.03%,
+    #ea9c43 75.45%
+  );
+  --selection-bg: #1a3263;
+  --selection-fg: #fdfbed;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: #191919;
+  --fg: #fdfbed;
+  --surface: #212121;
+  --muted: #fdfbedb3;
+  --line: #fdfbed24;
+  --accent: #90a5cf;
+  --accent-soft: #1a3263;
+  --highlight: #ea9c43;
+
+  --selection-bg: #ea9c43;
+  --selection-fg: #191919;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Lenis drives the scroll - native smooth behaviour must stay off. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    transition:
+      background-color 0.6s var(--ease-out-expo),
+      color 0.6s var(--ease-out-expo);
+  }
+
+  ::selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+
+  /* Dirtyline ships uppercase glyphs only - every display heading is set in
+     capitals so the face never falls back mid-word. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  /* Josefin Sans Bold for subtitles / eyebrows */
+  .subtitle {
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--highlight);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------------------- */
+@utility container-gutter {
+  padding-inline: var(--spacing-gutter);
+}
+
+@utility text-gradient {
+  background: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-brand {
+  background: var(--gradient-brand);
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(3.5rem, 13vw, 15rem);
+  line-height: 0.86;
+  /* Dirtyline's swashes need air, otherwise adjacent letters collide. */
+  letter-spacing: 0.03em;
+}
+
+@utility display-l {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(2.75rem, 8vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: 0.03em;
+}
+
+@utility display-m {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Clipping mask for line-by-line reveals. Dirtyline's glyphs overflow their
+   line box, so the mask is padded out and pulled back with a negative margin -
+   the reveal still hides the slide-in, but nothing gets cropped. */
+@utility line-mask {
+  overflow: hidden;
+  padding-block: 0.22em;
+  margin-block: -0.22em;
+}
+
+/* Grain overlay used on full-bleed sections */
+@utility grain {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Keyframes
+   --------------------------------------------------------------------------- */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
