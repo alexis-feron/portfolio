@@ -114,6 +114,8 @@ export const fr = {
         "Oups, l’envoi a échoué. Réessayez ou écrivez-moi directement par mail à contact@alexis-feron.com.",
       required: "Ce champ est requis",
       invalidEmail: "Adresse email invalide",
+      captchaRequired:
+        "Merci de valider la vérification anti-spam avant d’envoyer.",
     },
   },
 

@@ -67,7 +67,9 @@ export function Hero({ dict }: { dict: Dictionary }) {
         style={{ y: nameY, opacity: nameOpacity }}
         className="container-gutter"
       >
-        <h1 className="display-xl">
+        {/* The name is a graphic element first: the arrow cursor reads better
+            over it than an I-beam, but it stays selectable copy. */}
+        <h1 className="display-xl cursor-default select-text">
           <span className="line-mask block">
             <motion.span
               className="block"
@@ -120,10 +122,15 @@ export function Hero({ dict }: { dict: Dictionary }) {
               const top = sectionScrollTopFor("#about");
               if (top !== null) lenis?.scrollTo(top, { duration: 1.6 });
             }}
-            className="group flex items-center gap-2 tracking-[0.2em] uppercase"
+            className="group flex items-center gap-2 tracking-[0.2em] uppercase transition-colors duration-500 ease-out-expo hover:text-fg"
           >
             {dict.hero.scrollHint}
-            <span className="inline-block animate-bounce transition-transform group-hover:translate-y-1">
+            {/* The arrow bobs on its own; hovering freezes that and settles it
+                one notch lower, so the whole label reads as one small nudge. */}
+            <span
+              aria-hidden
+              className="inline-block animate-bounce transition-transform duration-500 ease-out-expo group-hover:translate-y-1 group-hover:[animation-play-state:paused]"
+            >
               ↓
             </span>
           </button>

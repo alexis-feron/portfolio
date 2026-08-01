@@ -15,8 +15,14 @@ export const site = {
   },
   /** Formspree endpoint reused from the previous portfolio. */
   contactFormAction: "https://formspree.io/f/moqoegjz",
+  /**
+   * Cloudflare Turnstile, also carried over from the previous portfolio.
+   * Turnstile keys are bound to a hostname list - set
+   * NEXT_PUBLIC_TURNSTILE_SITE_KEY if this site ever moves to another domain.
+   */
+  turnstileSiteKey:
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAACFRs-sb0x1qu5N9",
   portrait: "/images/profile.jpg",
-  ogImage: "/og.png",
 } as const;
 
 export type SocialLink = {

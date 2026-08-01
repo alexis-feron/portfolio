@@ -3,11 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ProjectCover } from "@/components/sections/project-cover";
+import { ProjectJsonLd } from "@/components/seo/json-ld";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal, RevealMask } from "@/components/ui/reveal";
 import { SplitText } from "@/components/ui/split-text";
 import { getNextProject, getProject, projects } from "@/content/projects";
-import { isLocale, locales } from "@/i18n/config";
+import { defaultLocale, isLocale, locales, localeTags } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { pad } from "@/lib/utils";
 
@@ -27,14 +28,33 @@ export async function generateMetadata({
   if (!project || !isLocale(locale)) return {};
 
   const content = project.content[locale];
+  const path = `/work/${project.slug}`;
 
   return {
     title: project.title,
     description: content.excerpt,
+    alternates: {
+      canonical: `/${locale}${path}`,
+      languages: {
+        ...Object.fromEntries(
+          locales.map((value) => [localeTags[value], `/${value}${path}`]),
+        ),
+        "x-default": `/${defaultLocale}${path}`,
+      },
+    },
     openGraph: {
+      type: "article",
+      locale: localeTags[locale],
+      url: `/${locale}${path}`,
       title: project.title,
       description: content.excerpt,
       images: [{ url: project.cover, alt: project.coverAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: content.excerpt,
+      images: [project.cover],
     },
   };
 }
@@ -52,6 +72,18 @@ export default async function ProjectPage({ params }: PageParams) {
 
   return (
     <article className="pt-32 pb-0">
+      <ProjectJsonLd
+        locale={locale}
+        dict={dict}
+        slug={project.slug}
+        title={project.title}
+        description={content.excerpt}
+        cover={project.cover}
+        year={project.year}
+        stack={project.stack}
+        url={project.url}
+      />
+
       {/* Header */}
       <header className="container-gutter">
         <Link
@@ -59,7 +91,10 @@ export default async function ProjectPage({ params }: PageParams) {
           scroll={false}
           className="group inline-flex items-center gap-2 text-sm text-muted transition-colors duration-400 hover:text-fg"
         >
-          <span className="inline-block transition-transform duration-400 group-hover:-translate-x-1">
+          <span
+            aria-hidden
+            className="inline-block transition-transform duration-400 group-hover:-translate-x-1"
+          >
             ←
           </span>
           {dict.project.back}
@@ -185,7 +220,10 @@ export default async function ProjectPage({ params }: PageParams) {
             <h2 className="display-l transition-transform duration-700 ease-out-expo group-hover:translate-x-4">
               {next.title}
             </h2>
-            <span className="text-4xl transition-transform duration-700 ease-out-expo group-hover:translate-x-4">
+            <span
+              aria-hidden
+              className="text-4xl transition-transform duration-700 ease-out-expo group-hover:translate-x-4"
+            >
               →
             </span>
           </div>

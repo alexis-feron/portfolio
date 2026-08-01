@@ -88,7 +88,12 @@ function ProjectCard({
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
-    <div className="sticky top-0 flex h-svh items-center justify-center px-(--spacing-gutter)">
+    // Every wrapper is a full-viewport box, so the *next* one covers the card
+    // that is currently pinned long before its own card slides into view - and
+    // it used to swallow the clicks meant for the visible card's link. The
+    // wrappers are hit-test transparent; only the cards themselves take input,
+    // which makes the topmost painted card the one you click.
+    <div className="pointer-events-none sticky top-0 flex h-svh items-center justify-center px-(--spacing-gutter)">
       <motion.article
         style={{
           scale,
@@ -96,7 +101,7 @@ function ProjectCard({
           ["--accent-project" as string]: project.accent,
         }}
         // Cards must stay fully opaque: they physically stack on top of each other.
-        className="relative grid w-full max-w-6xl overflow-hidden rounded-xl border border-line bg-surface shadow-[0_-20px_60px_-30px_rgba(0,0,0,0.6)] lg:grid-cols-2"
+        className="pointer-events-auto relative grid w-full max-w-6xl overflow-hidden rounded-xl border border-line bg-surface shadow-[0_-20px_60px_-30px_rgba(0,0,0,0.6)] lg:grid-cols-2"
       >
         {/* Text */}
         <div className="order-2 flex flex-col justify-between gap-8 p-7 sm:p-10 lg:order-1">
@@ -140,6 +145,7 @@ function ProjectCard({
                 <span className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-fg transition-transform duration-500 ease-out-expo group-hover/link:origin-left group-hover/link:scale-x-100" />
               </span>
               <span
+                aria-hidden
                 className="grid size-9 place-items-center rounded-full border border-line transition-all duration-500 group-hover/link:border-transparent"
                 style={{ backgroundColor: "transparent" }}
               >

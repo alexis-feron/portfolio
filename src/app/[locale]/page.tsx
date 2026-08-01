@@ -23,7 +23,7 @@ export default async function HomePage({
       <About locale={locale} dict={dict} />
       <Journey locale={locale} dict={dict} />
       <Work locale={locale} dict={dict} />
-      <Contact dict={dict} />
+      <Contact locale={locale} dict={dict} />
     </>
   );
 }

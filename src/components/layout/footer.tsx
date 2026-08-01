@@ -27,7 +27,10 @@ function BackToTop({
         className,
       )}
     >
-      <span className="inline-block transition-transform duration-400 group-hover:-translate-y-1">
+      <span
+        aria-hidden
+        className="inline-block transition-transform duration-400 group-hover:-translate-y-1"
+      >
         ↑
       </span>
       {label}
@@ -88,7 +91,10 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                     className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors duration-400 hover:text-fg"
                   >
                     {social.label}
-                    <span className="inline-block transition-transform duration-400 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                    <span
+                      aria-hidden
+                      className="inline-block transition-transform duration-400 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    >
                       ↗
                     </span>
                   </a>

@@ -48,8 +48,12 @@ export function SplitText({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-10% 0px" }}
-      aria-label={text}
     >
+      {/* ARIA forbids `aria-label` on a plain <p>/<span>, so the readable copy
+          is carried by a visually hidden twin instead and the animated words
+          are hidden from the accessibility tree. */}
+      <span className="sr-only">{text}</span>
+
       {words.map((value, index) => (
         <span
           key={`${value}-${index}`}

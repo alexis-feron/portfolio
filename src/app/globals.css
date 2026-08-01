@@ -19,10 +19,13 @@
   --color-fg: var(--fg);
   --color-surface: var(--surface);
   --color-muted: var(--muted);
+  --color-muted-soft: var(--muted-soft);
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-highlight: var(--highlight);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
 
   /* Typography */
   --font-display:
@@ -49,10 +52,19 @@
   --fg: #191919;
   --surface: #f4f1e0;
   --muted: #191919b3;
+  /* One step further back than --muted, for ornaments that should recede
+     without dropping out: the alpha is tuned per theme to land at ~5:1, so a
+     dimmed label never becomes an accessibility failure. */
+  --muted-soft: #191919a1;
   --line: #1919191f;
   --accent: #1a3263;
   --accent-soft: #90a5cf;
-  --highlight: #ea9c43;
+  /* The brand amber only clears 2.2:1 on cream, so light mode runs a burnt
+     version of it. Every amber that carries meaning - focus ring, "current"
+     markers - resolves through this token, and both themes land above 4.5:1. */
+  --highlight: #9c5500;
+  --success: #146c43;
+  --danger: #b3261e;
 
   --gradient-brand: linear-gradient(
     223deg,
@@ -71,10 +83,13 @@
   --fg: #fdfbed;
   --surface: #212121;
   --muted: #fdfbedb3;
+  --muted-soft: #fdfbed7d;
   --line: #fdfbed24;
   --accent: #90a5cf;
   --accent-soft: #1a3263;
   --highlight: #ea9c43;
+  --success: #6ee7a4;
+  --danger: #ff9a8f;
 
   --selection-bg: #ea9c43;
   --selection-fg: #191919;
@@ -145,6 +160,15 @@
   .subtitle {
     font-family: var(--font-sans);
     font-weight: 700;
+  }
+
+  /* Tailwind v4 no longer resets buttons to `cursor: pointer`, which leaves
+     every control on the site with the plain arrow. Restore it once here
+     rather than remembering a utility on every button. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
   }
 
   :focus-visible {

@@ -99,9 +99,11 @@ export function Navbar({ locale, dict }: NavbarProps) {
               lenis?.scrollTo(0, { duration: 1.4 });
             }}
             className="font-display text-2xl leading-none tracking-tight"
-            aria-label={dict.nav.home}
           >
+            {/* An `aria-label` here would replace the visible "AF" instead of
+                extending it, which trips label-content-name-mismatch. */}
             AF
+            <span className="sr-only"> - {dict.nav.home}</span>
           </Link>
 
           <nav
@@ -116,11 +118,20 @@ export function Navbar({ locale, dict }: NavbarProps) {
                 onClick={(event) => goToSection(event, link.id)}
                 className="group relative text-sm tracking-wide text-muted transition-colors duration-400 hover:text-fg"
               >
-                <span className="mr-1.5 text-[10px] align-super opacity-60">
+                {/* Purely ornamental, so it sits back - but on --muted-soft
+                    rather than an opacity, which would have taken it under
+                    4.5:1 in both themes. */}
+                <span
+                  aria-hidden
+                  className="mr-1.5 text-[10px] align-super text-muted-soft transition-colors duration-400 group-hover:text-fg"
+                >
                   {pad(index + 1)}
                 </span>
                 {link.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-fg transition-[width] duration-500 ease-out-expo group-hover:w-full" />
+                <span
+                  aria-hidden
+                  className="absolute -bottom-1 left-0 h-px w-0 bg-fg transition-[width] duration-500 ease-out-expo group-hover:w-full"
+                />
               </Link>
             ))}
           </nav>
@@ -185,7 +196,10 @@ export function Navbar({ locale, dict }: NavbarProps) {
                     onClick={(event) => goToSection(event, link.id)}
                     className="display-m flex items-baseline gap-4 leading-none"
                   >
-                    <span className="font-sans text-xs font-bold tracking-[0.2em] text-muted">
+                    <span
+                      aria-hidden
+                      className="font-sans text-xs font-bold tracking-[0.2em] text-muted"
+                    >
                       {pad(index + 1)}
                     </span>
                     {link.label}

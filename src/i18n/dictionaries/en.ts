@@ -116,6 +116,7 @@ export const en: Dictionary = {
         "Something went wrong. Try again or email me directly at contact@alexis-feron.com.",
       required: "This field is required",
       invalidEmail: "Invalid email address",
+      captchaRequired: "Please complete the spam check before sending.",
     },
   },
 

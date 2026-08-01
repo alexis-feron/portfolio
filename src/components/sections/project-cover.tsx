@@ -38,7 +38,6 @@ export function ProjectCover({
           fill
           sizes="100vw"
           className="object-cover"
-          priority
         />
       </motion.div>
       <span
