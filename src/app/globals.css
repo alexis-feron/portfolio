@@ -202,6 +202,18 @@
   padding-inline: var(--spacing-gutter);
 }
 
+/* Per-project accent. The element carries both hexes inline (see `accentVars`
+   in content/projects.ts) and this picks the one that matches the theme, so
+   descendants only ever read `var(--project-accent)` - resolved in CSS, right
+   from the first paint and through a theme toggle, without a client re-render. */
+@utility project-accent {
+  --project-accent: var(--project-accent-light);
+
+  @variant dark {
+    --project-accent: var(--project-accent-dark);
+  }
+}
+
 @utility text-gradient {
   background: var(--gradient-brand);
   background-clip: text;
@@ -216,7 +228,17 @@
 @utility display-xl {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: clamp(3.5rem, 13vw, 15rem);
+  /* Fluid by viewport, then capped by length. Callers with variable-length
+     copy pass `--title-chars` so a long title shrinks instead of wrapping to
+     three lines and swallowing the whole screen. Uppercase Dirtyline measures
+     ~0.66em per character with the letter-spacing below, and the column is
+     92vw, so ~230vw/chars is where a title stops fitting on two lines - the
+     divisor keeps a margin under that. Left unset, the cap sits above the
+     13vw term and nothing changes. */
+  font-size: min(
+    clamp(3.5rem, 13vw, 15rem),
+    max(2.5rem, calc(210vw / var(--title-chars, 6)))
+  );
   line-height: 0.86;
   /* Dirtyline's swashes need air, otherwise adjacent letters collide. */
   letter-spacing: 0.03em;
@@ -225,7 +247,13 @@
 @utility display-l {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: clamp(2.75rem, 8vw, 7.5rem);
+  /* Same length cap as `display-xl`, scaled to this step. `--title-vw` lets a
+     caller step down the fluid term where the heading is a secondary label
+     rather than a section title. */
+  font-size: min(
+    clamp(2.75rem, var(--title-vw, 8vw), 7.5rem),
+    max(1.75rem, calc(120vw / var(--title-chars, 6)))
+  );
   line-height: 0.92;
   letter-spacing: 0.03em;
 }
@@ -233,7 +261,15 @@
 @utility display-m {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: clamp(2rem, 4.5vw, 4rem);
+  /* Same length cap as the steps above, but in rem rather than vw: this size is
+     used inside fixed columns (the work cards, the project sidebar), not across
+     the page, so the viewport is the wrong ruler. ~60rem/chars keeps a title
+     like "Picture Organic Clothing" on two shorter lines instead of two tall
+     ones. Left unset, the cap sits above the 4.5vw term and nothing changes. */
+  font-size: min(
+    clamp(2rem, 4.5vw, 4rem),
+    max(2rem, calc(60rem / var(--title-chars, 6)))
+  );
   line-height: 1;
   letter-spacing: 0.03em;
 }

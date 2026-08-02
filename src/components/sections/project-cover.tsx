@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
 
+import { accentVars, type ProjectAccent } from "@/content/projects";
+
 export function ProjectCover({
   src,
   alt,
@@ -11,7 +13,7 @@ export function ProjectCover({
 }: {
   src: string;
   alt: string;
-  accent: string;
+  accent: ProjectAccent;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -29,7 +31,8 @@ export function ProjectCover({
       whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
       viewport={{ once: true, margin: "-10% 0px" }}
       transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-      className="relative aspect-video w-full overflow-hidden rounded-lg bg-surface"
+      style={accentVars(accent)}
+      className="project-accent relative aspect-video w-full overflow-hidden rounded-lg bg-surface"
     >
       <motion.div style={{ y, scale }} className="absolute inset-0">
         <Image
@@ -44,7 +47,7 @@ export function ProjectCover({
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay"
         style={{
-          background: `radial-gradient(80% 60% at 50% 0%, ${accent}, transparent 70%)`,
+          background: `radial-gradient(80% 60% at 50% 0%, var(--project-accent), transparent 70%)`,
         }}
       />
     </motion.div>

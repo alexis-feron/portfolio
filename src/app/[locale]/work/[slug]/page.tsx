@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { CSSProperties } from "react";
 
 import { ProjectCover } from "@/components/sections/project-cover";
 import { ProjectJsonLd } from "@/components/seo/json-ld";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal, RevealMask } from "@/components/ui/reveal";
 import { SplitText } from "@/components/ui/split-text";
-import { getNextProject, getProject, projects } from "@/content/projects";
+import {
+  accentVars,
+  getNextProject,
+  getProject,
+  projects,
+  projectUrl,
+} from "@/content/projects";
 import { defaultLocale, isLocale, locales, localeTags } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { pad } from "@/lib/utils";
@@ -68,10 +75,14 @@ export default async function ProjectPage({ params }: PageParams) {
 
   const dict = await getDictionary(locale);
   const content = project.content[locale];
+  const url = projectUrl(project.url, locale);
   const next = getNextProject(slug);
 
   return (
-    <article className="pt-32 pb-0">
+    <article
+      className="project-accent pt-32 pb-0"
+      style={accentVars(project.accent)}
+    >
       <ProjectJsonLd
         locale={locale}
         dict={dict}
@@ -81,7 +92,7 @@ export default async function ProjectPage({ params }: PageParams) {
         cover={project.cover}
         year={project.year}
         stack={project.stack}
-        url={project.url}
+        url={url}
       />
 
       {/* Header */}
@@ -100,7 +111,10 @@ export default async function ProjectPage({ params }: PageParams) {
           {dict.project.back}
         </Link>
 
-        <h1 className="display-xl mt-10">
+        <h1
+          className="display-xl mt-10"
+          style={{ "--title-chars": project.title.length } as CSSProperties}
+        >
           <RevealMask>{project.title}</RevealMask>
         </h1>
 
@@ -130,7 +144,7 @@ export default async function ProjectPage({ params }: PageParams) {
             </dd>
           </div>
           <div className="flex items-start">
-            <ButtonLink href={project.url} external variant="outline">
+            <ButtonLink href={url} external variant="outline">
               {dict.project.visit}
               <span aria-hidden>↗</span>
             </ButtonLink>
@@ -172,7 +186,7 @@ export default async function ProjectPage({ params }: PageParams) {
                   <li className="grid gap-4 border-t border-line py-8 sm:grid-cols-[auto_1fr] sm:gap-8">
                     <span
                       className="font-display text-3xl"
-                      style={{ color: project.accent }}
+                      style={{ color: "var(--project-accent)" }}
                     >
                       {pad(index + 1)}
                     </span>
@@ -196,7 +210,7 @@ export default async function ProjectPage({ params }: PageParams) {
           </Reveal>
 
           <Reveal className="mt-12 flex flex-wrap gap-3">
-            <ButtonLink href={project.url} external>
+            <ButtonLink href={url} external>
               {dict.project.visit}
               <span aria-hidden>↗</span>
             </ButtonLink>
@@ -216,13 +230,27 @@ export default async function ProjectPage({ params }: PageParams) {
           className="group container-gutter block py-20 transition-colors duration-700"
         >
           <p className="eyebrow text-muted">{dict.project.next}</p>
-          <div className="mt-6 flex flex-wrap items-baseline justify-between gap-6">
-            <h2 className="display-l transition-transform duration-700 ease-out-expo group-hover:translate-x-4">
+          {/* No `flex-wrap`: once the title wrapped, the arrow dropped onto a
+              line of its own where `justify-between` left it hard against the
+              left edge. Kept on the same row it stays at the right margin, and
+              `items-end` puts it beside the last line rather than the first -
+              baseline alignment always resolves against a block's first line. */}
+          <div className="mt-6 flex items-end justify-between gap-6 sm:items-baseline">
+            <h2
+              className="display-l transition-transform duration-700 ease-out-expo group-hover:translate-x-4"
+              style={
+                {
+                  "--title-chars": next.title.length,
+                  // Stays under the page's own h1, whatever the two lengths.
+                  "--title-vw": "6.5vw",
+                } as CSSProperties
+              }
+            >
               {next.title}
             </h2>
             <span
               aria-hidden
-              className="text-4xl transition-transform duration-700 ease-out-expo group-hover:translate-x-4"
+              className="shrink-0 text-4xl transition-transform duration-700 ease-out-expo group-hover:translate-x-4"
             >
               →
             </span>

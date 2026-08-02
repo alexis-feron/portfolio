@@ -8,10 +8,10 @@ import {
 } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 
 import type { Project } from "@/content/projects";
-import { projects } from "@/content/projects";
+import { accentVars, projects } from "@/content/projects";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/fr";
 
@@ -98,10 +98,15 @@ function ProjectCard({
         style={{
           scale,
           top: `${index * 22}px`,
-          ["--accent-project" as string]: project.accent,
+          ...accentVars(project.accent),
         }}
-        // Cards must stay fully opaque: they physically stack on top of each other.
-        className="pointer-events-auto relative grid w-full max-w-6xl overflow-hidden rounded-xl border border-line bg-surface shadow-[0_-20px_60px_-30px_rgba(0,0,0,0.6)] lg:grid-cols-2"
+        // Cards must stay fully opaque: they physically stack on top of each
+        // other. They also share one fixed height at every breakpoint: left to
+        // their natural height they follow the text, and a taller card lower in
+        // the stack sticks out above *and* below the one covering it. The
+        // artwork takes whatever the text leaves, which is why it has no aspect
+        // ratio of its own - stacked on mobile, side by side from `lg`.
+        className="project-accent pointer-events-auto relative grid h-[min(40rem,86svh)] w-full max-w-6xl grid-rows-[minmax(6rem,1fr)_auto] overflow-hidden rounded-xl border border-line bg-surface shadow-[0_-20px_60px_-30px_rgba(0,0,0,0.6)] lg:h-[min(31rem,74svh)] lg:grid-cols-2 lg:grid-rows-none"
       >
         {/* Text */}
         <div className="order-2 flex flex-col justify-between gap-8 p-7 sm:p-10 lg:order-1">
@@ -115,7 +120,12 @@ function ProjectCard({
               <span className="eyebrow text-accent">{project.year}</span>
             </div>
 
-            <h3 className="display-m mt-8">{project.title}</h3>
+            <h3
+              className="display-m mt-8"
+              style={{ "--title-chars": project.title.length } as CSSProperties}
+            >
+              {project.title}
+            </h3>
             <p className="subtitle mt-4 text-base sm:text-lg">
               {content.tagline}
             </p>
@@ -160,14 +170,14 @@ function ProjectCard({
         {/* Visual */}
         <Link
           href={`/${locale}/work/${project.slug}`}
-          className="group/media order-1 relative block aspect-16/11 overflow-hidden lg:order-2 lg:aspect-auto"
+          className="group/media order-1 relative block overflow-hidden lg:order-2"
           aria-hidden
           tabIndex={-1}
         >
           <span
             className="absolute inset-0 opacity-25 transition-opacity duration-700 group-hover/media:opacity-40"
             style={{
-              background: `radial-gradient(120% 100% at 70% 20%, ${project.accent} 0%, transparent 70%)`,
+              background: `radial-gradient(120% 100% at 70% 20%, var(--project-accent) 0%, transparent 70%)`,
             }}
           />
           <Image

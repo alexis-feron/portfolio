@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import type { Locale } from "@/i18n/config";
 
 export type ProjectContent = {
@@ -14,141 +16,174 @@ export type ProjectContent = {
 /** Drives the label shown on the card; wording lives in the dictionaries. */
 export type ProjectKind = "personal" | "study" | "company";
 
+/**
+ * Accent colour of a project, one value per theme. A single hex can't serve
+ * both: a brand colour tuned for cream loses its contrast on the dark
+ * background (and vice versa), and the accent carries meaning - it tints the
+ * artwork and colours the challenge numbers.
+ */
+export type ProjectAccent = { light: string; dark: string };
+
+/**
+ * Where the "visit" button points. A single address when the live site serves
+ * every language from the same URL, one entry per locale when it doesn't -
+ * sending an English reader to a French storefront is a dead end.
+ */
+export type ProjectUrl = string | Record<Locale, string>;
+
 export type Project = {
   slug: string;
   title: string;
   kind: ProjectKind;
   year: string;
   /** Accent colour used to tint the project page and hover states. */
-  accent: string;
+  accent: ProjectAccent;
   cover: string;
   coverAlt: string;
   stack: string[];
-  url: string;
+  url: ProjectUrl;
   repo?: string;
   content: Record<Locale, ProjectContent>;
 };
 
 export const projects: Project[] = [
   {
-    slug: "big-brain-games",
-    kind: "personal",
-    title: "Big Brain Games",
-    year: "2024",
-    accent: "#EA9C43",
-    cover: "/images/projects/bigbraingames.png",
-    coverAlt: "Big Brain Games - interface de jeu",
-    stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL"],
-    url: "https://big-brain-games.alexis-feron.com",
+    slug: "picture-organic-clothing",
+    kind: "company",
+    title: "Picture Organic Clothing",
+    year: "2026",
+    accent: { light: "#111111", dark: "#ffffff" },
+    cover: "/images/projects/picture-organic-clothing.png",
+    coverAlt:
+      "Picture Organic Clothing - page d'accueil, bannière de fin de saison, navigation par univers et sélecteur de pays",
+    stack: ["Liquid", "Shopify Plus", "TypeScript", "GraphQL"],
+    url: {
+      fr: "https://www.picture-organic-clothing.com/fr_FR",
+      en: "https://www.picture-organic-clothing.com/en_US",
+    },
     content: {
       fr: {
-        tagline: "Affrontez une IA au Blackjack et au jeu de Nim.",
+        tagline:
+          "Refonte d'un e-commerce outdoor, de Salesforce Commerce Cloud vers Shopify Plus.",
         excerpt:
-          "Une plateforme de jeux où l’on affronte une intelligence artificielle au Blackjack et au jeu de Nim, avec classement en temps réel.",
-        role: "Conception, développement fullstack, design d’interface",
+          "Sortir une marque outdoor de Salesforce : un thème Liquid reconstruit de zéro et tout le catalogue rapatrié sur Shopify Plus.",
+        role: "Seul développeur du projet : thème Shopify sur-mesure de bout en bout et scripts de migration des données Salesforce et Contentful",
         context:
-          "Big Brain Games est né d’une envie simple : transformer deux algorithmes de théorie des jeux en une expérience que l’on a envie de rejouer. L’IA du Nim s’appuie sur la stratégie optimale (somme de Nim), celle du Blackjack sur une table de décision statistique.",
+          "Picture Organic Clothing quittait Salesforce Commerce Cloud pour Shopify Plus. En alternance chez Ultro, agence e-commerce, j'ai été le seul développeur de la refonte : reconstruire toute la boutique en Liquid et rapatrier plusieurs centaines de produits et de collections en trois langues, sans perdre une donnée en route, le tout en moins de trois mois.",
         challenges: [
           {
-            title: "Une IA imbattable, mais amusante",
-            body: "Une IA parfaite au Nim gagne toujours. Il a fallu introduire des niveaux de difficulté et une part d’aléatoire pour garder le jeu intéressant sans le rendre trivial.",
+            title: "Un thème reconstruit de zéro",
+            body: "L'ancien site était une application React sur PWA-kit : rien n'était réutilisable. Chaque écran a été réécrit en Liquid, de la page d'accueil aux collections filtrées, des fiches produit à variantes multiples au panier et à l'espace client. Tout est découpé en sections et en blocs configurables pour que les équipes Picture recomposent leurs pages sans passer par un développeur.",
           },
           {
-            title: "Classement et persistance",
-            body: "Les scores sont stockés côté serveur et agrégés pour produire un classement, avec gestion des sessions anonymes pour jouer sans créer de compte.",
+            title: "Deux sources, un seul modèle Shopify",
+            body: "Le catalogue vivait dans Salesforce, le contenu éditorial dans Contentful. Des scripts TypeScript lisent l'un via OCAPI et SCAPI, l'autre via l'API GraphQL, et écrivent dans Shopify. Les champs sans équivalent natif ont été remodélisés un par un en metafields plutôt qu'aplatis dans des descriptions.",
           },
           {
-            title: "Animations de cartes",
-            body: "Les distributions de cartes sont animées de bout en bout, tout en gardant l’état de la partie strictement synchronisé avec le serveur.",
+            title: "Trois langues à ne pas perdre",
+            body: "Les traductions existantes ont été transférées avec le reste du catalogue, et celles qui manquaient ont été régénérées par script puis réinjectées via l'API, langue par langue. Le site est parti en production multilingue et multi-devises dès le premier jour.",
           },
         ],
         outcome:
-          "Une application rapide, jouable au clavier comme au doigt, entièrement rendue côté serveur pour un premier chargement quasi instantané.",
+          "Un Shopify Plus multilingue et multi-devises en ligne, où l'intégralité du catalogue et du contenu éditorial a été reprise champ par champ. Les équipes de la marque composent désormais leurs pages elles-mêmes à partir des sections du thème.",
       },
       en: {
-        tagline: "Play Blackjack and Nim against the AI.",
+        tagline:
+          "Rebuilding an outdoor e-commerce site, from Salesforce Commerce Cloud to Shopify Plus.",
         excerpt:
-          "A game platform where you face an artificial intelligence at Blackjack and Nim, with a live leaderboard.",
-        role: "Concept, fullstack development, interface design",
+          "Moving an outdoor brand off Salesforce: a Liquid theme rebuilt from scratch and the whole catalogue brought over to Shopify Plus.",
+        role: "Sole developer on the project: custom Shopify theme end to end, plus the migration scripts for the Salesforce and Contentful data",
         context:
-          "Big Brain Games started from a simple idea: turn two game-theory algorithms into something you actually want to replay. The Nim AI relies on optimal play (Nim-sum), the Blackjack one on a statistical decision table.",
+          "Picture Organic Clothing was leaving Salesforce Commerce Cloud for Shopify Plus. As an apprentice at Ultro, an e-commerce agency, I was the only developer on the rebuild: rewrite the entire store in Liquid and bring over several hundred products and collections in three languages, without losing a single record, in under three months.",
         challenges: [
           {
-            title: "An unbeatable yet fun AI",
-            body: "A perfect Nim AI always wins. Difficulty levels and a dose of randomness were needed to keep the game interesting without making it trivial.",
+            title: "A theme rebuilt from scratch",
+            body: "The old site was a React app on PWA-kit: nothing could be reused. Every screen was rewritten in Liquid, from the home page to filtered collections, from multi-variant product pages to the cart and the customer account. It is all split into configurable sections and blocks so the Picture team can recompose pages without a developer.",
           },
           {
-            title: "Leaderboard and persistence",
-            body: "Scores are stored server-side and aggregated into a ranking, with anonymous sessions so you can play without creating an account.",
+            title: "Two sources, one Shopify model",
+            body: "The catalogue lived in Salesforce, the editorial content in Contentful. TypeScript scripts read one through OCAPI and SCAPI, the other through the GraphQL API, and write into Shopify. Fields with no native equivalent were remodelled one by one as metafields rather than flattened into descriptions.",
           },
           {
-            title: "Card animations",
-            body: "Every deal is animated end to end while keeping game state strictly in sync with the server.",
+            title: "Three languages to keep intact",
+            body: "Existing translations moved across with the rest of the catalogue, and the missing ones were regenerated by script then pushed back through the API, language by language. The store went live multilingual and multi-currency from day one.",
           },
         ],
         outcome:
-          "A fast application, playable with keyboard or touch, fully server-rendered for a near-instant first load.",
+          "A multilingual, multi-currency Shopify Plus store in production, with the entire catalogue and editorial content carried over field by field. The brand's teams now build their own pages from the theme's sections.",
       },
     },
   },
   {
-    slug: "game-center",
-    kind: "personal",
-    title: "Game Center",
-    year: "2023",
-    accent: "#90A5CF",
-    cover: "/images/projects/gamecenter.png",
-    coverAlt: "Game Center - tableau de bord esport",
-    stack: ["Vue.js", "Vite", "Pinia", "REST API", "Tailwind CSS"],
-    url: "https://game-center.alexis-feron.com",
+    slug: "blog-cms",
+    kind: "study",
+    title: "Blog CMS",
+    year: "2026",
+    accent: { light: "#111111", dark: "#ffffff" },
+    cover: "/images/projects/blog-cms.png",
+    coverAlt:
+      "Blog CMS - tableau de bord de rédaction et dashboard Grafana de supervision",
+    stack: [
+      "NestJS",
+      "Next.js",
+      "PostgreSQL",
+      "Docker",
+      "GitHub Actions",
+      "Terraform",
+      "Ansible",
+    ],
+    url: "https://blog.alexis-feron.com",
+    repo: "https://github.com/alexis-feron/blog",
     content: {
       fr: {
-        tagline: "L’actualité et les résultats esport, au même endroit.",
+        tagline:
+          "Un CMS headless livré par une chaîne CI/CD complète, du commit au serveur.",
         excerpt:
-          "Un espace dédié à l’actualité et aux résultats de l’esport : matchs, équipes, tournois et classements agrégés dans une seule interface.",
-        role: "Développement front-end, intégration d’API, architecture des données",
+          "Le sujet n'est pas le blog : c'est tout ce qui l'emmène en production sans qu'une main se pose sur le serveur.",
+        role: "Projet solo : backend NestJS, frontend Next.js, pipelines GitHub Actions, infrastructure Terraform et Ansible, supervision Prometheus et Grafana",
         context:
-          "Suivre plusieurs jeux compétitifs signifie jongler entre des sites qui affichent tous la même chose différemment. Game Center agrège ces sources dans un tableau de bord unique et lisible.",
+          "Projet du cours CI/CD à Ynov, réalisé seul en quelques jours. L'énoncé demandait une application conteneurisée et déployée automatiquement. J'ai pris le blog comme prétexte pour construire la chaîne entière : un backend NestJS découpé en Clean Architecture, un frontend Next.js rendu côté serveur, et surtout tout ce qui se passe entre un push et le conteneur qui tourne.",
         challenges: [
           {
-            title: "Normaliser des API hétérogènes",
-            body: "Chaque source expose ses propres formats de dates, d’équipes et de scores. Une couche d’adaptateurs unifie tout cela avant l’affichage.",
+            title: "Une CI qui bloque vraiment",
+            body: "Six jobs tournent en parallèle : lint, analyse des quatre Dockerfiles par hadolint, audit des dépendances, scan Snyk, tests unitaires et tests d'intégration qui montent un vrai PostgreSQL et un vrai Redis via Testcontainers. Tous convergent vers un job final, seul statut requis par la protection de branche : aucune régression ne passe en silence. Husky et commitlint tiennent la même ligne avant même le push.",
           },
           {
-            title: "Fraîcheur des données",
-            body: "Les matchs en direct demandent des rafraîchissements fréquents sans saturer les quotas d’API : mise en cache et revalidation contrôlée.",
+            title: "Du commit au serveur, sans intervention",
+            body: "La CD ne démarre que si la CI est verte sur main. Elle construit les images en multi-stage, les pousse sur GHCR avec un tag SHA immuable, les scanne, déploie en SSH puis lance un smoke test. Si ce test échoue, le déploiement revient tout seul sur le tag précédent, et un workflow manuel permet de rejouer n'importe quel SHA déjà publié.",
           },
           {
-            title: "Densité d’information",
-            body: "Afficher beaucoup de données sans étouffer l’utilisateur : hiérarchie typographique stricte et composants compacts.",
+            title: "Un serveur décrit, jamais configuré à la main",
+            body: "Terraform crée la machine, le réseau privé et le pare-feu ; Ansible l'installe et la déploie via trois rôles, et Traefik termine le TLS. Le backend expose son état de santé, avec un indicateur par dépendance, et ses métriques : Prometheus les collecte, Grafana les affiche sur un dashboard provisionné avec l'infrastructure, Alertmanager alerte. Le serveur est jetable et reconstructible depuis le dépôt.",
           },
         ],
         outcome:
-          "Une interface qui condense plusieurs sources en un coup d’œil, responsive du mobile au grand écran.",
+          "Une chaîne complète du commit au conteneur supervisé. Seize fichiers de tests unitaires posés au plus près des services, guards, interceptors et repositories, deux suites d'intégration sur Testcontainers et deux parcours Playwright. Trois workflows GitHub Actions, une infrastructure reproductible et huit documents techniques qui justifient les choix d'architecture.",
       },
       en: {
-        tagline: "Esports news and results, all in one place.",
+        tagline:
+          "A headless CMS shipped by a full CI/CD pipeline, from commit to server.",
         excerpt:
-          "A space dedicated to esports news and results: matches, teams, tournaments and standings aggregated into a single interface.",
-        role: "Front-end development, API integration, data architecture",
+          "The point isn't the blog: it's everything that carries it to production without a hand touching the server.",
+        role: "Solo project: NestJS backend, Next.js frontend, GitHub Actions pipelines, Terraform and Ansible infrastructure, Prometheus and Grafana monitoring",
         context:
-          "Following several competitive games means juggling sites that all show the same thing differently. Game Center aggregates those sources into one readable dashboard.",
+          "A CI/CD course project at Ynov, built alone in a few days. The brief asked for a containerised application deployed automatically. I used the blog as a pretext to build the whole chain: a NestJS backend laid out in Clean Architecture, a server-rendered Next.js frontend, and above all everything that happens between a push and the running container.",
         challenges: [
           {
-            title: "Normalising heterogeneous APIs",
-            body: "Every source exposes its own date, team and score formats. An adapter layer unifies them before anything reaches the UI.",
+            title: "A CI that actually blocks",
+            body: "Six jobs run in parallel: lint, hadolint across the four Dockerfiles, dependency audit, Snyk scan, unit tests, and integration tests that spin up a real PostgreSQL and a real Redis through Testcontainers. They all converge on a final job, the single required check on the protected branch, so no regression slips through quietly. Husky and commitlint hold the same line before the push even happens.",
           },
           {
-            title: "Data freshness",
-            body: "Live matches need frequent refreshes without blowing API quotas: caching and controlled revalidation.",
+            title: "From commit to server, hands off",
+            body: "The CD pipeline only starts once CI is green on main. It builds the images in multi-stage, pushes them to GHCR under an immutable SHA tag, scans them, deploys over SSH, then runs a smoke test. If that test fails, the deployment rolls itself back to the previous tag, and a manual workflow can replay any SHA already published.",
           },
           {
-            title: "Information density",
-            body: "Showing a lot of data without overwhelming the reader: strict typographic hierarchy and compact components.",
+            title: "A server described, never hand-configured",
+            body: "Terraform creates the machine, the private network and the firewall; Ansible provisions and deploys it through three roles, and Traefik terminates TLS. The backend exposes its health, with one indicator per dependency, and its metrics: Prometheus scrapes them, Grafana renders them on a dashboard provisioned alongside the infrastructure, Alertmanager raises the alarm. The server is disposable and rebuildable from the repository.",
           },
         ],
         outcome:
-          "An interface that condenses several sources at a glance, responsive from mobile to widescreen.",
+          "A complete chain from commit to monitored container. Sixteen unit test files sitting next to the services, guards, interceptors and repositories, two integration suites on Testcontainers and two Playwright journeys. Three GitHub Actions workflows, a reproducible infrastructure, and eight technical documents backing the architecture decisions.",
       },
     },
   },
@@ -156,64 +191,90 @@ export const projects: Project[] = [
     slug: "splits",
     kind: "personal",
     title: "Splits",
-    year: "2025",
-    accent: "#1A3263",
+    year: "2024 - 2026",
+    accent: { light: "#E7000B", dark: "#E7000B" },
     cover: "/images/projects/splits.png",
-    coverAlt: "Splits - classements et calendrier F1",
-    stack: ["Next.js", "TypeScript", "Server Components", "Vercel"],
+    coverAlt: "Splits - live timing, classements et calendrier F1",
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind",
+      "Upstash Redis",
+      "Vercel",
+    ],
     url: "https://splits.alexis-feron.com",
     content: {
       fr: {
-        tagline: "Classements, calendrier et jeu autour de la Formule 1.",
+        tagline:
+          "Live timing, replays de Grand Prix, classements, calendrier et jeux autour de la Formule 1.",
         excerpt:
-          "Le point de rendez-vous des classements F1, du calendrier des courses et d’un jeu de pronostics entre amis.",
-        role: "Conception produit, développement fullstack, déploiement",
+          "Suivre toute une saison de F1, de la séance d'essais au drapeau à damier, sans pub ni cookie wall.",
+        role: "Conception produit, architecture, développement fullstack, infrastructure et déploiement",
         context:
-          "Splits est né d’un besoin personnel : suivre la saison de Formule 1 sans publicités ni pop-ups, et pronostiquer les résultats avec des amis.",
+          "Splits est né d'un besoin personnel : suivre la saison de Formule 1 sans publicité ni pop-up. Le projet a grandi d'un simple tableau de classements vers une PWA complète avec replays de Grand Prix, météo du week-end, actualités agrégées et des mini-jeux, développée en continu depuis novembre 2024 et publiée sur le Play Store via une TWA Android.",
         challenges: [
           {
-            title: "Fuseaux horaires",
-            body: "Un Grand Prix se court à Suzuka, Interlagos ou Melbourne. Toutes les sessions sont converties dans le fuseau du visiteur, sans décalage au rendu serveur.",
+            title: "Rejouer un Grand Prix entier",
+            body: "Chaque course et chaque sprint sont rejouables : tour de piste animé depuis la télémétrie GPS, tour de classement, messages de direction de course, stratégie pneumatiques et arrêts au stand, avec contrôle de vitesse et scrubbing.",
           },
           {
-            title: "Rendu serveur et données live",
-            body: "Les classements sont pré-rendus et revalidés après chaque course, ce qui garde le site statique la plupart du temps tout en restant à jour.",
+            title: "Trois sources, un seul modèle de données",
+            body: "Le calendrier, les classements, les résultats et la télémétrie proviennent de différentes sources. Une couche d'adaptateurs réconcilie le tout.",
           },
           {
-            title: "Pronostics",
-            body: "Un système de points départage les participants, avec verrouillage automatique des pronostics au départ de la course.",
+            title: "Un cache par cadence de donnée",
+            body: "Le contenu n'a pas tous la même durée de vie : calendrier revalidé toutes les 12 heures, résultats figés à 7 jours, actualités en cache Redis 30 minutes avec déduplication par similarité de Jaccard, météo historique 7 jours contre 3 heures pour les prévisions. Le site reste statique la majeure partie du temps et les APIs gratuites tiennent leurs quotas même un dimanche de course.",
           },
         ],
         outcome:
-          "Un site consulté chaque week-end de Grand Prix, léger et sans distraction.",
+          "Un site et une application disponible sur le Play Store, consultées à chaque week-end de Grand Prix. ~22 000 lignes de TypeScript, 55 suites de tests (Jest + Testing Library), qualité suivie via SonarQube, et une passe d'accessibilité sur les contrastes et les zones tactiles.",
       },
       en: {
-        tagline: "Formula 1 standings, calendar and a prediction game.",
+        tagline:
+          "Formula 1 live timing, Grand Prix replays, standings, calendar and games.",
         excerpt:
-          "Your one-stop destination for F1 standings, the race calendar and a prediction game to play with friends.",
-        role: "Product design, fullstack development, deployment",
+          "Follow a whole F1 season, from first practice to the chequered flag, with no ads and no cookie wall.",
+        role: "Product design, architecture, fullstack development, infrastructure and deployment",
         context:
-          "Splits came out of a personal need: follow the Formula 1 season without ads or pop-ups, and predict results with friends.",
+          "Splits came out of a personal need: follow the Formula 1 season without ads or pop-ups. It grew from a simple standings table into a full PWA with Grand Prix replays, race-weekend weather, aggregated news and mini-games, built continuously since November 2024 and published on the Play Store as an Android TWA.",
         challenges: [
           {
-            title: "Time zones",
-            body: "A Grand Prix runs in Suzuka, Interlagos or Melbourne. Every session is converted to the visitor’s time zone with no server-render mismatch.",
+            title: "Replaying an entire Grand Prix",
+            body: "Every race and sprint is replayable: an animated track map driven by GPS telemetry, a timing tower, race control messages, tyre strategy and pit stops, with playback speed control and scrubbing.",
           },
           {
-            title: "Server rendering with live data",
-            body: "Standings are pre-rendered and revalidated after each race, keeping the site static most of the time while staying current.",
+            title: "Three sources, one data model",
+            body: "The calendar, standings, results and telemetry all come from different sources. An adapter layer reconciles them.",
           },
           {
-            title: "Predictions",
-            body: "A points system ranks participants, with predictions locked automatically at lights out.",
+            title: "A cache per data cadence",
+            body: "Not all content ages the same way: the schedule revalidates every 12 hours, results freeze for 7 days, news sits in Redis for 30 minutes with Jaccard-similarity deduplication, historical weather lasts 7 days against 3 hours for forecasts. The site stays static most of the time and the free APIs stay within quota even on a race Sunday.",
           },
         ],
         outcome:
-          "A site checked every race weekend - light, fast and distraction-free.",
+          "A website and an app available on the Play Store, both checked every race weekend. ~22,000 lines of TypeScript, 55 test suites (Jest + Testing Library), quality tracked with SonarQube, and an accessibility pass on contrast and touch targets.",
       },
     },
   },
 ];
+
+/**
+ * Inline vars for the `project-accent` class: it picks the light or the dark
+ * value from the theme, so the colour resolves in CSS and is already right on
+ * the very first paint. Children read it as `var(--project-accent)`.
+ */
+export function accentVars(accent: ProjectAccent): CSSProperties {
+  return {
+    "--project-accent-light": accent.light,
+    "--project-accent-dark": accent.dark,
+  } as CSSProperties;
+}
+
+/** Resolves a {@link ProjectUrl} against the locale the page is rendered in. */
+export function projectUrl(url: ProjectUrl, locale: Locale): string {
+  return typeof url === "string" ? url : url[locale];
+}
 
 export function getProjects(): Project[] {
   return projects;

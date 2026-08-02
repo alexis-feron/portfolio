@@ -51,17 +51,26 @@ export function Reveal({
 export function RevealMask({ children, className, delay = 0 }: RevealProps) {
   const reduced = useReducedMotion();
 
+  const inner: Variants = {
+    hidden: { y: reduced ? 0 : "110%" },
+    visible: { y: 0, transition: { duration: 1, ease: EASE, delay } },
+  };
+
   return (
-    <span className={cn("line-mask block", className)}>
-      <motion.span
-        className="block"
-        initial={{ y: reduced ? 0 : "110%" }}
-        whileInView={{ y: 0 }}
-        viewport={{ once: true, margin: "-10% 0px" }}
-        transition={{ duration: 1, ease: EASE, delay }}
-      >
+    // The viewport observer has to sit on the mask, never on the element that
+    // moves: the inner span starts 110% of its own height lower, and the mask
+    // clips it away entirely once the text wraps past two lines. Observing it
+    // there would report "never in view", so the title would stay hidden for
+    // exactly the longest titles.
+    <motion.span
+      className={cn("line-mask block", className)}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-10% 0px" }}
+    >
+      <motion.span className="block" variants={inner}>
         {children}
       </motion.span>
-    </span>
+    </motion.span>
   );
 }
