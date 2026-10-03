@@ -55,5 +55,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Skip Next internals, static assets and anything with a file extension.
-  matcher: ["/((?!_next|api|.*\\.).*)"],
+  // `_vercel` carries the Analytics and Speed Insights beacons: redirected to
+  // a locale, they would land on a 404 and the data would never arrive.
+  matcher: ["/((?!_next|_vercel|api|.*\\.).*)"],
 };
