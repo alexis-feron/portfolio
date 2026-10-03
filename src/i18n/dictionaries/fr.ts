@@ -95,6 +95,7 @@ export const fr = {
     challenges: "Défis",
     outcome: "Résultat",
     visit: "Visiter le site",
+    comingSoon: "Bientôt en ligne",
     source: "Code source",
     notFound: "Ce projet n’existe pas.",
   },

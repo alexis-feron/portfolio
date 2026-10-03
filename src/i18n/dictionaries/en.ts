@@ -97,6 +97,7 @@ export const en: Dictionary = {
     challenges: "Challenges",
     outcome: "Outcome",
     visit: "Visit website",
+    comingSoon: "Coming soon",
     source: "Source code",
     notFound: "This project does not exist.",
   },

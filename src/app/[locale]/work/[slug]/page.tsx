@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: PageParams) {
 
   const dict = await getDictionary(locale);
   const content = project.content[locale];
-  const url = projectUrl(project.url, locale);
+  const url = project.url && projectUrl(project.url, locale);
   const next = getNextProject(slug);
 
   return (
@@ -144,10 +144,14 @@ export default async function ProjectPage({ params }: PageParams) {
             </dd>
           </div>
           <div className="flex items-start">
-            <ButtonLink href={url} external variant="outline">
-              {dict.project.visit}
-              <span aria-hidden>↗</span>
-            </ButtonLink>
+            {url ? (
+              <ButtonLink href={url} external variant="outline">
+                {dict.project.visit}
+                <span aria-hidden>↗</span>
+              </ButtonLink>
+            ) : (
+              <ComingSoon label={dict.project.comingSoon} />
+            )}
           </div>
         </dl>
       </header>
@@ -210,10 +214,12 @@ export default async function ProjectPage({ params }: PageParams) {
           </Reveal>
 
           <Reveal className="mt-12 flex flex-wrap gap-3">
-            <ButtonLink href={url} external>
-              {dict.project.visit}
-              <span aria-hidden>↗</span>
-            </ButtonLink>
+            {url && (
+              <ButtonLink href={url} external>
+                {dict.project.visit}
+                <span aria-hidden>↗</span>
+              </ButtonLink>
+            )}
             {project.repo && (
               <ButtonLink href={project.repo} external variant="outline">
                 {dict.project.source}
@@ -258,6 +264,23 @@ export default async function ProjectPage({ params }: PageParams) {
         </Link>
       </section>
     </article>
+  );
+}
+
+/**
+ * Stands in for the "visit" button while the site isn't live. Same pill shape
+ * so the header grid keeps its rhythm, but a plain span with a dashed border:
+ * nothing to hover, nothing to click.
+ */
+function ComingSoon({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-2.5 rounded-full border border-dashed border-line px-8 py-4 text-xs font-bold tracking-[0.16em] text-muted uppercase">
+      <span
+        aria-hidden
+        className="size-1.5 animate-pulse rounded-full bg-(--project-accent)"
+      />
+      {label}
+    </span>
   );
 }
 

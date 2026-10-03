@@ -97,7 +97,7 @@ export function ProjectJsonLd({
   cover: string;
   year: string;
   stack: string[];
-  url: string;
+  url?: string;
 }) {
   const home = `${site.url}/${locale}`;
   const page = `${home}/work/${slug}`;

@@ -27,7 +27,9 @@ export type ProjectAccent = { light: string; dark: string };
 /**
  * Where the "visit" button points. A single address when the live site serves
  * every language from the same URL, one entry per locale when it doesn't -
- * sending an English reader to a French storefront is a dead end.
+ * sending an English reader to a French storefront is a dead end. Left out
+ * while the site isn't live yet: the page then shows a "coming soon" badge
+ * rather than a link to a domain that doesn't answer.
  */
 export type ProjectUrl = string | Record<Locale, string>;
 
@@ -41,7 +43,7 @@ export type Project = {
   cover: string;
   coverAlt: string;
   stack: string[];
-  url: ProjectUrl;
+  url?: ProjectUrl;
   repo?: string;
   content: Record<Locale, ProjectContent>;
 };
@@ -132,7 +134,8 @@ export const projects: Project[] = [
       "Terraform",
       "Ansible",
     ],
-    url: "https://blog.alexis-feron.com",
+    // Not deployed yet - restore once https://blog.alexis-feron.com is up.
+    // url: "https://blog.alexis-feron.com",
     repo: "https://github.com/alexis-feron/blog",
     content: {
       fr: {
