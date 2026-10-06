@@ -48,19 +48,19 @@ export const experiences: Experience[] = [
     location: "Clermont-Ferrand, France",
     start: "2023-09",
     end: null,
-    tags: ["Next.js", "React", "Shopify", "Pipedream"],
+    tags: ["Next.js", "React", "Shopify", "Liquid"],
     content: {
       fr: {
         title: "Développeur web en alternance",
         period: "Septembre 2023 - Aujourd’hui",
         description:
-          "Développement de sites e-commerce et d’outils internes : intégrations Shopify, applications Next.js et automatisations Pipedream.",
+          "Développement de sites e-commerce et d’outils internes : thèmes Shopify en Liquid, applications Next.js et automatisations de workflows.",
       },
       en: {
         title: "Web developer apprentice",
         period: "September 2023 - Present",
         description:
-          "Building e-commerce sites and internal tools: Shopify integrations, Next.js applications and Pipedream automations.",
+          "Building e-commerce sites and internal tools: Shopify themes in Liquid, Next.js applications and workflow automations.",
       },
     },
   },
