@@ -13,7 +13,8 @@
 
 import { useEffect, useRef } from "react";
 
-const GLYPHS = "ALEXISFERON/\\|—+·:";
+import { ALPHAS, buildPalette, GLYPHS, HUES } from "./glyph-palette";
+
 const CELL = 26;
 /** 30fps is plenty for a character field and halves the fillText load. */
 const FRAME_MS = 1000 / 30;
@@ -30,38 +31,7 @@ const POINTER_REACH = 440;
  */
 const GLYPH_FONT = "10px sans-serif";
 
-const NAVY = [26, 50, 99] as const;
-const SKY = [144, 165, 207] as const;
-const AMBER = [234, 156, 67] as const;
-
-/**
- * Colour and opacity are quantised so every `fillStyle` string can be built
- * once up front. Composing them per cell instead meant thousands of throwaway
- * strings every frame, which cost more than the drawing did.
- */
-const HUES = 24;
-const ALPHAS = 16;
-
-function mix(a: readonly number[], b: readonly number[], t: number) {
-  return [
-    a[0] + (b[0] - a[0]) * t,
-    a[1] + (b[1] - a[1]) * t,
-    a[2] + (b[2] - a[2]) * t,
-  ];
-}
-
-function brand(t: number) {
-  return t < 0.5 ? mix(NAVY, SKY, t * 2) : mix(SKY, AMBER, (t - 0.5) * 2);
-}
-
-const PALETTE: string[] = [];
-for (let hue = 0; hue < HUES; hue++) {
-  const [r, g, b] = brand(hue / (HUES - 1));
-  for (let alpha = 0; alpha < ALPHAS; alpha++) {
-    PALETTE[hue * ALPHAS + alpha] =
-      `rgba(${r | 0}, ${g | 0}, ${b | 0}, ${(alpha / (ALPHAS - 1)).toFixed(3)})`;
-  }
-}
+const PALETTE = buildPalette();
 
 /** Runs the callback when the browser is next idle, or shortly after. */
 function whenIdle(run: () => void): () => void {

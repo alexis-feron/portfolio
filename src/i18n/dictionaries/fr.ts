@@ -129,7 +129,7 @@ export const fr = {
   notFound: {
     title: "Page introuvable",
     description:
-      "La page que vous cherchez a changé d’adresse ou n’existe plus.",
+      "Cette page s’est éparpillée en route : elle a changé d’adresse, ou n’a jamais existé.",
     cta: "Retour à l’accueil",
   },
 };

@@ -129,7 +129,8 @@ export const en: Dictionary = {
 
   notFound: {
     title: "Page not found",
-    description: "The page you’re looking for has moved or no longer exists.",
+    description:
+      "This page scattered on the way here: it has moved, or it never existed.",
     cta: "Back home",
   },
 };

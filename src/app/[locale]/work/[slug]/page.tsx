@@ -32,7 +32,9 @@ export async function generateMetadata({
 }: PageParams): Promise<Metadata> {
   const { locale, slug } = await params;
   const project = getProject(slug);
-  if (!project || !isLocale(locale)) return {};
+  // The page is about to render `not-found.tsx` - keep its title, which the
+  // client router would otherwise replace with this metadata on hydration.
+  if (!project || !isLocale(locale)) return { title: "404" };
 
   const content = project.content[locale];
   const path = `/work/${project.slug}`;
