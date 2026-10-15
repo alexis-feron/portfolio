@@ -15,8 +15,10 @@ import {
   projects,
   projectUrl,
 } from "@/content/projects";
-import { defaultLocale, isLocale, locales, localeTags } from "@/i18n/config";
+import { isLocale, locales, localeTags } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { projectPath } from "@/lib/routes";
+import { alternatesFor } from "@/lib/seo";
 import { pad } from "@/lib/utils";
 
 type PageParams = { params: Promise<{ locale: string; slug: string }> };
@@ -37,20 +39,12 @@ export async function generateMetadata({
   if (!project || !isLocale(locale)) return { title: "404" };
 
   const content = project.content[locale];
-  const path = `/work/${project.slug}`;
+  const path = projectPath(project.slug);
 
   return {
     title: project.title,
     description: content.excerpt,
-    alternates: {
-      canonical: `/${locale}${path}`,
-      languages: {
-        ...Object.fromEntries(
-          locales.map((value) => [localeTags[value], `/${value}${path}`]),
-        ),
-        "x-default": `/${defaultLocale}${path}`,
-      },
-    },
+    alternates: alternatesFor(locale, path),
     openGraph: {
       type: "article",
       locale: localeTags[locale],

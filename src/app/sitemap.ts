@@ -1,8 +1,19 @@
 import type { MetadataRoute } from "next";
 
-import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { defaultLocale, locales, localeTags } from "@/i18n/config";
+import { sitePaths } from "@/lib/routes";
+
+function rank(path: string) {
+  if (path === "") return { priority: 1, changeFrequency: "monthly" as const };
+  if (path.startsWith("/work/")) {
+    return { priority: 0.8, changeFrequency: "yearly" as const };
+  }
+  if (path === "/privacy") {
+    return { priority: 0.3, changeFrequency: "yearly" as const };
+  }
+  return { priority: 0.7, changeFrequency: "monthly" as const };
+}
 
 /**
  * Every page exists once per locale. Each entry declares the full set of
@@ -12,16 +23,7 @@ import { defaultLocale, locales, localeTags } from "@/i18n/config";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  const routes = [
-    { path: "", priority: 1, changeFrequency: "monthly" as const },
-    ...projects.map((project) => ({
-      path: `/work/${project.slug}`,
-      priority: 0.8,
-      changeFrequency: "yearly" as const,
-    })),
-  ];
-
-  return routes.flatMap(({ path, priority, changeFrequency }) => {
+  return sitePaths().flatMap((path) => {
     const languages: Record<string, string> = Object.fromEntries(
       locales.map((locale) => [localeTags[locale], `${site.url}/${locale}${path}`]),
     );
@@ -30,8 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return locales.map((locale) => ({
       url: `${site.url}/${locale}${path}`,
       lastModified,
-      changeFrequency,
-      priority,
+      ...rank(path),
       alternates: { languages },
     }));
   });

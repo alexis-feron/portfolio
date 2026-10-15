@@ -12,9 +12,10 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ThemeScript } from "@/components/providers/theme-script";
 import { PersonJsonLd } from "@/components/seo/json-ld";
 import { site } from "@/content/site";
-import { defaultLocale, isLocale, locales, localeTags } from "@/i18n/config";
+import { isLocale, locales, localeTags } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { dirtyline, josefin } from "@/lib/fonts";
+import { alternatesFor } from "@/lib/seo";
 
 /** Next's generated route types hand us a plain string - narrow it at runtime. */
 type LayoutParams = { params: Promise<{ locale: string }> };
@@ -55,17 +56,7 @@ export async function generateMetadata({
     publisher: site.name,
     // Phone-number autolinking rewrites years and stack versions on iOS.
     formatDetection: { telephone: false, address: false, email: false },
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        ...Object.fromEntries(
-          locales.map((value) => [localeTags[value], `/${value}`]),
-        ),
-        // Without this, a visitor whose language matches neither locale gets
-        // no signal about which version to serve.
-        "x-default": `/${defaultLocale}`,
-      },
-    },
+    alternates: alternatesFor(locale, ""),
     robots: {
       index: true,
       follow: true,

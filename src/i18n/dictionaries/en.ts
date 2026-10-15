@@ -2,11 +2,11 @@ import type { Dictionary } from "./fr";
 
 export const en: Dictionary = {
   meta: {
-    title: "Alexis Feron - Fullstack Web Developer",
+    title: "Alexis Feron - Fullstack Web Developer in Lyon | React, Next.js",
     description:
-      "Portfolio of Alexis Feron, fullstack web developer based in Lyon, France. Bespoke interfaces, backend and fast web applications.",
+      "Alexis Feron, fullstack web developer in Lyon, France: React, Next.js, TypeScript, Node.js and Shopify. E-commerce sites, fast web apps, APIs and CI/CD.",
     keywords:
-      "Alexis Feron, portfolio, web developer, fullstack, react, next.js, typescript, backend",
+      "Alexis Feron, web developer Lyon, fullstack developer Lyon, React developer Lyon, Next.js developer, Shopify developer, Shopify Plus, Liquid, TypeScript, Node.js, NestJS, e-commerce, portfolio",
     ogAlt: "Alexis Feron’s portfolio",
   },
 
@@ -47,7 +47,7 @@ export const en: Dictionary = {
     intro:
       "I’m Alexis, web developer at Ultrō and a master’s student in fullstack development at Ynov Lyon.",
     paragraphs: [
-      "For the past five years I’ve been building web products from the very first pixel to production: animated interfaces, APIs, databases and deployment.",
+      "For the past five years I’ve been building web products from the very first pixel to production: animated interfaces in React and Next.js, Shopify stores, Node.js APIs, databases and deployment.",
       "What drives me is the detail, the transition that lands just right, the page that loads in a blink, the code that still reads well six months later.",
       "When I’m not coding, I’m probably watching Formula 1, running or prototyping yet another side project.",
     ],
@@ -125,6 +125,71 @@ export const en: Dictionary = {
     builtWith: "Designed & built with care",
     rights: "All rights reserved",
     localTime: "Local time",
+    privacy: "Privacy",
+  },
+
+  pages: {
+    about: {
+      title: "About",
+      heading: "About Alexis Feron, fullstack web developer in Lyon",
+      description:
+        "Alexis Feron, fullstack web developer in Lyon, France: apprentice at Ultrō, master’s student at Ynov, working daily with React, Next.js, TypeScript, Node.js and Shopify.",
+    },
+    contact: {
+      title: "Contact",
+      heading: "Contact Alexis Feron, fullstack web developer in Lyon",
+      description:
+        "Get in touch with Alexis Feron, fullstack web developer based in Lyon, France, about a project, an opportunity or just to talk: form, email and socials.",
+    },
+  },
+
+  privacy: {
+    eyebrow: "Legal",
+    title: "Privacy",
+    description:
+      "What data Alexis Feron’s portfolio collects, why, which providers handle it, and how to exercise your rights.",
+    updated: "Last updated: October 15, 2026",
+    intro:
+      "This is a personal portfolio. It shows no ads, sets no tracking cookies and sells no data. This page lists the little information that passes through when you browse it or write to me.",
+    sections: [
+      {
+        title: "Data controller",
+        paragraphs: [
+          "Alexis Feron, a web developer based in Lyon, France, is responsible for the data processed on alexis-feron.com. Any question: contact@alexis-feron.com.",
+        ],
+      },
+      {
+        title: "Contact form",
+        paragraphs: [
+          "When you send a message, your name, email address and message are passed to Formspree, the service that forwards them to me by email. They are only used to reply to you and are kept for as long as our conversation lasts.",
+          "To filter spam, the form uses Cloudflare Turnstile, loaded only once you start filling it in. Turnstile looks at technical browser signals (IP address, device characteristics), without any advertising cookie.",
+        ],
+      },
+      {
+        title: "Analytics",
+        paragraphs: [
+          "The site uses Vercel Web Analytics and Speed Insights to count page views and measure real-world performance (Core Web Vitals). Both work without cookies: visits are aggregated anonymously (page, referrer, country, device type) and can neither identify you nor follow you across sites.",
+        ],
+      },
+      {
+        title: "Hosting",
+        paragraphs: [
+          "The site is hosted by Vercel Inc. Like any host, Vercel keeps technical logs (IP address, browser, requested page) needed for security and for the service to run, retained for a limited time.",
+        ],
+      },
+      {
+        title: "Storage in your browser",
+        paragraphs: [
+          "Two preferences are remembered locally, purely for convenience: the light or dark theme (localStorage) and your chosen language (a “locale” cookie, valid for one year, set only if you switch language). Neither is used for tracking.",
+        ],
+      },
+      {
+        title: "Your rights",
+        paragraphs: [
+          "Under the GDPR you can ask to access, correct or delete the data concerning you, or object to its processing, by writing to contact@alexis-feron.com. You can also lodge a complaint with the CNIL, the French data protection authority (cnil.fr).",
+        ],
+      },
+    ],
   },
 
   notFound: {

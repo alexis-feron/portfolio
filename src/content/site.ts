@@ -6,7 +6,6 @@ export const site = {
   name: "Alexis Feron",
   url: "https://alexis-feron.com",
   role: "Fullstack Web Developer",
-  // TODO(alexis): replace with the address you actually want published.
   email: "contact@alexis-feron.com",
   location: {
     city: "Lyon",

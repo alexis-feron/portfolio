@@ -1,8 +1,9 @@
-import { projects } from "@/content/projects";
+import { experiences } from "@/content/experience";
 import { site, socials } from "@/content/site";
 import type { Locale } from "@/i18n/config";
 import { localeTags } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/fr";
+import { getSkills } from "@/lib/skills";
 
 /**
  * Structured data is the one part of on-page SEO that search engines read
@@ -34,7 +35,26 @@ export function PersonJsonLd({
   const home = `${site.url}/${locale}`;
 
   // Everything the site actually demonstrates, taken from the work itself.
-  const skills = [...new Set(projects.flatMap((project) => project.stack))];
+  const skills = getSkills();
+  const city = { "@type": "City", name: site.location.city };
+
+  // The journey already says where Alexis works and studies - state it in the
+  // vocabulary search engines and assistants match people on.
+  const current = experiences.filter((experience) => experience.end === null);
+  const organisation = (type: string, name: string) => ({ "@type": type, name });
+  const worksFor = current
+    .filter((experience) => experience.kind === "work")
+    .map((experience) => organisation("Organization", experience.organisation));
+  const affiliation = current
+    .filter((experience) => experience.kind === "education")
+    .map((experience) =>
+      organisation("EducationalOrganization", experience.organisation),
+    );
+  const alumniOf = experiences
+    .filter((experience) => experience.kind === "education" && experience.end)
+    .map((experience) =>
+      organisation("CollegeOrUniversity", experience.organisation),
+    );
 
   return (
     <>
@@ -53,6 +73,17 @@ export function PersonJsonLd({
           description: dict.meta.description,
           email: `mailto:${site.email}`,
           knowsAbout: skills,
+          knowsLanguage: ["fr", "en"],
+          worksFor,
+          affiliation,
+          alumniOf,
+          hasOccupation: {
+            "@type": "Occupation",
+            name: dict.hero.role,
+            occupationLocation: city,
+            skills: skills.join(", "),
+          },
+          homeLocation: city,
           address: {
             "@type": "PostalAddress",
             addressLocality: site.location.city,
@@ -75,6 +106,36 @@ export function PersonJsonLd({
         }}
       />
     </>
+  );
+}
+
+/**
+ * Marks the about page as the profile of the person described site-wide, the
+ * shape Google documents for "about me" pages.
+ */
+export function ProfilePageJsonLd({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const page = `${site.url}/${locale}/about`;
+
+  return (
+    <Script
+      data={{
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "@id": `${page}#profile`,
+        url: page,
+        name: dict.pages.about.heading,
+        description: dict.pages.about.description,
+        inLanguage: localeTags[locale],
+        mainEntity: { "@id": PERSON_ID },
+        isPartOf: { "@id": SITE_ID },
+      }}
+    />
   );
 }
 

@@ -7,6 +7,7 @@ npm run dev      # http://localhost:3000
 npm run build    # build de production
 npm run lint     # eslint
 npm run typecheck
+npm test         # vitest
 ```
 
 `next dev` écrit dans `.next-dev`, `next build` / `next start` dans `.next` (voir `next.config.ts`). Par défaut les deux partagent `.next` : lancer un build pendant que le serveur de dev tourne écrase les manifests qu'il sert, et toutes les routes se mettent à répondre 404 jusqu'à recompilation. Les séparer supprime le problème ; le déploiement n'est pas affecté, il lit toujours `.next`.
@@ -114,6 +115,21 @@ Gradient de marque : `var(--gradient-brand)` → utilitaire `.text-gradient` / `
 
 Le point d'arrivée des ancres est calculé dans `src/lib/scroll.ts` (`sectionScrollTop`). Il se mesure sur le **premier enfant** de la section, pas sur la section elle-même : chaque section porte 160 px de `padding-top`, donc viser son bord ferait atterrir le titre très bas avec une bande vide au-dessus. Ne pas ajouter de `scroll-mt-*` sur une section : Lenis honore aussi `scroll-margin-top` et les deux décalages se cumuleraient silencieusement.
 
+## Agents IA et GEO
+
+Chaque page existe en deux représentations à la même URL, choisies par l'en-tête `Accept` dans `src/proxy.ts` :
+
+- `Accept: text/markdown` → version Markdown de la page (`Content-Type: text/markdown`, `Vary: Accept`), générée par `src/lib/agents/markdown.ts` depuis le même contenu que le HTML. Une URL inconnue répond 404 avec un corps Markdown qui renvoie vers le sitemap et llms.txt.
+- Un client qui n'accepte ni HTML ni Markdown reçoit un 406. Le navigateur, lui, reçoit toujours le HTML.
+- `/llms.txt` (format [llmstxt.org](https://llmstxt.org), section « When to use ») et `/llms-full.txt` (tout le site, EN puis FR) sont générés par `src/lib/agents/llms.ts`.
+
+`src/lib/routes.ts` est la liste des pages : sitemap, Markdown et llms.txt la lisent. Une nouvelle page doit y être ajoutée.
+
+```bash
+curl -sS -i -H 'Accept: text/markdown' https://alexis-feron.com/
+curl -sS -i -H 'Accept: text/markdown' https://alexis-feron.com/page-inexistante
+```
+
 ## Internationalisation
 
 Routing par segment `[locale]` : `/fr`, `/en`, `/fr/work/splits`…
@@ -121,7 +137,6 @@ Routing par segment `[locale]` : `/fr`, `/en`, `/fr/work/splits`…
 
 ## À faire / points ouverts
 
-- `site.email` dans `src/content/site.ts` est un placeholder à remplacer.
 - Le formulaire de contact poste vers Formspree (endpoint repris de l'ancien portfolio) et n'a qu'un honeypot : ré-ajouter Cloudflare Turnstile si le spam revient.
 - Les images de projet sont celles de l'ancien portfolio ; le contenu détaillé des pages projet est à relire.
 - `public/models/*.glb` et `public/draco/` sont repris de l'ancien site, non utilisés pour l'instant.

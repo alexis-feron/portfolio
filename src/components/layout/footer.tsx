@@ -1,6 +1,7 @@
 "use client";
 
 import { useLenis } from "lenis/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { site, socials } from "@/content/site";
@@ -118,7 +119,13 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
         <p className="mt-14 border-t border-line pt-6 text-center text-xs text-muted">
           © {new Date().getFullYear()} {site.name} - {dict.footer.rights} -{" "}
-          {dict.footer.builtWith}
+          {dict.footer.builtWith} -{" "}
+          <Link
+            href={`/${locale}/privacy`}
+            className="underline-offset-4 transition-colors duration-400 hover:text-fg hover:underline"
+          >
+            {dict.footer.privacy}
+          </Link>
         </p>
       </div>
     </footer>
