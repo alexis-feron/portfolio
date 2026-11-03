@@ -206,7 +206,7 @@ export const projects: Project[] = [
       "Upstash Redis",
       "Vercel",
     ],
-    url: "https://splits.alexis-feron.com",
+    url: "https://splits.uk",
     content: {
       fr: {
         tagline:
